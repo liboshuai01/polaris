@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.service;
 
-import com.liboshuai.mall.tiny.domain.dao.PmsBrandDao;
-import com.liboshuai.mall.tiny.domain.dto.PmsBrandDto;
+import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
+import com.liboshuai.mall.tiny.domain.dto.PmsBrandDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface PmsBrandService {
      *
      * @return 品牌数据集合
      */
-    List<PmsBrandDao> listAllBrand();
+    List<PmsBrandDAO> listAllBrand();
 
     /**
      * 添加单条 品牌 数据
@@ -27,7 +27,7 @@ public interface PmsBrandService {
      * @param pmsBrandDto 品牌dto对象
      * @return 添加成功的行数
      */
-    int createBrand(PmsBrandDto pmsBrandDto);
+    int createBrand(PmsBrandDTO pmsBrandDto);
 
     /**
      * 更新单条 品牌 数据
@@ -36,7 +36,7 @@ public interface PmsBrandService {
      * @param pmsBrandDto 品牌dto对象
      * @return 更新成功的行数
      */
-    int updateBrand(Long id, PmsBrandDto pmsBrandDto);
+    int updateBrand(Long id, PmsBrandDTO pmsBrandDto);
 
     /**
      * 删除单条 品牌 数据
@@ -53,7 +53,7 @@ public interface PmsBrandService {
      * @param pageSize 一页数据数
      * @return 分页查询的品牌数据集合
      */
-    List<PmsBrandDao> listBrand(int pageNum, int pageSize);
+    List<PmsBrandDAO> listBrand(int pageNum, int pageSize);
 
     /**
      * 根据主键id查询品牌数据
@@ -61,5 +61,5 @@ public interface PmsBrandService {
      * @param id 主键id
      * @return 品牌数据
      */
-    PmsBrandDto findById(Long id);
+    PmsBrandDTO findById(Long id);
 }

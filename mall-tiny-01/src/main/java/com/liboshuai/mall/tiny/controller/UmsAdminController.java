@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.controller;
 
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDao;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,7 +31,7 @@ public class UmsAdminController {
     }
 
     @GetMapping("/findAllByUsername/{username}")
-    public List<UmsAdminDao> findAllByUsername(@PathVariable String username) {
+    public List<UmsAdminDAO> findAllByUsername(@PathVariable String username) {
         return umsAdminService.findAllByUsername(username);
     }
 }

@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.service;
 
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDao;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,5 +19,5 @@ public interface UmsAdminService {
      * @param username 用户名
      * @return 后台用户信息
      */
-    List<UmsAdminDao> findAllByUsername(String username);
+    List<UmsAdminDAO> findAllByUsername(String username);
 }

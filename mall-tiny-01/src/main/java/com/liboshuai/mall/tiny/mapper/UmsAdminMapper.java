@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDao;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description: 请求返回码
  */
 @Mapper
-public interface UmsAdminMapper extends BaseMapper<UmsAdminDao> {
+public interface UmsAdminMapper extends BaseMapper<UmsAdminDAO> {
 }

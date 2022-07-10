@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.service.impl;
 
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDao;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import com.liboshuai.mall.tiny.mapper.UmsAdminMapper;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
      * @return 后台用户信息
      */
     @Override
-    public List<UmsAdminDao> findAllByUsername(String username) {
+    public List<UmsAdminDAO> findAllByUsername(String username) {
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("username", username);
         return umsAdminMapper.selectByMap(objectMap);
