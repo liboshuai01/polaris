@@ -1,5 +1,7 @@
 package com.liboshuai.mall.tiny.service;
 
+import com.liboshuai.mall.tiny.common.query.pmsBrand.PmsBrandCreateBrandQuery;
+import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
 import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
 import com.liboshuai.mall.tiny.domain.dto.PmsBrandDTO;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public interface PmsBrandService {
      * @param pmsBrandDto 品牌dto对象
      * @return 添加成功的行数
      */
-    int createBrand(PmsBrandDTO pmsBrandDto);
+    int createPmsBrand(PmsBrandVO pmsBrandVO);
 
     /**
      * 更新单条 品牌 数据

@@ -4,7 +4,7 @@ import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import com.liboshuai.mall.tiny.mapper.UmsAdminMapper;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Log4j
+@Slf4j
 @NoArgsConstructor
 public class UmsAdminServiceImpl implements UmsAdminService {
 
