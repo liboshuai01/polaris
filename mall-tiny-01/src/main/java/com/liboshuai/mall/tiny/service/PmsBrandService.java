@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.service;
 
-import com.liboshuai.mall.tiny.common.query.pmsBrand.PmsBrandCreateBrandQuery;
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
 import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
 import com.liboshuai.mall.tiny.domain.dto.PmsBrandDTO;
@@ -26,7 +25,7 @@ public interface PmsBrandService {
     /**
      * 添加单条 品牌 数据
      *
-     * @param pmsBrandDto 品牌dto对象
+     * @param pmsBrandVO 品牌vo象
      * @return 添加成功的行数
      */
     int createPmsBrand(PmsBrandVO pmsBrandVO);
