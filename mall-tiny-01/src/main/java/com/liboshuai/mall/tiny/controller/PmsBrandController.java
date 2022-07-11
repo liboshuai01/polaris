@@ -1,7 +1,6 @@
 package com.liboshuai.mall.tiny.controller;
 
 import com.liboshuai.mall.tiny.common.api.CommonResult;
-import com.liboshuai.mall.tiny.common.query.pmsBrand.PmsBrandCreateBrandQuery;
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
 import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
 import com.liboshuai.mall.tiny.service.PmsBrandService;
@@ -42,10 +41,10 @@ public class PmsBrandController {
     public CommonResult<PmsBrandVO> createPmsBrand(@RequestBody PmsBrandVO pmsBrandVO){
         int createPmsBrandResult = pmsBrandService.createPmsBrand(pmsBrandVO);
         if (createPmsBrandResult == 1) {
-            log.info("createPmsBrand創建成功，pmsBrandVO: {}", createPmsBrandResult);
+            log.info("createPmsBrand創建成功，pmsBrandVO: {}", pmsBrandVO);
             return CommonResult.success(pmsBrandVO);
         } else {
-            log.info("createPmsBrand創建失敗，pmsBrandVO: {}", createPmsBrandResult);
+            log.info("createPmsBrand創建失敗，pmsBrandVO: {}", pmsBrandVO);
             return CommonResult.failed();
         }
     }
