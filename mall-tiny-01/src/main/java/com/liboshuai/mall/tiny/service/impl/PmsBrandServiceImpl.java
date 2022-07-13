@@ -49,21 +49,25 @@ public class PmsBrandServiceImpl implements PmsBrandService {
      */
     @Override
     public int createPmsBrand(PmsBrandVO pmsBrandVO) {
+        PmsBrandDAO pmsBrandDAO = pmsBrandVO2DAO(pmsBrandVO);
+        return pmsBrandMapper.insert(pmsBrandDAO);
+    }
+
+    private PmsBrandDAO pmsBrandVO2DAO(PmsBrandVO pmsBrandVO) {
         BeanCopier pmsBrandBeanCopier = BeanCopier.create(PmsBrandVO.class, PmsBrandDAO.class, false);
         PmsBrandDAO pmsBrandDAO = new PmsBrandDAO();
         pmsBrandBeanCopier.copy(pmsBrandVO, pmsBrandDAO, null);
-        return pmsBrandMapper.insert(pmsBrandDAO);
+        return pmsBrandDAO;
     }
 
     /**
      * 更新单条 品牌 数据
      *
-     * @param id          主键id
-     * @param pmsBrandDto 品牌dto对象
+     * @param pmsBrandVO 品牌vo对象
      * @return 更新成功的行数
      */
     @Override
-    public int updateBrand(Long id, PmsBrandDTO pmsBrandDto) {
+    public int updatePmsBrand(PmsBrandVO pmsBrandVO) {
         return 0;
     }
 

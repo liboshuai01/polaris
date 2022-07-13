@@ -42,10 +42,22 @@ public class PmsBrandController {
         int createPmsBrandResult = pmsBrandService.createPmsBrand(pmsBrandVO);
         if (createPmsBrandResult == 1) {
             log.info("createPmsBrand創建成功，pmsBrandVO: {}", pmsBrandVO);
-            return CommonResult.success(pmsBrandVO);
+            return CommonResult.success(pmsBrandVO, "添加一条品牌数据成功");
         } else {
             log.info("createPmsBrand創建失敗，pmsBrandVO: {}", pmsBrandVO);
-            return CommonResult.failed();
+            return CommonResult.failed("添加一条品牌数据失败");
+        }
+    }
+
+    @PostMapping("/updatePmsBrand")
+    public CommonResult<PmsBrandVO> updatePmsBrand(@RequestBody PmsBrandVO pmsBrandVO) {
+        int updatePmsBrandResult = pmsBrandService.updatePmsBrand(pmsBrandVO);
+        if (updatePmsBrandResult == 1) {
+            log.info("updatePmsBrand更新成功，param: {}", pmsBrandVO);
+            return CommonResult.success(pmsBrandVO, "更新一条品牌数据成功");
+        } else {
+            log.info("updatePmsBrand更新失败，param: {}", pmsBrandVO);
+            return CommonResult.success(pmsBrandVO, "更新失败一条品牌数据");
         }
     }
 }

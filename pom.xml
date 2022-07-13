@@ -32,8 +32,8 @@
         <springfox-swagger2-version>2.7.0</springfox-swagger2-version>
         <springfox-swagger-ui-version>2.7.0</springfox-swagger-ui-version>
         <jackson-databind-version>2.13.3</jackson-databind-version>
+        <xxl-job-core-version>2.4.0-SNAPSHOT</xxl-job-core-version>
     </properties>
-
 
 
 </project>

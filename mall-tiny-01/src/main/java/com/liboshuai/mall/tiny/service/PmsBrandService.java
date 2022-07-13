@@ -33,14 +33,13 @@ public interface PmsBrandService {
     /**
      * 更新单条 品牌 数据
      *
-     * @param id          主键id
-     * @param pmsBrandDto 品牌dto对象
+     * @param pmsBrandVO 品牌vo对象
      * @return 更新成功的行数
      */
-    int updateBrand(Long id, PmsBrandDTO pmsBrandDto);
+    int updatePmsBrand(PmsBrandVO pmsBrandVO);
 
     /**
-     * 删除单条 品牌 数据
+     * 删除单条 品牌 数
      *
      * @param id 主键id
      * @return 删除成功的行数
