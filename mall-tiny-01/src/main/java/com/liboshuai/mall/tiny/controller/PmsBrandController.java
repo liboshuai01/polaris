@@ -4,6 +4,8 @@ import com.liboshuai.mall.tiny.common.api.CommonResult;
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
 import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
 import com.liboshuai.mall.tiny.service.PmsBrandService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,10 @@ import java.util.List;
  * @Description: 品牌Controller
  */
 @RestController
-@RequestMapping(value = "/pmsBrand")
 @Slf4j
 @NoArgsConstructor
+@Api(tags = "品牌管理")
+@RequestMapping(value = "/pmsBrand")
 public class PmsBrandController {
 
     private PmsBrandService pmsBrandService;
@@ -32,11 +35,13 @@ public class PmsBrandController {
         this.pmsBrandService = pmsBrandService;
     }
 
+    @ApiOperation(value = "查询全部品牌", httpMethod = "POST")
     @PostMapping("/listAllBrand")
     public CommonResult<List<PmsBrandDAO>> listAllBrand() {
         return CommonResult.success(pmsBrandService.listAllBrand());
     }
 
+    @ApiOperation(value = "添加一个品牌", httpMethod = "POST")
     @PostMapping("/createPmsBrand")
     public CommonResult<PmsBrandVO> createPmsBrand(@RequestBody PmsBrandVO pmsBrandVO){
         int createPmsBrandResult = pmsBrandService.createPmsBrand(pmsBrandVO);
@@ -49,6 +54,7 @@ public class PmsBrandController {
         }
     }
 
+    @ApiOperation(value = "更新一个品牌", httpMethod = "POST")
     @PostMapping("/updatePmsBrand")
     public CommonResult<PmsBrandVO> updatePmsBrand(@RequestBody PmsBrandVO pmsBrandVO) {
         int updatePmsBrandResult = pmsBrandService.updatePmsBrand(pmsBrandVO);

@@ -2,6 +2,8 @@ package com.liboshuai.mall.tiny.controller;
 
 import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @NoArgsConstructor
+@Api(tags = "用户管理")
 @RequestMapping(value = "/umsAdmin")
 public class UmsAdminController {
 
@@ -30,6 +33,7 @@ public class UmsAdminController {
         this.umsAdminService = umsAdminService;
     }
 
+    @ApiOperation(value = "查询指定名称的用户", httpMethod = "GET")
     @GetMapping("/findAllByUsername/{username}")
     public List<UmsAdminDAO> findAllByUsername(@PathVariable String username) {
         return umsAdminService.findAllByUsername(username);
