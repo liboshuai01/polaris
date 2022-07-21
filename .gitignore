@@ -33,5 +33,4 @@ out
 gen
 
 # 编译打包
-/mall-tiny-00-api/target/
-/mall-tiny-01/target/
+target/
