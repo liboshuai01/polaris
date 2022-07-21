@@ -23,8 +23,16 @@ public class CommonResult<T> {
         this.data = data;
     }
 
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), null);
+    }
+
     public static <T> CommonResult<T> success(T data) {
         return new CommonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+    }
+
+    public static <T> CommonResult<T> success(String message) {
+        return new CommonResult<>(ResultCode.SUCCESS.getCode(), message, null);
     }
 
     public static <T> CommonResult<T> success(T data, String message) {
@@ -81,5 +89,12 @@ public class CommonResult<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    /**
+     * 判断是否成功
+     */
+    public Boolean isSuccess() {
+        return this.code == ResultCode.SUCCESS.getCode();
     }
 }
