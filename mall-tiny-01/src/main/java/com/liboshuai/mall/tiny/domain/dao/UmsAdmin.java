@@ -15,11 +15,8 @@ import lombok.NoArgsConstructor;
  * @Description: 请求返回码
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @TableName(value = "ums_admin", schema = "mall")
-public class UmsAdminDAO {
+public class UmsAdmin {
     /**
      * 主键
      */

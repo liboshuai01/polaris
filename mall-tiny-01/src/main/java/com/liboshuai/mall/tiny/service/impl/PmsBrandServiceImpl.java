@@ -1,8 +1,7 @@
 package com.liboshuai.mall.tiny.service.impl;
 
-import com.liboshuai.mall.tiny.common.query.pmsBrand.PmsBrandCreateBrandQuery;
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
-import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
+import com.liboshuai.mall.tiny.domain.dao.PmsBrand;
 import com.liboshuai.mall.tiny.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.mapper.PmsBrandMapper;
 import com.liboshuai.mall.tiny.service.PmsBrandService;
@@ -37,7 +36,7 @@ public class PmsBrandServiceImpl implements PmsBrandService {
      * @return 品牌数据集合
      */
     @Override
-    public List<PmsBrandDAO> listAllBrand() {
+    public List<PmsBrand> listAllBrand() {
         return pmsBrandMapper.selectList(null);
     }
 
@@ -49,15 +48,15 @@ public class PmsBrandServiceImpl implements PmsBrandService {
      */
     @Override
     public int createPmsBrand(PmsBrandVO pmsBrandVO) {
-        PmsBrandDAO pmsBrandDAO = pmsBrandVO2DAO(pmsBrandVO);
-        return pmsBrandMapper.insert(pmsBrandDAO);
+        PmsBrand pmsBrand = pmsBrandVO2DAO(pmsBrandVO);
+        return pmsBrandMapper.insert(pmsBrand);
     }
 
-    private PmsBrandDAO pmsBrandVO2DAO(PmsBrandVO pmsBrandVO) {
-        BeanCopier pmsBrandBeanCopier = BeanCopier.create(PmsBrandVO.class, PmsBrandDAO.class, false);
-        PmsBrandDAO pmsBrandDAO = new PmsBrandDAO();
-        pmsBrandBeanCopier.copy(pmsBrandVO, pmsBrandDAO, null);
-        return pmsBrandDAO;
+    private PmsBrand pmsBrandVO2DAO(PmsBrandVO pmsBrandVO) {
+        BeanCopier pmsBrandBeanCopier = BeanCopier.create(PmsBrandVO.class, PmsBrand.class, false);
+        PmsBrand pmsBrand = new PmsBrand();
+        pmsBrandBeanCopier.copy(pmsBrandVO, pmsBrand, null);
+        return pmsBrand;
     }
 
     /**
@@ -90,7 +89,7 @@ public class PmsBrandServiceImpl implements PmsBrandService {
      * @return 分页查询的品牌数据集合
      */
     @Override
-    public List<PmsBrandDAO> listBrand(int pageNum, int pageSize) {
+    public List<PmsBrand> listBrand(int pageNum, int pageSize) {
         return null;
     }
 

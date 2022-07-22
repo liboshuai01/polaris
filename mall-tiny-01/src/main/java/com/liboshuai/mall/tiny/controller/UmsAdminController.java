@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.controller;
 
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ public class UmsAdminController {
 
     @ApiOperation(value = "查询指定名称的用户", httpMethod = "GET")
     @GetMapping("/findAllByUsername/{username}")
-    public List<UmsAdminDAO> findAllByUsername(@PathVariable String username) {
+    public UmsAdmin findAllByUsername(@PathVariable String username) {
         return umsAdminService.findAllByUsername(username);
     }
 }

@@ -35,6 +35,8 @@
         <xxl-job-core-version>2.4.0-SNAPSHOT</xxl-job-core-version>
         <hutool-all-version>4.5.7</hutool-all-version>
         <jjwt-version>0.9.0</jjwt-version>
+        <mybatis-plus-generator-version>3.5.3</mybatis-plus-generator-version>
+        <velocity-engine-core-version>2.3</velocity-engine-core-version>
     </properties>
 
 

@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.service;
 
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
-import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
+import com.liboshuai.mall.tiny.domain.dao.PmsBrand;
 import com.liboshuai.mall.tiny.domain.dto.PmsBrandDTO;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public interface PmsBrandService {
      *
      * @return 品牌数据集合
      */
-    List<PmsBrandDAO> listAllBrand();
+    List<PmsBrand> listAllBrand();
 
     /**
      * 添加单条 品牌 数据
@@ -53,7 +53,7 @@ public interface PmsBrandService {
      * @param pageSize 一页数据数
      * @return 分页查询的品牌数据集合
      */
-    List<PmsBrandDAO> listBrand(int pageNum, int pageSize);
+    List<PmsBrand> listBrand(int pageNum, int pageSize);
 
     /**
      * 根据主键id查询品牌数据

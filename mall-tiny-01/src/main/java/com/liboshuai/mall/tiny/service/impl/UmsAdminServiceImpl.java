@@ -1,6 +1,8 @@
 package com.liboshuai.mall.tiny.service.impl;
 
-import com.liboshuai.mall.tiny.domain.dao.UmsAdminDAO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.liboshuai.mall.tiny.domain.dao.UmsAdmin;
+import com.liboshuai.mall.tiny.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.mapper.UmsAdminMapper;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import lombok.NoArgsConstructor;
@@ -31,9 +33,20 @@ public class UmsAdminServiceImpl implements UmsAdminService {
      * @return 后台用户信息
      */
     @Override
-    public List<UmsAdminDAO> findAllByUsername(String username) {
-        Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("username", username);
-        return umsAdminMapper.selectByMap(objectMap);
+    public UmsAdmin findAllByUsername(String username) {
+        LambdaQueryWrapper<UmsAdmin> umsAdminLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        umsAdminLambdaQueryWrapper.eq(UmsAdmin::getUsername, username);
+        return umsAdminMapper.selectOne(umsAdminLambdaQueryWrapper);
+    }
+
+    /**
+     * ho'q
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<UmsPermission> findPermissions(Long id) {
+        return null;
     }
 }

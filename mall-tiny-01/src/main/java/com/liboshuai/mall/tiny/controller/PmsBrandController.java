@@ -2,7 +2,7 @@ package com.liboshuai.mall.tiny.controller;
 
 import com.liboshuai.mall.tiny.common.api.CommonResult;
 import com.liboshuai.mall.tiny.common.vo.PmsBrandVO;
-import com.liboshuai.mall.tiny.domain.dao.PmsBrandDAO;
+import com.liboshuai.mall.tiny.domain.dao.PmsBrand;
 import com.liboshuai.mall.tiny.service.PmsBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public class PmsBrandController {
 
     @ApiOperation(value = "查询全部品牌", httpMethod = "POST")
     @PostMapping("/listAllBrand")
-    public CommonResult<List<PmsBrandDAO>> listAllBrand() {
+    public CommonResult<List<PmsBrand>> listAllBrand() {
         return CommonResult.success(pmsBrandService.listAllBrand());
     }
 

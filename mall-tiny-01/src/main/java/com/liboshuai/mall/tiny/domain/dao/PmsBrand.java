@@ -15,11 +15,8 @@ import lombok.NoArgsConstructor;
  * @Description: 品牌Dao类
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @TableName(value = "pms_brand", schema = "mall")
-public class PmsBrandDAO {
+public class PmsBrand {
 
     /**
      * 主键
