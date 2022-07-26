@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.domain.dao.UmsMemberRuleSetting;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 public interface UmsMemberRuleSettingService extends IService<UmsMemberRuleSetting> {
 

@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("sms_home_new_product")
@@ -33,11 +33,11 @@ public class SmsHomeNewProduct implements Serializable {
     @TableField("product_name")
     private String productName;
 
-    @TableField("recommend_status")
-    private Integer recommendStatus;
+        @TableField("recommend_status")
+        private Integer recommendStatus;
 
-    @TableField("sort")
-    private Integer sort;
+        @TableField("sort")
+        private Integer sort;
 
 
 }

@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.domain.dao.SmsHomeRecommendSubject;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 public interface SmsHomeRecommendSubjectService extends IService<SmsHomeRecommendSubject> {
 

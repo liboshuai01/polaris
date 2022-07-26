@@ -3,9 +3,6 @@ package com.liboshuai.mall.tiny.config;
 import com.liboshuai.mall.tiny.component.JwtAuthenticationTokenFilter;
 import com.liboshuai.mall.tiny.component.RestAuthenticationEntryPoint;
 import com.liboshuai.mall.tiny.component.RestfulAccessDeniedHandler;
-import com.liboshuai.mall.tiny.domain.dao.UmsAdmin;
-import com.liboshuai.mall.tiny.domain.dao.UmsPermission;
-import com.liboshuai.mall.tiny.domain.dto.AdminUserDetails;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.List;
 
 /**
  * @Author: liboshuai
@@ -94,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService() {
         // 获取登录用户信息
         return username -> {
@@ -105,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
             throw new UsernameNotFoundException("用户名或者密码错误");
         };
-    }
+    }*/
 
     @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {

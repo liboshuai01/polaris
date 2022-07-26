@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("ums_role_permission_relation")

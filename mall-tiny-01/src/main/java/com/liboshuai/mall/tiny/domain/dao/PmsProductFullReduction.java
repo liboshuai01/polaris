@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("pms_product_full_reduction")
@@ -34,8 +34,8 @@ public class PmsProductFullReduction implements Serializable {
     @TableField("full_price")
     private BigDecimal fullPrice;
 
-    @TableField("reduce_price")
-    private BigDecimal reducePrice;
+        @TableField("reduce_price")
+        private BigDecimal reducePrice;
 
 
 }

@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.domain.dao.UmsAdminRoleRelation;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 public interface UmsAdminRoleRelationService extends IService<UmsAdminRoleRelation> {
 

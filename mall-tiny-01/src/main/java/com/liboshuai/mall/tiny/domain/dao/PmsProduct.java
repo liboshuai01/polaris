@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("pms_product")
@@ -36,8 +36,8 @@ public class PmsProduct implements Serializable {
     @TableField("product_category_id")
     private Long productCategoryId;
 
-    @TableField("feight_template_id")
-    private Long feightTemplateId;
+        @TableField("feight_template_id")
+        private Long feightTemplateId;
 
     @TableField("product_attribute_category_id")
     private Long productAttributeCategoryId;

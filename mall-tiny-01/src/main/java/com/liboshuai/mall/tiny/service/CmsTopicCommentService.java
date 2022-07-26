@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.domain.dao.CmsTopicComment;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 public interface CmsTopicCommentService extends IService<CmsTopicComment> {
 

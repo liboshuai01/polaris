@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("cms_subject_comment")
@@ -34,17 +34,17 @@ public class CmsSubjectComment implements Serializable {
     @TableField("member_nick_name")
     private String memberNickName;
 
-    @TableField("member_icon")
-    private String memberIcon;
+        @TableField("member_icon")
+        private String memberIcon;
 
-    @TableField("content")
-    private String content;
+        @TableField("content")
+        private String content;
 
-    @TableField("create_time")
-    private LocalDateTime createTime;
+        @TableField("create_time")
+        private LocalDateTime createTime;
 
-    @TableField("show_status")
-    private Integer showStatus;
+        @TableField("show_status")
+        private Integer showStatus;
 
 
 }

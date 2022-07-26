@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("ums_admin_permission_relation")
@@ -33,8 +33,8 @@ public class UmsAdminPermissionRelation implements Serializable {
     @TableField("permission_id")
     private Long permissionId;
 
-    @TableField("type")
-    private Integer type;
+        @TableField("type")
+        private Integer type;
 
 
 }

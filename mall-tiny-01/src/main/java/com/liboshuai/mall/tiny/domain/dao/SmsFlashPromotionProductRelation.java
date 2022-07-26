@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("sms_flash_promotion_product_relation")

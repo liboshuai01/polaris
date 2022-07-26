@@ -16,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Data
 @TableName("cms_subject_category")

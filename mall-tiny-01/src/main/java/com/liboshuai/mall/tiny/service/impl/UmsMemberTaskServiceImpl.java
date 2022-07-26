@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-25
+ * @since 2022-07-26
  */
 @Service
 public class UmsMemberTaskServiceImpl extends ServiceImpl<UmsMemberTaskMapper, UmsMemberTask> implements UmsMemberTaskService {
