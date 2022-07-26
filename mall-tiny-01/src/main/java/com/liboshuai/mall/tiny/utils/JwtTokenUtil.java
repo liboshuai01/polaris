@@ -1,7 +1,9 @@
 package com.liboshuai.mall.tiny.utils;
 
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,15 +23,12 @@ import java.util.Objects;
 @Slf4j
 public class JwtTokenUtil {
 
+    private static final String CLAIM_KEY_USERNAME = "sub";
+    private static final String CLAIM_KEY_CREATED = "created";
     @Value("${jwt.secret}")
     private String secret;
-
     @Value("${jwt.expiration}")
     private Long expiration;
-
-    private static final String CLAIM_KEY_USERNAME = "sub";
-
-    private static final String CLAIM_KEY_CREATED = "created";
 
     /**
      * 根据负责生成JWT的token

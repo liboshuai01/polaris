@@ -1,12 +1,13 @@
 package com.liboshuai.mall.tiny.utils;
 
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -16,18 +17,17 @@ import java.util.function.Consumer;
  * @Date: 2022-07-22 15:32
  * @Description: MybatisPlus代码生成器
  */
+@Slf4j
 public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
-        List<String> tables = new ArrayList<>();
-        tables.add("cms_help");
-        tables.add("cms_help_category");
-        tables.add("cms_member_report");
-        tables.add("cms_prefrence_area");
-        tables.add("cms_prefrence_area_product_relation");
-        // todo: 待将剩余的其他表名添加上
+        List<String> tables = FileUtil.readLines(
+                System.getProperty("user.dir") + "\\docs\\db\\mall-tiny-TableNamestxt.txt",
+                "UTF-8"
+        );
+        log.info("读取所有表名数量：" + tables.size());
 
-        FastAutoGenerator.create("jdbc:mysql://81.68.182.114:3307/mall","root","intmain()")
+        FastAutoGenerator.create("jdbc:mysql://81.68.182.114:3307/mall?useSSL=false&serverTimezone=UTC", "root", "intmain()")
                 .globalConfig(builder -> {
                     builder.author("liboshuai")               //作者
                             .outputDir("C:\\Users\\李博帅\\IdeaProjects\\mall-tiny\\mall-tiny-01\\src\\main\\java")    //输出路径(写到java目录)
@@ -45,7 +45,7 @@ public class MybatisPlusGenerator {
                             .controller("controller")
                             .mapper("mapper")
                             .xml("mapper")
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml,System.getProperty("user.dir")+"\\src\\main\\resources\\mapper"));
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "\\src\\main\\resources\\mapper"));
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(tables)

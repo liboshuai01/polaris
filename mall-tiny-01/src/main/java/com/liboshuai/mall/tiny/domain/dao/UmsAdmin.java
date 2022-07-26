@@ -4,76 +4,68 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * @Author: liboshuai
- * @Date: 2022-07-10 20:35
- * @Description: 请求返回码
+ * <p>
+ * 后台用户表
+ * </p>
+ *
+ * @author liboshuai
+ * @since 2022-07-25
  */
 @Data
-@TableName(value = "ums_admin", schema = "mall")
-public class UmsAdmin {
-    /**
-     * 主键
-     */
-    @TableId(value = "id",type = IdType.AUTO)
+@TableName("ums_admin")
+@ApiModel(value = "UmsAdmin对象", description = "后台用户表")
+public class UmsAdmin implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 用户名
-     */
-    @TableField(value = "username")
+    @TableField("username")
     private String username;
 
-    /**
-     * 密码
-     */
-    @TableField(value = "password")
+    @TableField("password")
     private String password;
 
-    /**
-     * 头像
-     */
-    @TableField(value = "icon")
+    @ApiModelProperty("头像")
+    @TableField("icon")
     private String icon;
 
-    /**
-     * 邮箱
-     */
-    @TableField(value = "email")
+    @ApiModelProperty("邮箱")
+    @TableField("email")
     private String email;
 
-    /**
-     * 昵称
-     */
-    @TableField(value = "nick_name")
-    private String nick_name;
+    @ApiModelProperty("昵称")
+    @TableField("nick_name")
+    private String nickName;
 
-    /**
-     * 备注信息
-     */
-    @TableField(value = "note")
+    @ApiModelProperty("备注信息")
+    @TableField("note")
     private String note;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private String createTime;
+    @ApiModelProperty("创建时间")
+    @TableField("create_time")
+    private LocalDateTime createTime;
 
-    /**
-     * 最后登录时间
-     */
-    @TableField(value = "login_time")
-    private String loginTime;
+    @ApiModelProperty("最后登录时间")
+    @TableField("login_time")
+    private LocalDateTime loginTime;
 
-    /**
-     * 帐号启用状态：0->禁用；1->启用
-     */
-    @TableField(value = "status")
-    private String status;
+    @ApiModelProperty("帐号启用状态：0->禁用；1->启用")
+    @TableField("status")
+    private Integer status;
+
+
 }
+
+
+
+

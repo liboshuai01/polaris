@@ -29,7 +29,7 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public void set(String key, String value) {
-        stringRedisTemplate.opsForValue().set(key,value);
+        stringRedisTemplate.opsForValue().set(key, value);
     }
 
     /**
@@ -45,7 +45,7 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public boolean expire(String key, long expire) {
-        return stringRedisTemplate.expire(key,expire, TimeUnit.SECONDS);
+        return stringRedisTemplate.expire(key, expire, TimeUnit.SECONDS);
     }
 
     /**

@@ -2,13 +2,17 @@ package com.liboshuai.mall.tiny.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.liboshuai.mall.tiny.domain.dao.PmsBrand;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @Author: liboshuai
- * @Date: 2022-07-11 09:53
- * @Description: 品牌mapper
+ * <p>
+ * 品牌表 Mapper 接口
+ * </p>
+ *
+ * @author liboshuai
+ * @since 2022-07-25
  */
-@Service
+@Mapper
 public interface PmsBrandMapper extends BaseMapper<PmsBrand> {
+
 }

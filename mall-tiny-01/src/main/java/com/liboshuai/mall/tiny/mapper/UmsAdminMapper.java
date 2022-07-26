@@ -5,10 +5,14 @@ import com.liboshuai.mall.tiny.domain.dao.UmsAdmin;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @Author: liboshuai
- * @Date: 2022-07-10 20:35
- * @Description: 请求返回码
+ * <p>
+ * 后台用户表 Mapper 接口
+ * </p>
+ *
+ * @author liboshuai
+ * @since 2022-07-25
  */
 @Mapper
 public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
+
 }
