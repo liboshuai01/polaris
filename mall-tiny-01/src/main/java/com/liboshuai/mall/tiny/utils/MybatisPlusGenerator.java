@@ -17,10 +17,12 @@ import java.util.function.Consumer;
  * @Date: 2022-07-22 15:32
  * @Description: MybatisPlus代码生成器
  */
-@Slf4j
+// 平时注释状态，使用时再打开，防止负载已有的代码
+/*@Slf4j
 public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
+        // 读取表名配置文件
         List<String> tables = FileUtil.readLines(
                 System.getProperty("user.dir") + "\\docs\\db\\mall-tiny-TableNamestxt.txt",
                 "UTF-8"
@@ -81,4 +83,4 @@ public class MybatisPlusGenerator {
                 .execute();
 
     }
-}
+}*/
