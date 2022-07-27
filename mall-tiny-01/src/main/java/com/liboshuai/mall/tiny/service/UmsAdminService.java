@@ -23,4 +23,13 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * @return 权限信息
      */
     List<UmsPermission> findPermissions(Long adminId);
+
+    String login(String username, String password);
+
+    /**
+     * 注册用户
+     * @param umsAdminParam 注册的用户信息
+     * @return 注册成功的用户信息
+     */
+    UmsAdmin register(UmsAdmin umsAdminParam);
 }
