@@ -1,14 +1,17 @@
+/*
 package com.liboshuai.mall.tiny.handler;
 
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+*/
 /**
  * @Author: liboshuai
  * @Date: 2022-07-12 23:41
  * @Description: xxl-job定时执行器
- */
+ *//*
+
 @Component
 @Slf4j
 public class XxlJobHandler {
@@ -20,3 +23,4 @@ public class XxlJobHandler {
         }
     }
 }
+*/
