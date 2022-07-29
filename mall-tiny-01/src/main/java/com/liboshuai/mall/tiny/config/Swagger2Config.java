@@ -22,7 +22,7 @@ import java.util.List;
 @EnableSwagger2
 public class Swagger2Config {
     @Bean
-    public Docket createRestApi() {
+    public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -30,28 +30,36 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.basePackage("com.liboshuai.mall.tiny.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                // 添加登录认证
+                //添加登录认证
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("mall-tiny")
-                .description("mall-tiny-01的swagger文档")
+                .title("mall电商项目")
+                .description("mall-tiny")
                 .contact("liboshuai")
                 .version("1.0")
                 .build();
     }
 
-    private List<SecurityContext> securityContexts() {
-        // 设置需要登录认证的路径
-        ArrayList<SecurityContext> result = new ArrayList<>();
-        result.add(getContextByPath("/brand/.*"));
-        return null;
+    private List<ApiKey> securitySchemes() {
+        //设置请求头信息
+        List<ApiKey> result = new ArrayList<>();
+        ApiKey apiKey = new ApiKey("Authorization", "Authorization", "header");
+        result.add(apiKey);
+        return result;
     }
 
-    private SecurityContext getContextByPath(String pathRegex) {
+    private List<SecurityContext> securityContexts() {
+        //设置需要登录认证的路径
+        List<SecurityContext> result = new ArrayList<>();
+        result.add(getContextByPath("/brand/.*"));
+        return result;
+    }
+
+    private SecurityContext getContextByPath(String pathRegex){
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.regex(pathRegex))
@@ -59,19 +67,11 @@ public class Swagger2Config {
     }
 
     private List<SecurityReference> defaultAuth() {
-        ArrayList<SecurityReference> result = new ArrayList<>();
+        List<SecurityReference> result = new ArrayList<>();
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         result.add(new SecurityReference("Authorization", authorizationScopes));
-        return result;
-    }
-
-    private List<ApiKey> securitySchemes() {
-        // 设置请求头信息
-        ArrayList<ApiKey> result = new ArrayList<>();
-        ApiKey apiKey = new ApiKey("Authorization", "Authorization", "header");
-        result.add(apiKey);
         return result;
     }
 }
