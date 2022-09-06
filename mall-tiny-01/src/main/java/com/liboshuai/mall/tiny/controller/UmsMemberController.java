@@ -33,7 +33,6 @@ public class UmsMemberController {
     @ApiOperation(value = "获取验证码", httpMethod = "GET")
     @GetMapping(value = "/getAuthCode")
     public CommonResult getAuthCode(@RequestParam String telephone) {
-        log.info("------开始获取验证码------");
         return umsMemberService.generateAuthCode(telephone);
     }
 

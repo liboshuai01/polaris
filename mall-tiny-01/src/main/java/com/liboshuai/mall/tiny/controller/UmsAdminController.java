@@ -8,6 +8,7 @@ import com.liboshuai.mall.tiny.domain.dto.UmsAdminLoginParam;
 import com.liboshuai.mall.tiny.service.UmsAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ import java.util.Objects;
 @Api(tags = "后台用户", value = "UmsAdminController")
 @RestController
 @RequestMapping("/mall.tiny/ums-admin")
+@Slf4j
 public class UmsAdminController {
 
     @Autowired
@@ -59,6 +61,7 @@ public class UmsAdminController {
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping(value = "/login")
     public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
+        log.info("------开始进行用户登录------");
         String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (Objects.isNull(token)) {
             return CommonResult.validateFailed("用户名或密码错误");
