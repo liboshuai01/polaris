@@ -5,6 +5,7 @@ import com.liboshuai.mall.tiny.common.api.CommonResult;
 import com.liboshuai.mall.tiny.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "会员登录注册管理", value = "UmsMemberController")
 @RestController
 @RequestMapping("/mall.tiny/ums-member")
+@Slf4j
 public class UmsMemberController {
 
     private final UmsMemberService umsMemberService;
@@ -31,6 +33,7 @@ public class UmsMemberController {
     @ApiOperation(value = "获取验证码", httpMethod = "GET")
     @GetMapping(value = "/getAuthCode")
     public CommonResult getAuthCode(@RequestParam String telephone) {
+        log.info("------开始获取验证码------");
         return umsMemberService.generateAuthCode(telephone);
     }
 
