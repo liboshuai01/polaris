@@ -5,7 +5,8 @@ package com.liboshuai.mall.tiny.common.api;
  * @Date: 2022-07-10 20:35
  * @Description: 请求返回码
  */
-public enum ResultCode implements IErrorCode {
+@SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
+public enum ResponseCode implements IErrorCode {
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
     VALIDATE_FILED(404, "参数检验失败"),
@@ -16,7 +17,7 @@ public enum ResultCode implements IErrorCode {
 
     private String message;
 
-    ResultCode(long code, String message) {
+    ResponseCode(long code, String message) {
         this.code = code;
         this.message = message;
     }

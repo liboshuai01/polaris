@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.common.api.CommonResult;
+import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
 
 /**
@@ -20,10 +20,10 @@ public interface UmsMemberService extends IService<UmsMember> {
      * @param telephone 手机号码
      * @return 验证码信息
      */
-    CommonResult generateAuthCode(String telephone);
+    ResponseResult generateAuthCode(String telephone);
 
     /**
      * 判断验证码和手机号是否匹配
      */
-    CommonResult verifyAuthCode(String telephone, String authCode);
+    ResponseResult verifyAuthCode(String telephone, String authCode);
 }

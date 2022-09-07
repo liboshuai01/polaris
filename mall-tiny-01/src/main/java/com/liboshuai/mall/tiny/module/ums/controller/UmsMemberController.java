@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
 
-import com.liboshuai.mall.tiny.common.api.CommonResult;
+import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,13 +32,13 @@ public class UmsMemberController {
 
     @ApiOperation(value = "获取验证码", httpMethod = "GET")
     @GetMapping(value = "/getAuthCode")
-    public CommonResult getAuthCode(@RequestParam String telephone) {
+    public ResponseResult getAuthCode(@RequestParam String telephone) {
         return umsMemberService.generateAuthCode(telephone);
     }
 
     @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
     @PostMapping(value = "/verifyAuthCode")
-    public CommonResult verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+    public ResponseResult verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
         return umsMemberService.verifyAuthCode(telephone, authCode);
     }
 }

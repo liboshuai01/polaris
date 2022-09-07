@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
 
-import com.liboshuai.mall.tiny.common.api.CommonResult;
+import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminLoginParam;
@@ -43,32 +43,32 @@ public class UmsAdminController {
 
     @ApiOperation(value = "根据用户名获取权限信息", httpMethod = "GET")
     @GetMapping("/findPermissions")
-    public CommonResult<List<UmsPermission>> findPermissions(@RequestParam Long adminId) {
+    public ResponseResult<List<UmsPermission>> findPermissions(@RequestParam Long adminId) {
         List<UmsPermission> permissions = umsAdminService.findPermissions(adminId);
-        return CommonResult.success(permissions);
+        return ResponseResult.success(permissions);
     }
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register")
-    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
+    public ResponseResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
         UmsAdmin umsAdmin = umsAdminService.register(umsAdminParam);
         if (Objects.nonNull(umsAdmin)) {
-            CommonResult.failed();
+            ResponseResult.failed();
         }
-        return CommonResult.success(umsAdmin);
+        return ResponseResult.success(umsAdmin);
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping(value = "/login")
-    public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
+    public ResponseResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
         log.info("------开始进行用户登录------");
         String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (Objects.isNull(token)) {
-            return CommonResult.validateFailed("用户名或密码错误");
+            return ResponseResult.validateFailed("用户名或密码错误");
         }
         HashMap<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
+        return ResponseResult.success(tokenMap);
     }
 }
