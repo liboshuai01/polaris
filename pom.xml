@@ -38,6 +38,9 @@
         <mybatis-plus-generator-version>3.5.1</mybatis-plus-generator-version>
         <velocity-engine-core-version>2.3</velocity-engine-core-version>
         <commons-io-version>2.4</commons-io-version>
+        <shiro-version>1.4.0</shiro-version>
+        <jwt-version>3.2.0</jwt-version>
+        <fastjson.version>1.2.58</fastjson.version>
     </properties>
 
 
