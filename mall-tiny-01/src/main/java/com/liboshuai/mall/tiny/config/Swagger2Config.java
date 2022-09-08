@@ -1,5 +1,6 @@
 package com.liboshuai.mall.tiny.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.naming.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@EnableKnife4j
 public class Swagger2Config {
     @Bean
     public Docket createRestApi(){
