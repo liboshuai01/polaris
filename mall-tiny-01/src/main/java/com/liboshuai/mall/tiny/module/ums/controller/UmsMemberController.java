@@ -26,7 +26,8 @@ public class UmsMemberController {
     @Autowired
     private UmsMemberService umsMemberService;
 
-    @RequestMapping("/findUserIdByUserName")
+    @ApiOperation(value = "根据用户名称查询用户id", httpMethod = "GET")
+    @GetMapping("/findUserIdByUserName")
     public ResponseResult<Long> findUserIdByUserName(String userName) {
         Long userId = umsMemberService.findUserIdByUserName(userName);
         return ResponseResult.success(userId);
