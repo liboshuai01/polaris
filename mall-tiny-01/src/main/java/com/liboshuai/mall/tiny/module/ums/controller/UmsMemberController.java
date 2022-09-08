@@ -23,5 +23,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UmsMemberController {
 
+    @Autowired
+    private UmsMemberService umsMemberService;
+
+    @RequestMapping("/findUserIdByUserName")
+    public ResponseResult<Long> findUserIdByUserName(String userName) {
+        Long userId = umsMemberService.findUserIdByUserName(userName);
+        return ResponseResult.success(userId);
+    }
 
 }
