@@ -86,7 +86,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         // 验证码绑定手机号并存储到redis
         redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, authCode.toString());
         redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone, AUTH_CODE_EXPIRE_SECONDS);
-        return ResponseResult.success(authCode.toString(), "获取验证码成功");
+        return ResponseResult.success("获取验证码成功",authCode.toString());
     }
 
     /**

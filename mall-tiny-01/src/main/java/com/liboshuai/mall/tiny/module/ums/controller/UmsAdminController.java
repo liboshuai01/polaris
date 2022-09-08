@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 @Api(tags = "后台用户", value = "UmsAdminController")
 @RestController
-@RequestMapping("/mall.tiny/ums-admin")
+@RequestMapping("/ums/admin")
 @Slf4j
 public class UmsAdminController {
 
