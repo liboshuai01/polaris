@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "用户管理", value = "UmsMemberController")
 @RestController
-@RequestMapping("/mall.tiny/ums-member")
+@RequestMapping("/ums/member")
 @Slf4j
 public class UmsMemberController {
 
@@ -28,7 +28,7 @@ public class UmsMemberController {
 
     @ApiOperation(value = "根据用户名称查询用户id", httpMethod = "GET")
     @GetMapping("/findUserIdByUserName")
-    public ResponseResult<Long> findUserIdByUserName(String userName) {
+    public ResponseResult<Long> findUserIdByUserName(@RequestParam String userName) {
         Long userId = umsMemberService.findUserIdByUserName(userName);
         return ResponseResult.success(userId);
     }
