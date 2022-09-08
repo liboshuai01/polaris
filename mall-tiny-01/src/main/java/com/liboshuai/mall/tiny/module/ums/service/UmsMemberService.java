@@ -14,5 +14,8 @@ import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
  */
 public interface UmsMemberService extends IService<UmsMember> {
 
-
+    /**
+     * 根据用户名称查询用户id
+     */
+    Long findUserIdByUserName(String userName);
 }
