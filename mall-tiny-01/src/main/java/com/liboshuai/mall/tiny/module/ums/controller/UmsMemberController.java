@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @author liboshuai
  * @since 2022-07-26
  */
-@Api(tags = "用户管理", value = "UmsMemberController")
+@Api(tags = "会员", value = "UmsMemberController")
 @RestController
 @RequestMapping("/ums/member")
 @Slf4j
@@ -26,11 +27,15 @@ public class UmsMemberController {
     @Autowired
     private UmsMemberService umsMemberService;
 
-    @ApiOperation(value = "根据用户名称查询用户id", httpMethod = "GET")
-    @GetMapping("/findUserIdByUserName")
-    public ResponseResult<Long> findUserIdByUserName(@RequestParam String userName) {
-        Long userId = umsMemberService.findUserIdByUserName(userName);
-        return ResponseResult.success(userId);
+    @ApiOperation(value = "获取验证码", httpMethod = "GET")
+    @GetMapping(value = "/getAuthCode")
+    public ResponseResult<String> getAuthCode(@RequestParam String telephone) {
+        return umsMemberService.generateAuthCode(telephone);
     }
 
+    @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
+    @PostMapping(value = "/verifyAuthCode")
+    public ResponseResult<?>  verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+        return umsMemberService.verifyAuthCode(telephone, authCode);
+    }
 }

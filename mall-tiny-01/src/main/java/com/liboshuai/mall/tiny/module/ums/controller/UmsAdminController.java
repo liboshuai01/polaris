@@ -27,7 +27,7 @@ import java.util.Objects;
  * @author liboshuai
  * @since 2022-07-26
  */
-@Api(tags = "用户登录管理", value = "UmsAdminController")
+@Api(tags = "后台用户管理", value = "UmsAdminController")
 @RestController
 @RequestMapping("/ums/admin")
 @Slf4j
@@ -36,52 +36,12 @@ public class UmsAdminController {
     @Autowired
     private UmsAdminService umsAdminService;
 
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
 
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
-
-    @ApiOperation(value = "根据用户名获取权限信息", httpMethod = "GET")
-    @GetMapping("/findPermissions")
-    public ResponseResult<List<UmsPermission>> findPermissions(@RequestParam Long adminId) {
-        List<UmsPermission> permissions = umsAdminService.findPermissions(adminId);
-        return ResponseResult.success(permissions);
+    @ApiOperation(value = "根据会员名称查询用户id", httpMethod = "GET")
+    @GetMapping("/findUserIdByUserName")
+    public ResponseResult<Long> findUserIdByUserName(@RequestParam String userName) {
+        Long userId = umsAdminService.findUserIdByUserName(userName);
+        return ResponseResult.success(userId);
     }
 
-    @ApiOperation(value = "用户注册")
-    @PostMapping(value = "/register")
-    public ResponseResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
-        UmsAdmin umsAdmin = umsAdminService.register(umsAdminParam);
-        if (Objects.nonNull(umsAdmin)) {
-            ResponseResult.fail();
-        }
-        return ResponseResult.success(umsAdmin);
-    }
-
-    @ApiOperation(value = "登录", httpMethod = "POST")
-    @PostMapping(value = "/login")
-    public ResponseResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
-        log.info("------开始进行用户登录------");
-        String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
-        if (Objects.isNull(token)) {
-            return ResponseResult.fail(ResponseCode.UNAUTHORIZED,"用户名或密码错误");
-        }
-        HashMap<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return ResponseResult.success(tokenMap);
-    }
-
-    @ApiOperation(value = "获取验证码", httpMethod = "GET")
-    @GetMapping(value = "/getAuthCode")
-    public ResponseResult getAuthCode(@RequestParam String telephone) {
-        return umsAdminService.generateAuthCode(telephone);
-    }
-
-    @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
-    @PostMapping(value = "/verifyAuthCode")
-    public ResponseResult verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
-        return umsAdminService.verifyAuthCode(telephone, authCode);
-    }
 }
