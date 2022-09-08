@@ -1,11 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
-
-import java.util.List;
 
 /**
  * <p>
