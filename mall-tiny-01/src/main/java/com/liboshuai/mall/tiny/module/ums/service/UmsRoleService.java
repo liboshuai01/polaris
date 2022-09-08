@@ -20,4 +20,8 @@ public interface UmsRoleService extends IService<UmsRole> {
      */
     List<UmsRole> findRolesByRoleIds(List<Long> roleIds);
 
+    /**
+     * 根据用户名获取角色信息集合
+     */
+    List<UmsRole> findRolesByUsername(String username);
 }

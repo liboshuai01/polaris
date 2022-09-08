@@ -30,11 +30,19 @@ public class UmsRoleServiceImplTest extends TestCase {
     @Autowired
     private UmsRoleService umsRoleService;
 
+    private static final String USERNAME = "admin";
+
     @Test
     public void testFindRolesByRoleIds() {
-        Long adminId = umsAdminService.findUserIdByUserName("admin");
+        Long adminId = umsAdminService.findUserIdByUserName(USERNAME);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<UmsRole> roles = umsRoleService.findRolesByRoleIds(roleIds);
-        log.info("roles: {}", JSON.toJSONString(roles));
+        log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
+    }
+
+    @Test
+    public void testFindRolesByUsername() {
+        List<UmsRole> roles = umsRoleService.findRolesByUsername(USERNAME);
+        log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
     }
 }
