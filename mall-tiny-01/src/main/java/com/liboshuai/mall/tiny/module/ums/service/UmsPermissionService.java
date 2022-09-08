@@ -20,4 +20,9 @@ public interface UmsPermissionService extends IService<UmsPermission> {
      */
     List<UmsPermission> findPermissionsByPermissionIds(List<Long> permissionIds);
 
+    /**
+     * 根据用户名称获取权限信息
+     */
+    List<UmsPermission> findPermissionsByUsername(String username);
+
 }

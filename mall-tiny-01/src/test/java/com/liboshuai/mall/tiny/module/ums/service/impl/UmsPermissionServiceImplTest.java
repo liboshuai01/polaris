@@ -34,12 +34,20 @@ public class UmsPermissionServiceImplTest extends TestCase {
     @Autowired
     private UmsPermissionService umsPermissionService;
 
+    private static final String USERNAME = "admin";
+
     @Test
     public void testFindPermissionsByPermissionIds() {
-        Long adminId = umsAdminService.findUserIdByUserName("admin");
+        Long adminId = umsAdminService.findUserIdByUserName(USERNAME);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
         List<UmsPermission> permissions = umsPermissionService.findPermissionsByPermissionIds(permissionIds);
+        log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
+    }
+
+    @Test
+    public void testFindPermissionsByUsername() {
+        List<UmsPermission> permissions = umsPermissionService.findPermissionsByUsername(USERNAME);
         log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
     }
 }
