@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @author liboshuai
  * @since 2022-07-26
  */
-@Api(tags = "会员登录注册管理", value = "UmsMemberController")
+@Api(tags = "用户管理", value = "UmsMemberController")
 @RestController
 @RequestMapping("/mall.tiny/ums-member")
 @Slf4j

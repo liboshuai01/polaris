@@ -27,7 +27,7 @@ import java.util.Objects;
  * @author liboshuai
  * @since 2022-07-26
  */
-@Api(tags = "后台用户", value = "UmsAdminController")
+@Api(tags = "用户登录管理", value = "UmsAdminController")
 @RestController
 @RequestMapping("/ums/admin")
 @Slf4j
