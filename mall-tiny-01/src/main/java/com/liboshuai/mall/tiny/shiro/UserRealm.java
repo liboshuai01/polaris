@@ -1,5 +1,7 @@
 package com.liboshuai.mall.tiny.shiro;
 
+import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
+import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,23 +19,41 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRealm extends AuthorizingRealm {
 
+    @Autowired
+    private UmsRoleService umsRoleService;
+
+    @Autowired
+    private UmsPermissionService umsPermissionService;
 
 
+    /**
+     * 大坑！，必须重写此方法，不然Shiro会报错
+     */
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof JwtToken;
     }
 
+
     /**
-     * 大坑！，必须重写此方法，不然Shiro会报错
+     * 授权认证
      */
-
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        // 从token中获取username
+
+        // 根据用户名称获取角色信息集合
+
+        // 根据角色id集合获取权限信息集合
+
+        // 将角色信息和权限信息放入到shiro认证信息中
+
         return null;
     }
 
+    /**
+     * 登录认证
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         return null;
