@@ -19,6 +19,6 @@ public class UserExceptionAdvice {
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseResult<?> unAuthorizedExceptionHandler(UnauthorizedException e) {
-        return ResponseResult.failed(ResponseCode.UNAUTHORIZED);
+        return ResponseResult.fail(ResponseCode.UNAUTHORIZED);
     }
 }

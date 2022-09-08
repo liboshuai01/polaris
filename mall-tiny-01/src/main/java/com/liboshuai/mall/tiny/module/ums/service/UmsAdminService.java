@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 
@@ -32,4 +33,17 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * @return 注册成功的用户信息
      */
     UmsAdmin register(UmsAdmin umsAdminParam);
+
+    /**
+     * 生成验证码
+     *
+     * @param telephone 手机号码
+     * @return 验证码信息
+     */
+    ResponseResult generateAuthCode(String telephone);
+
+    /**
+     * 判断验证码和手机号是否匹配
+     */
+    ResponseResult verifyAuthCode(String telephone, String authCode);
 }

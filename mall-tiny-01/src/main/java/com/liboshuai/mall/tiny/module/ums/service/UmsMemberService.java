@@ -14,16 +14,5 @@ import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
  */
 public interface UmsMemberService extends IService<UmsMember> {
 
-    /**
-     * 生成验证码
-     *
-     * @param telephone 手机号码
-     * @return 验证码信息
-     */
-    ResponseResult generateAuthCode(String telephone);
 
-    /**
-     * 判断验证码和手机号是否匹配
-     */
-    ResponseResult verifyAuthCode(String telephone, String authCode);
 }

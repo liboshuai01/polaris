@@ -23,22 +23,5 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UmsMemberController {
 
-    private final UmsMemberService umsMemberService;
 
-    @Autowired
-    public UmsMemberController(UmsMemberService umsMemberService) {
-        this.umsMemberService = umsMemberService;
-    }
-
-    @ApiOperation(value = "获取验证码", httpMethod = "GET")
-    @GetMapping(value = "/getAuthCode")
-    public ResponseResult getAuthCode(@RequestParam String telephone) {
-        return umsMemberService.generateAuthCode(telephone);
-    }
-
-    @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
-    @PostMapping(value = "/verifyAuthCode")
-    public ResponseResult verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
-        return umsMemberService.verifyAuthCode(telephone, authCode);
-    }
 }

@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
 
+import com.liboshuai.mall.tiny.common.api.ResponseCode;
 import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
@@ -53,7 +54,7 @@ public class UmsAdminController {
     public ResponseResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
         UmsAdmin umsAdmin = umsAdminService.register(umsAdminParam);
         if (Objects.nonNull(umsAdmin)) {
-            ResponseResult.failed();
+            ResponseResult.fail();
         }
         return ResponseResult.success(umsAdmin);
     }
@@ -64,11 +65,23 @@ public class UmsAdminController {
         log.info("------开始进行用户登录------");
         String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (Objects.isNull(token)) {
-            return ResponseResult.validateFailed("用户名或密码错误");
+            return ResponseResult.fail(ResponseCode.UNAUTHORIZED,"用户名或密码错误");
         }
         HashMap<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return ResponseResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "获取验证码", httpMethod = "GET")
+    @GetMapping(value = "/getAuthCode")
+    public ResponseResult getAuthCode(@RequestParam String telephone) {
+        return umsAdminService.generateAuthCode(telephone);
+    }
+
+    @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
+    @PostMapping(value = "/verifyAuthCode")
+    public ResponseResult verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+        return umsAdminService.verifyAuthCode(telephone, authCode);
     }
 }

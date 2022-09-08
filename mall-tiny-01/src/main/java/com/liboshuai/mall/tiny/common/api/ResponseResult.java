@@ -35,36 +35,24 @@ public class ResponseResult<T> {
         return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, null);
     }
 
-    public static <T> ResponseResult<T> success(T data, String message) {
+    public static <T> ResponseResult<T> success(String message, T data) {
         return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, data);
     }
 
-    public static <T> ResponseResult<T> failed(IErrorCode errorCode) {
-        return new ResponseResult<>(errorCode.getCode(), errorCode.getMessage(), null);
+    public static <T> ResponseResult<T> fail() {
+        return fail(ResponseCode.FAILED);
     }
 
-    public static <T> ResponseResult<T> failed(String message) {
+    public static <T> ResponseResult<T> fail(String message) {
         return new ResponseResult<>(ResponseCode.FAILED.getCode(), message, null);
     }
 
-    public static <T> ResponseResult<T> failed() {
-        return failed(ResponseCode.FAILED);
+    public static <T> ResponseResult<T> fail(IErrorCode errorCode) {
+        return new ResponseResult<>(errorCode.getCode(), errorCode.getMessage(), null);
     }
 
-    public static <T> ResponseResult<T> validateFailed() {
-        return failed(ResponseCode.VALIDATE_FILED);
-    }
-
-    public static <T> ResponseResult<T> validateFailed(String message) {
-        return new ResponseResult<>(ResponseCode.VALIDATE_FILED.getCode(), message, null);
-    }
-
-    public static <T> ResponseResult<T> unauthorized(T data) {
-        return new ResponseResult<>(ResponseCode.UNAUTHORIZED.getCode(), ResponseCode.UNAUTHORIZED.getMessage(), data);
-    }
-
-    public static <T> ResponseResult<T> forbidden(T data) {
-        return new ResponseResult<>(ResponseCode.FORBIDDEN.getCode(), ResponseCode.FORBIDDEN.getMessage(), data);
+    public static <T> ResponseResult<T> fail(IErrorCode errorCode, String message) {
+        return new ResponseResult<>(errorCode.getCode(), message, null);
     }
 
     public long getCode() {
