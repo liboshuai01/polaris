@@ -5,6 +5,7 @@ import com.liboshuai.mall.tiny.common.api.ResponseCode;
 import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
+import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminLoginParam;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import io.swagger.annotations.Api;
