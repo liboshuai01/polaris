@@ -1,4 +1,7 @@
-package com.liboshuai.mall.tiny.common.api;
+package com.liboshuai.mall.tiny.compone.response;
+
+import com.liboshuai.mall.tiny.common.enums.IErrorCode;
+import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 
 /**
  * @Author: liboshuai

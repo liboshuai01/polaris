@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.shiro;
 
-import com.liboshuai.mall.tiny.common.api.ResponseCode;
-import com.liboshuai.mall.tiny.common.api.ResponseResult;
+import com.liboshuai.mall.tiny.common.enums.ResponseCode;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

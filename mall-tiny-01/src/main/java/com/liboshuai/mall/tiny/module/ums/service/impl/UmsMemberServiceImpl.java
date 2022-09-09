@@ -1,8 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.common.api.ResponseResult;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberMapper;
 import com.liboshuai.mall.tiny.redis.RedisService;

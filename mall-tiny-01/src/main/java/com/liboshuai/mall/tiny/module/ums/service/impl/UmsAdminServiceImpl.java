@@ -2,22 +2,12 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.common.api.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsAdminMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
-import com.liboshuai.mall.tiny.redis.RedisService;
-import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * <p>

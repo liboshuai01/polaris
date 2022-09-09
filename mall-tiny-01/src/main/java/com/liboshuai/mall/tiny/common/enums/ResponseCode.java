@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.common.api;
+package com.liboshuai.mall.tiny.common.enums;
 
 /**
  * @Author: liboshuai
@@ -11,7 +11,9 @@ public enum ResponseCode implements IErrorCode {
     FAILED(500, "操作失败"),
     VALIDATE_FILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
+    NOT_LOGIN_IN(401, "账号未登录"),
     FORBIDDEN(403, "没有相关权限");
+
 
     private long code;
 

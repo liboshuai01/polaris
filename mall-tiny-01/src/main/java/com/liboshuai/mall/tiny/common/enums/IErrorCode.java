@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.common.api;
+package com.liboshuai.mall.tiny.common.enums;
 
 /**
  * @Author: liboshuai
