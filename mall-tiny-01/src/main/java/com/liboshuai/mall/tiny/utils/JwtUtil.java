@@ -18,10 +18,14 @@ import java.util.Date;
 @Slf4j
 public class JwtUtil {
 
-    // token过期时间
+    /**
+     * token过期时间
+     */
     private static final String ACCESS_TOKEN_EXPIRE_TIME = "600";
 
-    // jwt认证加密私钥
+    /**
+     * jwt认证加密私钥
+     */
     private static final String ENCRYPT_JWT_KEY = "U0JBUElOENhspJrzkyNjQ1NA" ;
 
     private static final String claim = "account";
