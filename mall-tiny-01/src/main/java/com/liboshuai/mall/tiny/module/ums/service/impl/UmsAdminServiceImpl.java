@@ -34,4 +34,14 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         umsMemberLambdaQueryWrapper.eq(UmsAdmin::getUsername, userName);
         return umsAdminMapper.selectOne(umsMemberLambdaQueryWrapper).getId();
     }
+
+    /**
+     * 根据用户名称查询用户全部信息
+     */
+    @Override
+    public UmsAdmin findByUserName(String username) {
+        LambdaQueryWrapper<UmsAdmin> umsMemberLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        umsMemberLambdaQueryWrapper.eq(UmsAdmin::getUsername, username);
+        return umsAdminMapper.selectOne(umsMemberLambdaQueryWrapper);
+    }
 }

@@ -17,4 +17,9 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * 根据用户名称查询用户id
      */
     Long findUserIdByUserName(String userName);
+
+    /**
+     * 根据用户名称查询用户全部信息
+     */
+    UmsAdmin findByUserName(String username);
 }
