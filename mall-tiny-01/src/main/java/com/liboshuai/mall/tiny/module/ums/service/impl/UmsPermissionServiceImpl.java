@@ -57,4 +57,13 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
         return umsPermissionService.findPermissionsByPermissionIds(permissionIds);
     }
 
+    /**
+     * 根据角色id集合查询权限信息集合
+     */
+    @Override
+    public List<UmsPermission> findPermissionsByRoleIds(List<Long> roleIds) {
+        List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
+        return umsPermissionService.findPermissionsByPermissionIds(permissionIds);
+    }
+
 }
