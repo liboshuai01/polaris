@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.compone.response;
 
-import com.liboshuai.mall.tiny.common.enums.IErrorCode;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 
 /**
@@ -50,12 +49,16 @@ public class ResponseResult<T> {
         return new ResponseResult<>(ResponseCode.FAILED.getCode(), message, null);
     }
 
-    public static <T> ResponseResult<T> fail(IErrorCode errorCode) {
+    public static <T> ResponseResult<T> fail(ResponseCode errorCode) {
         return new ResponseResult<>(errorCode.getCode(), errorCode.getMessage(), null);
     }
 
-    public static <T> ResponseResult<T> fail(IErrorCode errorCode, String message) {
+    public static <T> ResponseResult<T> fail(ResponseCode errorCode, String message) {
         return new ResponseResult<>(errorCode.getCode(), message, null);
+    }
+
+    public static <T> ResponseResult<T> fail(ResponseCode errorCode, String message, T data) {
+        return new ResponseResult<>(errorCode.getCode(), message, data);
     }
 
     public long getCode() {

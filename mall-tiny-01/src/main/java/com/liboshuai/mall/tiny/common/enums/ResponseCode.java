@@ -6,7 +6,7 @@ package com.liboshuai.mall.tiny.common.enums;
  * @Description: 请求返回码
  */
 @SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
-public enum ResponseCode implements IErrorCode {
+public enum ResponseCode{
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
     VALIDATE_FILED(404, "参数检验失败"),
@@ -24,12 +24,10 @@ public enum ResponseCode implements IErrorCode {
         this.message = message;
     }
 
-    @Override
     public long getCode() {
         return code;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }
