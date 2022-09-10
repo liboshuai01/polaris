@@ -24,9 +24,6 @@ import java.time.LocalDateTime;
 public class UmsAdminVo implements Serializable {
     private static final long serialVersionUID = 1321190682152399912L;
 
-    @ApiModelProperty("主键id")
-    private Long id;
-
     @ApiModelProperty("用户名")
     private String username;
 
