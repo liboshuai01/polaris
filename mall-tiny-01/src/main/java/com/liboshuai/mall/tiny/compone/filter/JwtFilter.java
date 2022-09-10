@@ -75,7 +75,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * 添加免密登录路径
      */
     private boolean secretFree(HttpServletRequest httpServletRequest) {
-        String[] anonUrl = {"/login", "/swagger-ui.html", "/doc.html",
+        String[] anonUrl = {"/register", "/login", "/swagger-ui.html", "/doc.html",
                 "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**", "/test"};
         boolean match = false;
         for (String u : anonUrl) {
