@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.liboshuai.mall.tiny.common.constants.JwtConstant;
+import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
@@ -35,7 +35,7 @@ public class JwtUtil {
      */
     public static boolean verify(String token) {
         try {
-            String secret = getClaim(token, JwtConstant.ACCOUNT) + Base64Util.decode(ENCRYPT_JWT_KEY);
+            String secret = getClaim(token, ShiroConstant.ACCOUNT) + Base64Util.decode(ENCRYPT_JWT_KEY);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
             jwtVerifier.verify(token);
@@ -73,7 +73,7 @@ public class JwtUtil {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带account账号信息
             return JWT.create()
-                    .withClaim(JwtConstant.ACCOUNT, account)
+                    .withClaim(ShiroConstant.ACCOUNT, account)
                     .withClaim("currentTimeMillis", currentTimeMillis)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);

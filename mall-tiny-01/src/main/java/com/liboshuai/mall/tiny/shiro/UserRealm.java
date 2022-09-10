@@ -1,8 +1,7 @@
 package com.liboshuai.mall.tiny.shiro;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.liboshuai.mall.tiny.common.constants.JwtConstant;
-import com.liboshuai.mall.tiny.common.constants.UserRealmConstant;
+import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
@@ -42,6 +41,12 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UmsPermissionService umsPermissionService;
 
+    private static final String TOKEN_CANNOT_BE_EMPTY = "token cannot be empty";
+    private static final String TOKEN_INVALID = "token invalid";
+    private static final String USER_DIDNT_EXISTED = "user didn't existed";
+    private static final String USERNAME_OR_PASSWORD_ERROR = "username or password error";
+    private static final String REALM_NAME = "myRealm";
+
 
     /**
      * 大坑！，必须重写此方法，不然Shiro会报错
@@ -58,7 +63,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // 从token中获取username
-        String username = JwtUtil.getClaim(principalCollection.toString(), JwtConstant.ACCOUNT);
+        String username = JwtUtil.getClaim(principalCollection.toString(), ShiroConstant.ACCOUNT);
         // 根据用户名称获取角色名称集合
         List<UmsRole> roleList = umsRoleService.findRolesByUsername(username);
         Set<String> roleNameSet = roleList.stream().map(UmsRole::getName).collect(Collectors.toSet());
@@ -81,20 +86,20 @@ public class UserRealm extends AuthorizingRealm {
         // 获取token信息
         String token = (String) authenticationToken.getCredentials();
         if (StringUtils.isBlank(token)) {
-            throw new AuthenticationException(UserRealmConstant.TOKEN_CANNOT_BE_EMPTY);
+            throw new AuthenticationException(TOKEN_CANNOT_BE_EMPTY);
         }
         // 使用jwtUtil解密获取Username
-        String username = JwtUtil.getClaim(token, JwtConstant.ACCOUNT);
+        String username = JwtUtil.getClaim(token, ShiroConstant.ACCOUNT);
         if (StringUtils.isBlank(username)) {
-            throw new AuthenticationException(UserRealmConstant.TOKEN_INVALID);
+            throw new AuthenticationException(TOKEN_INVALID);
         }
         Long userId = umsAdminService.findUserIdByUserName(username);
         if (Objects.isNull(userId)) {
-            throw new AuthenticationException(UserRealmConstant.USER_DIDNT_EXISTED);
+            throw new AuthenticationException(USER_DIDNT_EXISTED);
         }
         if (!JwtUtil.verify(token)) {
-            throw new AuthenticationException(UserRealmConstant.USERNAME_OR_PASSWORD_ERROR);
+            throw new AuthenticationException(USERNAME_OR_PASSWORD_ERROR);
         }
-        return new SimpleAuthenticationInfo(token, token, UserRealmConstant.REALM_NAME);
+        return new SimpleAuthenticationInfo(token, token, REALM_NAME);
     }
 }

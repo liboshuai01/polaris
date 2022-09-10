@@ -26,40 +26,75 @@ public class UmsAdmin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键id
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    /**
+     * 用户名
+     */
     @TableField("username")
     private String username;
 
+    /**
+     * 密码
+     */
     @TableField("password")
     private String password;
 
-    @ApiModelProperty("头像")
+    /**
+     * 盐
+     */
+    @TableField("salt")
+    private String salt;
+
+    /**
+     * 加盐次数
+     */
+    @TableField("salt_count")
+    private Integer saltCount;
+
+    /**
+     * 头像
+     */
     @TableField("icon")
     private String icon;
 
-    @ApiModelProperty("邮箱")
+    /**
+     * 邮箱
+     */
     @TableField("email")
     private String email;
 
-    @ApiModelProperty("昵称")
+    /**
+     * 昵称
+     */
     @TableField("nick_name")
     private String nickName;
 
-    @ApiModelProperty("备注信息")
+    /**
+     * 备注信息
+     */
     @TableField("note")
     private String note;
 
-    @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
     @TableField("create_time")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("最后登录时间")
+    /**
+     * 最后登录时间
+     */
     @TableField("login_time")
     private LocalDateTime loginTime;
 
-    @ApiModelProperty("帐号启用状态：0->禁用；1->启用")
+    /**
+     * 帐号启用状态：0->禁用；1->启用
+     */
     @TableField("status")
     private Integer status;
 

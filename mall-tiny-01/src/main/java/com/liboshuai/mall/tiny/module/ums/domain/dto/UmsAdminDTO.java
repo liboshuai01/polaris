@@ -1,22 +1,28 @@
 package com.liboshuai.mall.tiny.module.ums.domain.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * @Author: liboshuai
  * @Date: 2022-07-10 20:35
- * @Description: 请求返回码
+ * @Description: umsAdminDTO
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class UmsAdminDTO {
     /**
-     * 主键
+     * 主键id
      */
     private Long id;
 
@@ -31,6 +37,16 @@ public class UmsAdminDTO {
     private String password;
 
     /**
+     * 盐
+     */
+    private String salt;
+
+    /**
+     * 加盐次数
+     */
+    private Integer saltCount;
+
+    /**
      * 头像
      */
     private String icon;
@@ -43,7 +59,7 @@ public class UmsAdminDTO {
     /**
      * 昵称
      */
-    private String nick_name;
+    private String nickName;
 
     /**
      * 备注信息
@@ -53,15 +69,15 @@ public class UmsAdminDTO {
     /**
      * 创建时间
      */
-    private String createTime;
+    private LocalDateTime createTime;
 
     /**
      * 最后登录时间
      */
-    private String loginTime;
+    private LocalDateTime loginTime;
 
     /**
      * 帐号启用状态：0->禁用；1->启用
      */
-    private String status;
+    private Integer status;
 }
