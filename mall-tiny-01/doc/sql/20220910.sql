@@ -1,0 +1,1 @@
+ALTER TABLE ums_admin ADD `salt` VARCHAR ( 500 ) DEFAULT NULL COMMENT '盐' AFTER `password`;
