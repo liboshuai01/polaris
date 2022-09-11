@@ -104,6 +104,8 @@ public class LoginAdminController {
         String token = JwtUtil.sign(username, currentTimeMills);
         response.setHeader(AUTHORIZATION, token);
         response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
+        // 更新登录时间
+        user.setLoginTime(LocalDateTime.now());
         return ResponseResult.success("登录成功");
     }
 
