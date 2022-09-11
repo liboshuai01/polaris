@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @Author: liboshuai
@@ -89,6 +90,9 @@ public class LoginAdminController {
         UmsAdmin user = umsAdminService.findByUserName(username);
         if (Objects.isNull(user)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
+        }
+        if (Objects.isNull(user.getSalt()) || Objects.isNull(user.getSaltCount())) {
+            return ResponseResult.fail(ResponseCode.SALT_IS_NOT_EXISTED);
         }
         String enPassword = new SimpleHash(ShiroConstant.ALGORITH_NAME, password,
                 user.getSalt(), user.getSaltCount()).toString();
