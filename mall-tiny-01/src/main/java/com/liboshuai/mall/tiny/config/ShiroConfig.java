@@ -47,18 +47,36 @@ public class ShiroConfig {
      */
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager defaultWebSecurityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         // 添加自己的过滤器名为jwtFilter
         Map<String, Filter> filterMap = new HashMap<>(16);
         filterMap.put("jwtFilter", jwtFilterBean());
-        shiroFilterFactoryBean.setFilters(filterMap);
-        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
+        factoryBean.setFilters(filterMap);
+        factoryBean.setSecurityManager(defaultWebSecurityManager);
+        // 设置无权限时跳转的 url;
+        factoryBean.setUnauthorizedUrl("/unauthorized/无权限");
         // 自定义url规则
         HashMap<String, String> filterRuleMap = new HashMap<>(16);
+        //访问/login和/unauthorized 不需要经过过滤器
+        filterRuleMap.put("/login", "anon");
+        filterRuleMap.put("/register", "anon");
+        filterRuleMap.put("/unauthorized/**", "anon");
+        //swagger配置放行
+        filterRuleMap.put("/swagger-ui.html","anon");
+        filterRuleMap.put("/swagger/**","anon");
+        filterRuleMap.put("/webjars/**","anon");
+        filterRuleMap.put("/swagger-resources/**","anon");
+        filterRuleMap.put("/v2/**","anon");
+        filterRuleMap.put("/doc.html","anon");
+        //静态资源放行
+        filterRuleMap.put("/**/*.html","anon");
+        filterRuleMap.put("/**/*.jpg","anon");
+        filterRuleMap.put("/**/*.png","anon");
         // 所有请求通过我们自己的JwtFilter
         filterRuleMap.put("/**", "jwtFilter");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterRuleMap);
-        return shiroFilterFactoryBean;
+
+        factoryBean.setFilterChainDefinitionMap(filterRuleMap);
+        return factoryBean;
     }
 
     /**

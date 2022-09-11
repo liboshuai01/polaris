@@ -35,10 +35,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        // 添加免登录接口
-        if (secretFree(httpServletRequest)) {
-            return true;
-        }
         // 判断用户是否想要登入
         if (this.isLoginAttempt(request, response)) {
             try {
@@ -67,24 +63,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 this.response401(request, response, msg);
                 return false;
             }
-        }
-        return false;
-    }
-
-    /**
-     * 添加免密登录路径
-     */
-    private boolean secretFree(HttpServletRequest httpServletRequest) {
-        String[] anonUrl = {"/register", "/login", "/swagger-ui.html", "/doc.html",
-                "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**", "/test"};
-        boolean match = false;
-        for (String u : anonUrl) {
-            if (pathMatcher.match(u, httpServletRequest.getRequestURI())) {
-                match = true;
-            }
-        }
-        if (match) {
-            return true;
         }
         return false;
     }
