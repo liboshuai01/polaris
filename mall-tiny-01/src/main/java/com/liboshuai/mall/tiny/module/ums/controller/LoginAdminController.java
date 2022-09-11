@@ -1,5 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
@@ -106,6 +108,10 @@ public class LoginAdminController {
         response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
         // 更新登录时间
         user.setLoginTime(LocalDateTime.now());
+        LambdaUpdateWrapper<UmsAdmin> umsAdminLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        umsAdminLambdaUpdateWrapper.eq(UmsAdmin::getId, user.getId());
+        umsAdminLambdaUpdateWrapper.set(UmsAdmin::getLoginTime, user.getLoginTime());
+        umsAdminService.update(umsAdminLambdaUpdateWrapper);
         return ResponseResult.success("登录成功");
     }
 
