@@ -43,7 +43,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (this.isLoginAttempt(request, response)) {
             try {
                 // 进行Shiro的登录UserRealm
-                this.executeLogin(request, response);
+                return executeLogin(request, response);
             } catch (Exception e) {
                 // 认证出现异常，传递错误信息msg
                 String msg = e.getMessage();
@@ -68,7 +68,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 return false;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -106,8 +106,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         // 拿到当前Header中Authorization的AccessToken(Shiro中getAuthzHeader方法已经实现)
         // String requestURI = ((HttpServletRequest) request).getRequestURI();
-        String token = this.getAuthzHeader(request);
-        return token != null;
+        HttpServletRequest req = (HttpServletRequest) request;
+        String authorization = req.getHeader("token");
+        return authorization != null;
     }
 
     /**
