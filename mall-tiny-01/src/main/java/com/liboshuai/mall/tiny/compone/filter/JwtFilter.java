@@ -35,6 +35,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        // 添加免登录接口
+        if (secretFree(httpServletRequest)) {
+            return true;
+        }
         // 判断用户是否想要登入
         if (this.isLoginAttempt(request, response)) {
             try {
@@ -68,6 +72,24 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
 
     /**
+     * 添加免密登录路径
+     */
+    private boolean secretFree(HttpServletRequest httpServletRequest) {
+        String[] anonUrl = {"/login", "/swagger-ui.html", "/doc.html",
+                "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**", "/test"};
+        boolean match = false;
+        for (String u : anonUrl) {
+            if (pathMatcher.match(u, httpServletRequest.getRequestURI())) {
+                match = true;
+            }
+        }
+        if (match) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 这里我们详细说明下为什么重写 可以对比父类方法，只是将executeLogin方法调用去除了
      * 如果没有去除将会循环调用doGetAuthenticationInfo方法
      */
@@ -82,11 +104,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
-        // 拿到当前Header中Authorization的AccessToken(Shiro中getAuthzHeader方法已经实现)
-        // String requestURI = ((HttpServletRequest) request).getRequestURI();
-        HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader("token");
-        return authorization != null;
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        String authorization = req.getHeader("token");
+//        return authorization != null;
+        return true;
     }
 
     /**
@@ -94,8 +115,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        // 拿到当前Header中Authorization的AccessToken(Shiro中getAuthzHeader方法已经实现)
-        JwtToken token = new JwtToken(this.getAuthzHeader(request));
+        HttpServletRequest req = (HttpServletRequest) request;
+        String authorization = req.getHeader("token");
+        JwtToken token = new JwtToken(authorization);
         // 提交给UserRealm进行认证，如果错误他会抛出异常并被捕获
         this.getSubject(request, response).login(token);
         // 如果没有抛出异常则代表登入成功，返回true
