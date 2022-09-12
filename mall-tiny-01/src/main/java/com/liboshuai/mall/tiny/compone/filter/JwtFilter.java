@@ -9,6 +9,7 @@ import com.liboshuai.mall.tiny.shiro.JwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,6 +27,9 @@ import java.io.PrintWriter;
  */
 @Slf4j
 public class JwtFilter extends BasicHttpAuthenticationFilter {
+
+    @Value("${server.servlet.context-path}")
+    private String serverServletContextPath;
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -75,12 +79,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * 添加免密登录路径
      */
     private boolean secretFree(HttpServletRequest httpServletRequest) {
-        String[] anonUrl = {"/mall-tiny/register","/mall-tiny/login", "/mall-tiny/swagger-ui.html", "/mall-tiny/doc.html",
-                "/mall-tiny/webjars/**", "/mall-tiny/swagger-resources", "/mall-tiny/v2/api-docs", "/mall-tiny/swagger-resources/**"};
+        String[] anonUrl = {"/register","/login", "/swagger-ui.html", "/doc.html",
+                "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**"};
         boolean match = false;
         String requestURI = httpServletRequest.getRequestURI();
         for (String u : anonUrl) {
-            if (pathMatcher.match(u, requestURI)) {
+            if (pathMatcher.match(serverServletContextPath + u, requestURI)) {
                 match = true;
             }
         }
