@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.liboshuai.mall.tiny.MallTiny01Application;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
@@ -36,13 +37,13 @@ public class UmsRoleServiceImplTest extends TestCase {
     public void testFindRolesByRoleIds() {
         Long adminId = umsAdminService.findUserIdByUserName(USERNAME);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
-        List<UmsRole> roles = umsRoleService.findRolesByRoleIds(roleIds);
+        List<UmsRoleDTO> roles = umsRoleService.findRolesByRoleIds(roleIds);
         log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
     }
 
     @Test
     public void testFindRolesByUsername() {
-        List<UmsRole> roles = umsRoleService.findRolesByUsername(USERNAME);
+        List<UmsRoleDTO> roles = umsRoleService.findRolesByUsername(USERNAME);
         log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
     }
 }

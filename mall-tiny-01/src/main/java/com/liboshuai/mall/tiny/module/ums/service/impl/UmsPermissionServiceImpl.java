@@ -2,15 +2,18 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsPermissionMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRolePermissionRelationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -42,15 +45,22 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
      * 根据权限id集合查询权限信息
      */
     @Override
-    public List<UmsPermission> findPermissionsByPermissionIds(List<Long> permissionIds) {
-        return umsPermissionMapper.selectBatchIds(permissionIds);
+    public List<UmsPermissionDTO> findPermissionsByPermissionIds(List<Long> permissionIds) {
+        List<UmsPermission> permissionList = umsPermissionMapper.selectBatchIds(permissionIds);
+        return permissionList.stream()
+                .map(umsPermission -> {
+                    UmsPermissionDTO umsPermissionDTO = new UmsPermissionDTO();
+                    BeanUtils.copyProperties(umsPermission, umsPermissionDTO);
+                    return umsPermissionDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     /**
      * 根据用户名称获取权限信息
      */
     @Override
-    public List<UmsPermission> findPermissionsByUsername(String username) {
+    public List<UmsPermissionDTO> findPermissionsByUsername(String username) {
         Long adminId = umsAdminService.findUserIdByUserName(username);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
@@ -61,7 +71,7 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
      * 根据角色id集合查询权限信息集合
      */
     @Override
-    public List<UmsPermission> findPermissionsByRoleIds(List<Long> roleIds) {
+    public List<UmsPermissionDTO> findPermissionsByRoleIds(List<Long> roleIds) {
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
         return umsPermissionService.findPermissionsByPermissionIds(permissionIds);
     }

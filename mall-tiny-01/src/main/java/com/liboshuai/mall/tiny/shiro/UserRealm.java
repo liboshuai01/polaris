@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
@@ -65,12 +67,12 @@ public class UserRealm extends AuthorizingRealm {
         // 从token中获取username
         String username = JwtUtil.getClaim(principalCollection.toString(), ShiroConstant.ACCOUNT);
         // 根据用户名称获取角色名称集合
-        List<UmsRole> roleList = umsRoleService.findRolesByUsername(username);
-        Set<String> roleNameSet = roleList.stream().map(UmsRole::getName).collect(Collectors.toSet());
+        List<UmsRoleDTO> umsRoleDTOList = umsRoleService.findRolesByUsername(username);
+        Set<String> roleNameSet = umsRoleDTOList.stream().map(UmsRoleDTO::getName).collect(Collectors.toSet());
         // 根据角色id集合获取权限值集合
-        List<Long> userIdList = roleList.stream().map(UmsRole::getId).collect(Collectors.toList());
-        List<UmsPermission> permissionList =  umsPermissionService.findPermissionsByRoleIds(userIdList);
-        Set<String> permissionValueSet = permissionList.stream().map(UmsPermission::getValue).collect(Collectors.toSet());
+        List<Long> userIdList = umsRoleDTOList.stream().map(UmsRoleDTO::getId).collect(Collectors.toList());
+        List<UmsPermissionDTO> permissionList =  umsPermissionService.findPermissionsByRoleIds(userIdList);
+        Set<String> permissionValueSet = permissionList.stream().map(UmsPermissionDTO::getValue).collect(Collectors.toSet());
         // 将角色名称集合和权限值集合放入到shiro认证信息中
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setRoles(roleNameSet);

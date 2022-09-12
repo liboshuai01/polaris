@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.liboshuai.mall.tiny.MallTiny01Application;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
@@ -41,13 +42,13 @@ public class UmsPermissionServiceImplTest extends TestCase {
         Long adminId = umsAdminService.findUserIdByUserName(USERNAME);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
-        List<UmsPermission> permissions = umsPermissionService.findPermissionsByPermissionIds(permissionIds);
+        List<UmsPermissionDTO> permissions = umsPermissionService.findPermissionsByPermissionIds(permissionIds);
         log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
     }
 
     @Test
     public void testFindPermissionsByUsername() {
-        List<UmsPermission> permissions = umsPermissionService.findPermissionsByUsername(USERNAME);
+        List<UmsPermissionDTO> permissions = umsPermissionService.findPermissionsByUsername(USERNAME);
         log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
     }
 }

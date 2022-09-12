@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ public interface UmsRoleService extends IService<UmsRole> {
     /**
      * 根据角色id集合查询角色信息
      */
-    List<UmsRole> findRolesByRoleIds(List<Long> roleIds);
+    List<UmsRoleDTO> findRolesByRoleIds(List<Long> roleIds);
 
     /**
      * 根据用户名获取角色信息集合
      */
-    List<UmsRole> findRolesByUsername(String username);
+    List<UmsRoleDTO> findRolesByUsername(String username);
 }

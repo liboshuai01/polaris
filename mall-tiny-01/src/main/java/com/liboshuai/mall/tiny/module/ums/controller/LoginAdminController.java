@@ -89,16 +89,16 @@ public class LoginAdminController {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return ResponseResult.fail(ResponseCode.USERNAME_PASSWORD_NULL);
         }
-        UmsAdmin user = umsAdminService.findByUserName(username);
-        if (Objects.isNull(user)) {
+        UmsAdminDTO umsAdminDTO = umsAdminService.findByUserName(username);
+        if (Objects.isNull(umsAdminDTO)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
         }
-        if (Objects.isNull(user.getSalt()) || Objects.isNull(user.getSaltCount())) {
+        if (Objects.isNull(umsAdminDTO.getSalt()) || Objects.isNull(umsAdminDTO.getSaltCount())) {
             return ResponseResult.fail(ResponseCode.SALT_IS_NOT_EXISTED);
         }
         String enPassword = new SimpleHash(ShiroConstant.ALGORITH_NAME, password,
-                user.getSalt(), user.getSaltCount()).toString();
-        if (!Objects.equals(user.getPassword(), enPassword)) {
+                umsAdminDTO.getSalt(), umsAdminDTO.getSaltCount()).toString();
+        if (!Objects.equals(umsAdminDTO.getPassword(), enPassword)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
         }
         // 从Header中Authorization返回AccessToken，时间戳为当前时间戳
@@ -107,10 +107,10 @@ public class LoginAdminController {
         response.setHeader(AUTHORIZATION, token);
         response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
         // 更新登录时间
-        user.setLoginTime(LocalDateTime.now());
+        umsAdminDTO.setLoginTime(LocalDateTime.now());
         LambdaUpdateWrapper<UmsAdmin> umsAdminLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-        umsAdminLambdaUpdateWrapper.eq(UmsAdmin::getId, user.getId());
-        umsAdminLambdaUpdateWrapper.set(UmsAdmin::getLoginTime, user.getLoginTime());
+        umsAdminLambdaUpdateWrapper.eq(UmsAdmin::getId, umsAdminDTO.getId());
+        umsAdminLambdaUpdateWrapper.set(UmsAdmin::getLoginTime, umsAdminDTO.getLoginTime());
         umsAdminService.update(umsAdminLambdaUpdateWrapper);
         return ResponseResult.success("登录成功");
     }
