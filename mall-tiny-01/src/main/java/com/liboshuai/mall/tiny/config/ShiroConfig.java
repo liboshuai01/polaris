@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.config;
 import com.liboshuai.mall.tiny.shiro.cache.CustomCacheManager;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtFilter;
 import com.liboshuai.mall.tiny.shiro.UserRealm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -10,7 +11,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -25,11 +25,9 @@ import java.util.Map;
  * @Date: 2022-09-09 17:41
  * @Description: shiro配置类
  */
+@Slf4j
 @Configuration
 public class ShiroConfig {
-
-    @Autowired
-    private JwtFilter jwtFilterBean;
 
     /**
      * 配置使用自定义Realm
@@ -58,7 +56,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         // 添加自己的过滤器名为jwtFilter
         Map<String, Filter> filterMap = new HashMap<>(16);
-        filterMap.put("jwtFilter", jwtFilterBean);
+        filterMap.put("jwtFilter", jwtFilterBean());
         factoryBean.setFilters(filterMap);
         factoryBean.setSecurityManager(defaultWebSecurityManager);
         // 设置无权限时跳转的 url;
@@ -80,10 +78,10 @@ public class ShiroConfig {
      * (2)如不在此注册，在filter中将无法正常注入bean
      * </pre>
      */
-//    @Bean("jwtFilter")
-//    public JwtFilter jwtFilterBean() {
-//        return new JwtFilter();
-//    }
+    @Bean("jwtFilter")
+    public JwtFilter jwtFilterBean() {
+        return new JwtFilter();
+    }
 
     /**
      * 添加注解支持

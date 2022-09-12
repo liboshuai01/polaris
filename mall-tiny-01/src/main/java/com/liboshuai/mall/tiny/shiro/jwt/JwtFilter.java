@@ -34,17 +34,16 @@ import java.util.Objects;
  * @Description: jwt过滤器
  */
 @Slf4j
-@Component
 public class JwtFilter extends BasicHttpAuthenticationFilter {
 
-    @Value("${config.refreshToken-expireTime}")
-    private String refreshTokenExpireTime;
+//    @Value("${config.refreshToken-expireTime}")
+    private String refreshTokenExpireTime = "604800";
 
     @Autowired
     private RedisClient redis;
 
-    @Value("${server.servlet.context-path}")
-    private String serverServletContextPath;
+//    @Value("${server.servlet.context-path}")
+    private String serverServletContextPath = "/mall-tiny";
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -60,10 +59,13 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         }
         // 判断用户是否想要登入
         if (this.isLoginAttempt(request, response)) {
+            log.info("执行了isLoginAttempt");
             try {
                 // 进行Shiro的登录UserRealm
-                return this.executeLogin(request, response);
+                this.executeLogin(request, response);
+                log.info("执行了executeLogin");
             } catch (Exception e) {
+                log.info("isAccessAllowed异常: {}", JSONObject.toJSONString(e));
                 // 认证出现异常，传递错误信息msg
                 String msg = e.getMessage();
                 // 获取应用异常(该Cause是导致抛出此throwable(异常)的throwable(异常))
@@ -85,7 +87,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                         msg = throwable.getMessage();
                     }
                 }
-                log.info("throwable为：{}", JSONObject.toJSONString(throwable));
                 /**
                  * 错误两种处理方式 1. 将非法请求转发到/401的Controller处理，抛出自定义无权访问异常被全局捕捉再返回Response信息 2.
                  * 无需转发，直接返回Response信息 一般使用第二种(更方便)
@@ -95,7 +96,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -200,7 +201,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         PrintWriter out = null;
         try {
             out = httpServletResponse.getWriter();
-            String data = JSONObject.toJSONString(ResponseResult.fail(ResponseCode.NOT_LOGIN_IN));
+            String data = JSONObject.toJSONString(ResponseResult.fail(ResponseCode.NOT_LOGIN_IN, msg));
             out.append(data);
         } catch (IOException e) {
             throw new CustomException("直接返回Response信息出现IOException异常:" + e.getMessage());

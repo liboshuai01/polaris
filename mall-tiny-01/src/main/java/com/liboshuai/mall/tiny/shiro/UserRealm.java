@@ -1,5 +1,6 @@
 package com.liboshuai.mall.tiny.shiro;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
@@ -106,10 +107,17 @@ public class UserRealm extends AuthorizingRealm {
             throw new AuthenticationException(USER_DIDNT_EXISTED);
         }
         // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
-        if (JwtUtil.verify(token) && redis.hasKey(RedisConstant.PREFIX_SHIRO_ACCESS_TOKEN + ShiroConstant.ACCOUNT)) {
+        boolean verify = JwtUtil.verify(token);
+        boolean b = redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT);
+        log.info("verify为{}", JSONObject.toJSONString(verify));
+        log.info("b为{}", JSONObject.toJSONString(b));
+        if (JwtUtil.verify(token) && redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT)) {
             // 获取RefreshToken的时间戳
-            String currentTimeMillisRedis = redis.get(RedisConstant.PREFIX_SHIRO_ACCESS_TOKEN + ShiroConstant.ACCOUNT).toString();
+            String currentTimeMillisRedis = redis.get(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT).toString();
+            log.info("currentTimeMillisRedis为: {}", JSONObject.toJSONString(currentTimeMillisRedis));
             // 获取AccessToken时间戳，与RefreshToken的时间戳对比
+            String claim = JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS);
+            log.info("claim为{}", JSONObject.toJSONString(claim));
             if (Objects.equals(JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS), currentTimeMillisRedis)) {
                 return new SimpleAuthenticationInfo(token, token, REALM_NAME);
             }
