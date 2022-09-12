@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.compone.exception;
+package com.liboshuai.mall.tiny.shiro.exception;
 
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;

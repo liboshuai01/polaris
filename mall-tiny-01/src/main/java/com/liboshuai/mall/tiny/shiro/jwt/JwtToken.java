@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.shiro;
+package com.liboshuai.mall.tiny.shiro.jwt;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

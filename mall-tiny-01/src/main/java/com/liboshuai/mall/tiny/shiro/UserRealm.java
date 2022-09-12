@@ -1,15 +1,15 @@
 package com.liboshuai.mall.tiny.shiro;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
+import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
+import com.liboshuai.mall.tiny.shiro.jwt.JwtToken;
 import com.liboshuai.mall.tiny.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -38,6 +38,9 @@ import java.util.stream.Collectors;
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
+    private RedisClient redis;
+
+    @Autowired
     private UmsAdminService umsAdminService;
 
     @Autowired
@@ -49,8 +52,8 @@ public class UserRealm extends AuthorizingRealm {
     private static final String TOKEN_CANNOT_BE_EMPTY = "token cannot be empty";
     private static final String TOKEN_INVALID = "token invalid";
     private static final String USER_DIDNT_EXISTED = "user didn't existed";
-    private static final String USERNAME_OR_PASSWORD_ERROR = "username or password error";
-    private static final String REALM_NAME = "myRealm";
+    private static final String REALM_NAME = "userRealm";
+    private static final String TOKEN_EXPIRED_OR_INCORRECT = "token expired or incorrect.";
 
 
     /**
@@ -102,9 +105,15 @@ public class UserRealm extends AuthorizingRealm {
         if (Objects.isNull(userId)) {
             throw new AuthenticationException(USER_DIDNT_EXISTED);
         }
-        if (!JwtUtil.verify(token)) {
-            throw new AuthenticationException(USERNAME_OR_PASSWORD_ERROR);
+        // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
+        if (JwtUtil.verify(token) && redis.hasKey(RedisConstant.PREFIX_SHIRO_ACCESS_TOKEN + ShiroConstant.ACCOUNT)) {
+            // 获取RefreshToken的时间戳
+            String currentTimeMillisRedis = redis.get(RedisConstant.PREFIX_SHIRO_ACCESS_TOKEN + ShiroConstant.ACCOUNT).toString();
+            // 获取AccessToken时间戳，与RefreshToken的时间戳对比
+            if (Objects.equals(JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS), currentTimeMillisRedis)) {
+                return new SimpleAuthenticationInfo(token, token, REALM_NAME);
+            }
         }
-        return new SimpleAuthenticationInfo(token, token, REALM_NAME);
+        throw new AuthenticationException(TOKEN_EXPIRED_OR_INCORRECT);
     }
 }

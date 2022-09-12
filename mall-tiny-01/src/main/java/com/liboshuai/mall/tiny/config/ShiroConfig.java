@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.config;
 
-import com.liboshuai.mall.tiny.compone.filter.JwtFilter;
+import com.liboshuai.mall.tiny.shiro.cache.CustomCacheManager;
+import com.liboshuai.mall.tiny.shiro.jwt.JwtFilter;
 import com.liboshuai.mall.tiny.shiro.UserRealm;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
@@ -12,6 +13,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class ShiroConfig {
      * 配置使用自定义Realm
      */
     @Bean("securityManager")
-    public DefaultWebSecurityManager securityManager(UserRealm userRealm) {
+    public DefaultWebSecurityManager securityManager(UserRealm userRealm, RedisTemplate<String, Object> template) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 使用自定义Realm
         securityManager.setRealm(userRealm);
@@ -39,6 +41,8 @@ public class ShiroConfig {
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         defaultSubjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(defaultSubjectDAO);
+        // 设置自定义Cache缓存
+        securityManager.setCacheManager(new CustomCacheManager(template));
         return securityManager;
     }
 

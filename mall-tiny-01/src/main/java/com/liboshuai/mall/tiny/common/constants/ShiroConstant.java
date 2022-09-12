@@ -32,4 +32,11 @@ public interface ShiroConstant {
      * 存储Authorization的请求头
      */
     String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
+
+    /**
+     * JWT-currentTimeMillis:
+     */
+    String CURRENT_TIME_MILLIS = "currentTimeMillis";
+
+    String CONTENT_TYPE = "application/json; charset=utf-8";
 }
