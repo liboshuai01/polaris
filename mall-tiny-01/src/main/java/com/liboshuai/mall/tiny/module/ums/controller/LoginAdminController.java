@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.ums.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.common.enums.UserStatusEnum;
@@ -11,6 +12,7 @@ import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
 import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVo;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
+import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.utils.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +21,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +43,12 @@ import java.util.Optional;
 @Slf4j
 @RestController
 public class LoginAdminController {
+
+    @Value("${config.refreshToken-expireTime}")
+    private String refreshTokenExpireTime;
+
+    @Autowired
+    private RedisClient redis;
 
     @Autowired
     private HttpServletRequest request;
@@ -98,6 +107,14 @@ public class LoginAdminController {
         if (!Objects.equals(umsAdminDTO.getPassword(), enPassword)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
         }
+        // 清除可能存在的shiro权限信息缓存
+        if (redis.hasKey(RedisConstant.PREFIX_SHIRO_CACHE + ShiroConstant.ACCOUNT)) {
+            redis.del(RedisConstant.PREFIX_SHIRO_CACHE + ShiroConstant.ACCOUNT);
+        }
+        // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
+        String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+        redis.set(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT, currentTimeMillis,
+                Integer.parseInt(refreshTokenExpireTime));
         // 从Header中Authorization返回AccessToken，时间戳为当前时间戳
         String currentTimeMills = String.valueOf(System.currentTimeMillis());
         String token = JwtUtil.sign(username, currentTimeMills);
@@ -110,6 +127,8 @@ public class LoginAdminController {
         umsAdminLambdaUpdateWrapper.set(UmsAdmin::getLoginTime, umsAdminDTO.getLoginTime());
         umsAdminService.update(umsAdminLambdaUpdateWrapper);
         return ResponseResult.success("登录成功");
+
+
     }
 
     /**
@@ -137,6 +156,12 @@ public class LoginAdminController {
             if (StringUtils.isBlank(account)) {
                 return ResponseResult.fail(ResponseCode.TOKEN_EXPIRE_OR_ERROR, ResponseCode.FAILED.getMessage());
             }
+            // 清除shiro权限信息缓存
+            if (redis.hasKey(RedisConstant.PREFIX_SHIRO_CACHE + account)) {
+                redis.del(RedisConstant.PREFIX_SHIRO_CACHE + account);
+            }
+            // 清除RefreshToken
+            redis.del(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + account);
             return ResponseResult.success();
         } catch (Exception e) {
             e.printStackTrace();

@@ -62,7 +62,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (this.isLoginAttempt(request, response)) {
             try {
                 // 进行Shiro的登录UserRealm
-                this.executeLogin(request, response);
+                return this.executeLogin(request, response);
             } catch (Exception e) {
                 // 认证出现异常，传递错误信息msg
                 String msg = e.getMessage();
@@ -85,6 +85,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                         msg = throwable.getMessage();
                     }
                 }
+                log.info("throwable为：{}", JSONObject.toJSONString(throwable));
                 /**
                  * 错误两种处理方式 1. 将非法请求转发到/401的Controller处理，抛出自定义无权访问异常被全局捕捉再返回Response信息 2.
                  * 无需转发，直接返回Response信息 一般使用第二种(更方便)
