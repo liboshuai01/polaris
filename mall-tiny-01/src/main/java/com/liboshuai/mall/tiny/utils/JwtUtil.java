@@ -22,7 +22,7 @@ public class JwtUtil {
     /**
      * token过期时间
      */
-    private static final String ACCESS_TOKEN_EXPIRE_TIME = "10";
+    private static final String ACCESS_TOKEN_EXPIRE_TIME = "600";
 
     /**
      * jwt认证加密私钥

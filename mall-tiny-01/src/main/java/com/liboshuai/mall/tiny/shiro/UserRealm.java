@@ -1,5 +1,6 @@
 package com.liboshuai.mall.tiny.shiro;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
@@ -10,6 +11,7 @@ import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
 import com.liboshuai.mall.tiny.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
  * @Date: 2022-09-08 01:17
  * @Description: 自定义shiroRealm
  */
+@Slf4j
 @Component
 public class UserRealm extends AuthorizingRealm {
 

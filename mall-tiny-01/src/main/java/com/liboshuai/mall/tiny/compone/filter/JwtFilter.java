@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.compone.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.compone.exception.CustomException;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
@@ -110,7 +111,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
 //        HttpServletRequest req = (HttpServletRequest) request;
-//        String authorization = req.getHeader("token");
+//        String authorization = req.getHeader("Authorization");
 //        return authorization != null;
         return true;
     }
@@ -121,7 +122,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader("token");
+        String authorization = req.getHeader(ShiroConstant.AUTHORIZATION);
         JwtToken token = new JwtToken(authorization);
         // 提交给UserRealm进行认证，如果错误他会抛出异常并被捕获
         this.getSubject(request, response).login(token);

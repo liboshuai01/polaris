@@ -47,9 +47,6 @@ public class LoginAdminController {
     @Autowired
     private UmsAdminService umsAdminService;
 
-    private static final String AUTHORIZATION = "Authorization";
-
-    private static final String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
 
 
     /**
@@ -104,8 +101,8 @@ public class LoginAdminController {
         // 从Header中Authorization返回AccessToken，时间戳为当前时间戳
         String currentTimeMills = String.valueOf(System.currentTimeMillis());
         String token = JwtUtil.sign(username, currentTimeMills);
-        response.setHeader(AUTHORIZATION, token);
-        response.setHeader(ACCESS_CONTROL_EXPOSE_HEADERS, AUTHORIZATION);
+        response.setHeader(ShiroConstant.AUTHORIZATION, token);
+        response.setHeader(ShiroConstant.ACCESS_CONTROL_EXPOSE_HEADERS, ShiroConstant.AUTHORIZATION);
         // 更新登录时间
         umsAdminDTO.setLoginTime(LocalDateTime.now());
         LambdaUpdateWrapper<UmsAdmin> umsAdminLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
@@ -128,7 +125,7 @@ public class LoginAdminController {
             while (headerNames.hasMoreElements()) {
                 String key = headerNames.nextElement();
                 String value = request.getHeader(key);
-                if (AUTHORIZATION.equalsIgnoreCase(key)) {
+                if (ShiroConstant.AUTHORIZATION.equalsIgnoreCase(key)) {
                     token = value;
                 }
             }

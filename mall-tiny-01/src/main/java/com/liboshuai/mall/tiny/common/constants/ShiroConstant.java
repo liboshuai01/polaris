@@ -23,4 +23,13 @@ public interface ShiroConstant {
      */
     int HASH_INTERATIONS = 2;
 
+    /**
+     * 存储token的请求头
+     */
+    String AUTHORIZATION = "Authorization";
+
+    /**
+     * 存储Authorization的请求头
+     */
+    String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
 }
