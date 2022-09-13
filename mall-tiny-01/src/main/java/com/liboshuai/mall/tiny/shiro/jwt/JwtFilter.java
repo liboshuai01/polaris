@@ -17,7 +17,6 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletRequest;
@@ -35,15 +34,22 @@ import java.util.Objects;
  */
 @Slf4j
 public class JwtFilter extends BasicHttpAuthenticationFilter {
-
-//    @Value("${config.refreshToken-expireTime}")
-    private String refreshTokenExpireTime = "604800";
-
     @Autowired
     private RedisClient redis;
 
-//    @Value("${server.servlet.context-path}")
-    private String serverServletContextPath = "/mall-tiny";
+    private static String refreshTokenExpireTime;
+
+    private static String serverServletContextPath;
+
+    @Value("${config.refreshToken-expireTime}")
+    public static void setRefreshTokenExpireTime(String refreshTokenExpireTime) {
+        JwtFilter.refreshTokenExpireTime = refreshTokenExpireTime;
+    }
+
+    @Value("${server.servlet.context-path}")
+    public static void setServerServletContextPath(String serverServletContextPath) {
+        JwtFilter.serverServletContextPath = serverServletContextPath;
+    }
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
