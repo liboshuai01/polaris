@@ -114,7 +114,6 @@ public class LoginAdminController {
         }
         // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
         String currentTimeMillis = String.valueOf(System.currentTimeMillis());
-        log.info("登录时系统生产的Unix时间戳:{}", JSONObject.toJSONString(currentTimeMillis));
         redis.set(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT, currentTimeMillis,
                 Integer.parseInt(refreshTokenExpireTime));
         // 从Header中Authorization返回AccessToken，时间戳为当前时间戳

@@ -59,13 +59,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         }
         // 判断用户是否想要登入
         if (this.isLoginAttempt(request, response)) {
-            log.info("执行了isLoginAttempt");
             try {
                 // 进行Shiro的登录UserRealm
                 this.executeLogin(request, response);
-                log.info("执行了executeLogin");
             } catch (Exception e) {
-                log.info("isAccessAllowed异常: {}", JSONObject.toJSONString(e));
                 // 认证出现异常，传递错误信息msg
                 String msg = e.getMessage();
                 // 获取应用异常(该Cause是导致抛出此throwable(异常)的throwable(异常))

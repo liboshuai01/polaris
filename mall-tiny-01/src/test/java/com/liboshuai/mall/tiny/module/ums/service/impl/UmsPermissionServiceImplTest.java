@@ -43,12 +43,10 @@ public class UmsPermissionServiceImplTest extends TestCase {
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
         List<UmsPermissionDTO> permissions = umsPermissionService.findPermissionsByPermissionIds(permissionIds);
-        log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
     }
 
     @Test
     public void testFindPermissionsByUsername() {
         List<UmsPermissionDTO> permissions = umsPermissionService.findPermissionsByUsername(USERNAME);
-        log.info("\n\n\npermissions: {}\n\n\n", JSON.toJSONString(permissions));
     }
 }

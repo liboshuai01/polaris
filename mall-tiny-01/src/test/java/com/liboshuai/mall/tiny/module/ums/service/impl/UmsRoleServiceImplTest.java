@@ -38,12 +38,10 @@ public class UmsRoleServiceImplTest extends TestCase {
         Long adminId = umsAdminService.findUserIdByUserName(USERNAME);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<UmsRoleDTO> roles = umsRoleService.findRolesByRoleIds(roleIds);
-        log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
     }
 
     @Test
     public void testFindRolesByUsername() {
         List<UmsRoleDTO> roles = umsRoleService.findRolesByUsername(USERNAME);
-        log.info("\n\n\nroles: {}\n\n\n", JSON.toJSONString(roles));
     }
 }
