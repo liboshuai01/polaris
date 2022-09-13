@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * @Author: liboshuai
@@ -41,14 +42,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     private static String serverServletContextPath;
 
-    @Value("${config.refreshToken-expireTime}")
-    public static void setRefreshTokenExpireTime(String refreshTokenExpireTime) {
-        JwtFilter.refreshTokenExpireTime = refreshTokenExpireTime;
-    }
-
-    @Value("${server.servlet.context-path}")
-    public static void setServerServletContextPath(String serverServletContextPath) {
-        JwtFilter.serverServletContextPath = serverServletContextPath;
+    static {
+        ResourceBundle resource = ResourceBundle.getBundle("main/resources/application");
+        refreshTokenExpireTime = resource.getString("server.servlet.context-path");
+        serverServletContextPath = resource.getString("server.servlet.context-path");
     }
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
