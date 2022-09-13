@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,17 +37,16 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Autowired
     private RedisClient redis;
 
-    private static String refreshTokenExpireTime;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     private static String serverServletContextPath;
+    private static String refreshTokenExpireTime;
 
-    static {
-        ResourceBundle resource = ResourceBundle.getBundle("main/resources/application");
-        refreshTokenExpireTime = resource.getString("server.servlet.context-path");
+    public JwtFilter() {
+        ResourceBundle resource = ResourceBundle.getBundle("application");
         serverServletContextPath = resource.getString("server.servlet.context-path");
+        refreshTokenExpireTime = resource.getString("config.refreshToken-expireTime");
     }
-
-    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     /**
      * 登录认证
