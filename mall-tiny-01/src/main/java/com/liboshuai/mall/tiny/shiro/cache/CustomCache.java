@@ -27,7 +27,8 @@ public class CustomCache<K,V> implements Cache<K,V> {
 
     private RedisTemplate<String, Object> redisTemplate;
 
-    // todo: 可能需要添加@Autowired
+    // todo: 如果jwt的缓存除了问题，可能需要去除这里的@Autowired
+    @Autowired
     public CustomCache(RedisTemplate redisTemplate) {
         // 使用StringRedisSerializer做序列化
         // redisTemplate.setValueSerializer(new StringRedisSerializer());

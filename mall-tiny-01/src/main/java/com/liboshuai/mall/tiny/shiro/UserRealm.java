@@ -50,12 +50,6 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UmsPermissionService umsPermissionService;
 
-    private static final String TOKEN_CANNOT_BE_EMPTY = "token cannot be empty";
-    private static final String TOKEN_INVALID = "token invalid";
-    private static final String USER_DIDNT_EXISTED = "user didn't existed";
-    private static final String REALM_NAME = "userRealm";
-    private static final String TOKEN_EXPIRED_OR_INCORRECT = "token expired or incorrect.";
-
 
     /**
      * 大坑！，必须重写此方法，不然Shiro会报错
@@ -95,16 +89,16 @@ public class UserRealm extends AuthorizingRealm {
         // 获取token信息
         String token = (String) authenticationToken.getCredentials();
         if (StringUtils.isBlank(token)) {
-            throw new AuthenticationException(TOKEN_CANNOT_BE_EMPTY);
+            throw new AuthenticationException(ShiroConstant.TOKEN_CANNOT_BE_EMPTY);
         }
         // 使用jwtUtil解密获取Username
         String username = JwtUtil.getClaim(token, ShiroConstant.ACCOUNT);
         if (StringUtils.isBlank(username)) {
-            throw new AuthenticationException(TOKEN_INVALID);
+            throw new AuthenticationException(ShiroConstant.TOKEN_INVALID);
         }
         Long userId = umsAdminService.findUserIdByUserName(username);
         if (Objects.isNull(userId)) {
-            throw new AuthenticationException(USER_DIDNT_EXISTED);
+            throw new AuthenticationException(ShiroConstant.USER_DIDNT_EXISTED);
         }
         // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
         boolean verify = JwtUtil.verify(token);
@@ -115,9 +109,9 @@ public class UserRealm extends AuthorizingRealm {
             // 获取AccessToken时间戳，与RefreshToken的时间戳对比
             String claim = JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS);
             if (Objects.equals(JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS), currentTimeMillisRedis)) {
-                return new SimpleAuthenticationInfo(token, token, REALM_NAME);
+                return new SimpleAuthenticationInfo(token, token, ShiroConstant.REALM_NAME);
             }
         }
-        throw new AuthenticationException(TOKEN_EXPIRED_OR_INCORRECT);
+        throw new AuthenticationException(ShiroConstant.TOKEN_EXPIRED_OR_INCORRECT);
     }
 }

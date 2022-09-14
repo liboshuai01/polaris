@@ -39,4 +39,10 @@ public interface ShiroConstant {
     String CURRENT_TIME_MILLIS = "currentTimeMillis";
 
     String CONTENT_TYPE = "application/json; charset=utf-8";
+
+    String TOKEN_CANNOT_BE_EMPTY = "token cannot be empty";
+    String TOKEN_INVALID = "token invalid";
+    String USER_DIDNT_EXISTED = "user didn't existed";
+    String REALM_NAME = "userRealm";
+    String TOKEN_EXPIRED_OR_INCORRECT = "token expired or incorrect.";
 }
