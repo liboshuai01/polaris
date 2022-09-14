@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.shiro;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
@@ -11,7 +10,7 @@ import com.liboshuai.mall.tiny.module.ums.service.UmsPermissionService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtToken;
-import com.liboshuai.mall.tiny.utils.JwtUtil;
+import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -66,7 +65,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // 从token中获取username
-        String username = JwtUtil.getClaim(principalCollection.toString(), ShiroConstant.ACCOUNT);
+        String username = JwtUtil.getClaim(principalCollection.toString(), ShiroConstant.USERNAME);
         // 根据用户名称获取角色名称集合
         List<UmsRoleDTO> umsRoleDTOList = umsRoleService.findRolesByUsername(username);
         Set<String> roleNameSet = umsRoleDTOList.stream().map(UmsRoleDTO::getName).collect(Collectors.toSet());
@@ -92,7 +91,7 @@ public class UserRealm extends AuthorizingRealm {
             throw new AuthenticationException(ShiroConstant.TOKEN_CANNOT_BE_EMPTY);
         }
         // 使用jwtUtil解密获取Username
-        String username = JwtUtil.getClaim(token, ShiroConstant.ACCOUNT);
+        String username = JwtUtil.getClaim(token, ShiroConstant.USERNAME);
         if (StringUtils.isBlank(username)) {
             throw new AuthenticationException(ShiroConstant.TOKEN_INVALID);
         }
@@ -101,13 +100,10 @@ public class UserRealm extends AuthorizingRealm {
             throw new AuthenticationException(ShiroConstant.USER_DIDNT_EXISTED);
         }
         // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
-        boolean verify = JwtUtil.verify(token);
-        boolean b = redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT);
-        if (JwtUtil.verify(token) && redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT)) {
+        if (JwtUtil.verify(token) && redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + username)) {
             // 获取RefreshToken的时间戳
-            String currentTimeMillisRedis = redis.get(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + ShiroConstant.ACCOUNT).toString();
+            String currentTimeMillisRedis = redis.get(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + username).toString();
             // 获取AccessToken时间戳，与RefreshToken的时间戳对比
-            String claim = JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS);
             if (Objects.equals(JwtUtil.getClaim(token, ShiroConstant.CURRENT_TIME_MILLIS), currentTimeMillisRedis)) {
                 return new SimpleAuthenticationInfo(token, token, ShiroConstant.REALM_NAME);
             }

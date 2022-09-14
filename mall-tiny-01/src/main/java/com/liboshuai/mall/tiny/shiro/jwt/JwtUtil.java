@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.utils;
+package com.liboshuai.mall.tiny.shiro.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -6,8 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
+import com.liboshuai.mall.tiny.utils.Base64Util;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class JwtUtil {
      */
     public static boolean verify(String token) {
         try {
-            String secret = getClaim(token, ShiroConstant.ACCOUNT) + Base64Util.decode(ENCRYPT_JWT_KEY_STATIC);
+            String secret = Base64Util.decode(ENCRYPT_JWT_KEY_STATIC);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier jwtVerifier = JWT.require(algorithm).build();
             jwtVerifier.verify(token);
@@ -58,13 +58,12 @@ public class JwtUtil {
     }
 
     /**
-     * 解密token信息
+     * 获取Jwt payload的内容
      */
     public static String getClaim(String token, String claim) {
         try {
-            DecodedJWT jwt = JWT.decode(token);
             // 只能输出String类型，如果是其他类型则返回null
-            return jwt.getClaim(claim).asString();
+            return JWT.decode(token).getClaim(claim).asString();
         } catch (JWTDecodeException e) {
             log.error("解密token中的公共信息异常：{}" + e.getMessage());
             e.printStackTrace();
@@ -73,17 +72,20 @@ public class JwtUtil {
     }
 
     /**
-     * 生产签名
+     * 生成Jwt
      */
-    public static String sign(String account, String currentTimeMillis) {
+    public static String generateJwt(String username, String currentTimeMillis) {
         try {
-            String secret =  account + Base64Util.decode(ENCRYPT_JWT_KEY_STATIC);
-            // 单位为毫秒
+            // 获取jwt过期时间（单位为毫秒）
             Date expireDate = new Date(System.currentTimeMillis() + Long.parseLong(ACCESS_TOKEN_EXPIRE_TIME_STATIC) * 1000);
+            // 获取签名
+            String secret = Base64Util.decode(ENCRYPT_JWT_KEY_STATIC);
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            // 附带account账号信息
+            // 生成Jwt
             return JWT.create()
-                    .withClaim(ShiroConstant.ACCOUNT, account)
+                    // 存放username
+                    .withClaim(ShiroConstant.USERNAME, username)
+                    // 存放当前时间戳
                     .withClaim(ShiroConstant.CURRENT_TIME_MILLIS, currentTimeMillis)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);

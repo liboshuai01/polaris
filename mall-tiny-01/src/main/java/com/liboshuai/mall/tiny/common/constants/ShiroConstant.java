@@ -10,7 +10,7 @@ public interface ShiroConstant {
     /**
      * Jwt-account
      */
-    String ACCOUNT = "account";
+    String USERNAME = "username";
 
     /**
      * 散列算法名称

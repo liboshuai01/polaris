@@ -1,5 +1,5 @@
 /*
-package com.liboshuai.mall.tiny.handler;
+package com.liboshuai.mall.tiny.compone.handler;
 
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;

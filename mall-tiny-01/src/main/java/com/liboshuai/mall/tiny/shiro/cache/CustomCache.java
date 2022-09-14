@@ -2,7 +2,7 @@ package com.liboshuai.mall.tiny.shiro.cache;
 
 import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
-import com.liboshuai.mall.tiny.utils.JwtUtil;
+import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class CustomCache<K,V> implements Cache<K,V> {
      * @date 2018/9/4 18:33
      */
     private String getKey(Object key) {
-        return RedisConstant.PREFIX_SHIRO_CACHE + JwtUtil.getClaim(key.toString(), ShiroConstant.ACCOUNT);
+        return RedisConstant.PREFIX_SHIRO_CACHE + JwtUtil.getClaim(key.toString(), ShiroConstant.USERNAME);
     }
 
     /**

@@ -10,7 +10,6 @@ import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.compone.exception.CustomException;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
-import com.liboshuai.mall.tiny.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -160,7 +159,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader(ShiroConstant.AUTHORIZATION);
         // 获取当前Token的帐号信息
-        String account = JwtUtil.getClaim(token, ShiroConstant.ACCOUNT);
+        String account = JwtUtil.getClaim(token, ShiroConstant.USERNAME);
         // 判断Redis中RefreshToken是否存在
         if (redis.hasKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + account)) {
             // Redis中RefreshToken还存在，获取RefreshToken的时间戳
@@ -173,7 +172,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 redis.set(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + account, currentTimeMillis,
                         Integer.parseInt(refreshTokenExpireTime));
                 // 刷新AccessToken，设置时间戳为当前最新时间戳
-                token = JwtUtil.sign(account, currentTimeMillis);
+                token = JwtUtil.generateJwt(account, currentTimeMillis);
                 // 将新刷新的AccessToken再次进行Shiro的登录
                 JwtToken jwtToken = new JwtToken(token);
                 // 提交给UserRealm进行认证，如果错误他会抛出异常并被捕获，如果没有抛出异常则代表登入成功，返回true

@@ -14,11 +14,6 @@ import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMember;
  */
 public interface UmsMemberService extends IService<UmsMember> {
 
-
-
-
-
-
     /**
      * 生成验证码
      *
