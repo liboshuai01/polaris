@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +21,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BaseDAO {
+public class BaseDAO implements Serializable {
+
+    private static final long serialVersionUID = 3812542271764882944L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -28,7 +31,7 @@ public class BaseDAO {
     @TableField(value = "create_user", fill = FieldFill.INSERT)
     private String createUser;
 
-    @TableField(value = "create_name", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     @TableField(value = "update_user", fill = FieldFill.UPDATE)

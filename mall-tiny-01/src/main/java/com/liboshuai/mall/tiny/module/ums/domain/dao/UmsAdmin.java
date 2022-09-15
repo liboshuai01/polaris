@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.liboshuai.mall.tiny.common.base.BaseDAO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,15 +23,9 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ums_admin")
 @ApiModel(value = "UmsAdmin对象", description = "后台用户表")
-public class UmsAdmin implements Serializable {
+public class UmsAdmin extends BaseDAO {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键id
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private static final long serialVersionUID = -2518367268203067400L;
 
     /**
      * 用户名
@@ -79,12 +74,6 @@ public class UmsAdmin implements Serializable {
      */
     @TableField("note")
     private String note;
-
-    /**
-     * 创建时间
-     */
-    @TableField("create_time")
-    private LocalDateTime createTime;
 
     /**
      * 最后登录时间
