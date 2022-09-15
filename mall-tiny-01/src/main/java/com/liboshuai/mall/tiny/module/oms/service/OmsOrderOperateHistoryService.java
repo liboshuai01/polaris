@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.oms.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrderOperateHistory;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrderOperateHistory;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 public interface OmsOrderOperateHistoryService extends IService<OmsOrderOperateHistory> {
 

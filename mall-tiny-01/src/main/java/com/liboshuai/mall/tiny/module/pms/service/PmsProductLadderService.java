@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductLadder;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductLadder;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 public interface PmsProductLadderService extends IService<PmsProductLadder> {
 

@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.oms.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrderSetting;
 import com.liboshuai.mall.tiny.module.oms.mapper.OmsOrderSettingMapper;
 import com.liboshuai.mall.tiny.module.oms.service.OmsOrderSettingService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 @Service
 public class OmsOrderSettingServiceImpl extends ServiceImpl<OmsOrderSettingMapper, OmsOrderSetting> implements OmsOrderSettingService {

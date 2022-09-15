@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.sms.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsHomeBrand;
 import com.liboshuai.mall.tiny.module.sms.mapper.SmsHomeBrandMapper;
 import com.liboshuai.mall.tiny.module.sms.service.SmsHomeBrandService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 @Service
 public class SmsHomeBrandServiceImpl extends ServiceImpl<SmsHomeBrandMapper, SmsHomeBrand> implements SmsHomeBrandService {

@@ -1,15 +1,10 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdminRoleRelation;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsAdminRoleRelationMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -17,22 +12,9 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 @Service
 public class UmsAdminRoleRelationServiceImpl extends ServiceImpl<UmsAdminRoleRelationMapper, UmsAdminRoleRelation> implements UmsAdminRoleRelationService {
 
-    @Autowired
-    private UmsAdminRoleRelationMapper umsAdminRoleRelationMapper;
-
-    /**
-     * 根据用户id查询角色id集合
-     */
-    @Override
-    public List<Long> findRoleIdsByUserId(Long userId) {
-        LambdaQueryWrapper<UmsAdminRoleRelation> umsAdminRoleRelationLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        umsAdminRoleRelationLambdaQueryWrapper.eq(UmsAdminRoleRelation::getAdminId, userId);
-        List<UmsAdminRoleRelation> umsAdminRoleRelations = umsAdminRoleRelationMapper.selectList(umsAdminRoleRelationLambdaQueryWrapper);
-        return umsAdminRoleRelations.stream().map(UmsAdminRoleRelation::getRoleId).collect(Collectors.toList());
-    }
 }

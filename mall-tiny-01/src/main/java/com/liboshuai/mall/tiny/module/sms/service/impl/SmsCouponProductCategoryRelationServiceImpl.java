@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.sms.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsCouponProductCategoryRelation;
 import com.liboshuai.mall.tiny.module.sms.mapper.SmsCouponProductCategoryRelationMapper;
 import com.liboshuai.mall.tiny.module.sms.service.SmsCouponProductCategoryRelationService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author liboshuai
- * @since 2022-07-26
+ * @since 2022-09-16
  */
 @Service
 public class SmsCouponProductCategoryRelationServiceImpl extends ServiceImpl<SmsCouponProductCategoryRelationMapper, SmsCouponProductCategoryRelation> implements SmsCouponProductCategoryRelationService {
