@@ -1,11 +1,11 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductOperateLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductOperateLog;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author liboshuai

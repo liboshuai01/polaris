@@ -12,8 +12,9 @@ public class LogUtil {
 
     /**
      * debug级别日志输出
-     * @param clazz 类
-     * @param msg 日志
+     *
+     * @param clazz  类
+     * @param msg    日志
      * @param params 其他参数
      */
     public static void debug(Class clazz, String msg, Object... params) {
@@ -23,8 +24,9 @@ public class LogUtil {
 
     /**
      * trace日志输出
-     * @param clazz 类
-     * @param msg 日志
+     *
+     * @param clazz  类
+     * @param msg    日志
      * @param params 其他参数
      */
     public static void trace(Class clazz, String msg, Object... params) {
@@ -34,8 +36,9 @@ public class LogUtil {
 
     /**
      * info级别日志输出
-     * @param clazz 类
-     * @param msg 日志
+     *
+     * @param clazz  类
+     * @param msg    日志
      * @param params 其他参数
      */
     public static void info(Class clazz, String msg, Object... params) {
@@ -45,8 +48,9 @@ public class LogUtil {
 
     /**
      * warn级别日志输出
-     * @param clazz 类
-     * @param msg 日志
+     *
+     * @param clazz  类
+     * @param msg    日志
      * @param params 其他参数
      */
     public static void warn(Class clazz, String msg, Object... params) {
@@ -56,8 +60,9 @@ public class LogUtil {
 
     /**
      * error级别日志输出
-     * @param clazz 类
-     * @param msg 日志
+     *
+     * @param clazz  类
+     * @param msg    日志
      * @param params 其他参数
      */
     public static void error(Class clazz, String msg, Object... params) {

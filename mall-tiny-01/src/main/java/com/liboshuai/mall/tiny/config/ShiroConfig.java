@@ -1,8 +1,8 @@
 package com.liboshuai.mall.tiny.config;
 
+import com.liboshuai.mall.tiny.shiro.UserRealm;
 import com.liboshuai.mall.tiny.shiro.cache.CustomCacheManager;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtFilter;
-import com.liboshuai.mall.tiny.shiro.UserRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;

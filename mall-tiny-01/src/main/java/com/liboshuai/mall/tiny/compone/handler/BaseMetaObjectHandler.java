@@ -2,8 +2,6 @@ package com.liboshuai.mall.tiny.compone.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
-import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
 import com.liboshuai.mall.tiny.utils.ShiroUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
@@ -32,7 +30,6 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
         this.setFieldValByName("createUser", currentUser, metaObject);
         this.setFieldValByName("createTime", new Date(), metaObject);
     }
-
 
 
     @Override

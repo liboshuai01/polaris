@@ -55,7 +55,6 @@ public class LoginAdminController {
     private UmsAdminService umsAdminService;
 
 
-
     /**
      * 用户注册
      */

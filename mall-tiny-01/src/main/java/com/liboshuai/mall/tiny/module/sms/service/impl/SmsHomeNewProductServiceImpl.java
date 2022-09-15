@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.sms.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsHomeNewProduct;
 import com.liboshuai.mall.tiny.module.sms.mapper.SmsHomeNewProductMapper;
 import com.liboshuai.mall.tiny.module.sms.service.SmsHomeNewProductService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

@@ -33,13 +33,11 @@ import java.util.ResourceBundle;
  */
 @Slf4j
 public class JwtFilter extends BasicHttpAuthenticationFilter {
-    @Autowired
-    private RedisClient redis;
-
-    private final AntPathMatcher pathMatcher = new AntPathMatcher();
-
     private static String serverServletContextPath;
     private static String refreshTokenExpireTime;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+    @Autowired
+    private RedisClient redis;
 
     public JwtFilter() {
         ResourceBundle resource = ResourceBundle.getBundle("application");
@@ -100,7 +98,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * 添加免密登录路径
      */
     private boolean secretFree(HttpServletRequest httpServletRequest) {
-        String[] anonUrl = {"/register","/login", "/swagger-ui.html", "/doc.html",
+        String[] anonUrl = {"/register", "/login", "/swagger-ui.html", "/doc.html",
                 "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**"};
         boolean match = false;
         String requestURI = httpServletRequest.getRequestURI();
@@ -109,10 +107,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 match = true;
             }
         }
-        if (match) {
-            return true;
-        }
-        return false;
+        return match;
     }
 
     /**

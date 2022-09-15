@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.mapper;
 
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceArea;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceArea;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

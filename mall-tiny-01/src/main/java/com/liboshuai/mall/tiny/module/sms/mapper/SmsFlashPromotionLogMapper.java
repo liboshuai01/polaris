@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.sms.mapper;
 
-import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsFlashPromotionLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsFlashPromotionLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

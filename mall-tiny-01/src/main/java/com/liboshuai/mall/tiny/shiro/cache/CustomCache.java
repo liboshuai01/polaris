@@ -20,12 +20,12 @@ import java.util.concurrent.TimeUnit;
  * @Description: 重写Shiro的Cache保存读取
  */
 @Component
-public class CustomCache<K,V> implements Cache<K,V> {
+public class CustomCache<K, V> implements Cache<K, V> {
 
     @Value("${config.accessToken-expireTime}")
     private String ACCESS_TOKEN_EXPIRE_TIME;
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     // todo: 如果jwt的缓存除了问题，可能需要去除这里的@Autowired
     @Autowired

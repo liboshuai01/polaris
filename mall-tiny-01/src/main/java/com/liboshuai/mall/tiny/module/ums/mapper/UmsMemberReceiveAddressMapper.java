@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.mapper;
 
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberReceiveAddress;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberReceiveAddress;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

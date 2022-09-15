@@ -1,84 +1,85 @@
 package com.liboshuai.mall.tiny.module.pms.domain.dao;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.annotation.TableField;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import com.baomidou.mybatisplus.annotation.TableName;
-    import java.io.Serializable;
-    import java.math.BigDecimal;
-    import java.time.LocalDateTime;
-    import io.swagger.annotations.ApiModel;
-    import io.swagger.annotations.ApiModelProperty;
-    import lombok.Data;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
-* <p>
-    * 
-    * </p>
-*
-* @author liboshuai
-* @since 2022-09-16
-*/
-    @Data
-    @TableName("pms_product_operate_log")
-    @ApiModel(value = "PmsProductOperateLog对象", description = "")
-    public class PmsProductOperateLog implements Serializable {
+ * <p>
+ *
+ * </p>
+ *
+ * @author liboshuai
+ * @since 2022-09-16
+ */
+@Data
+@TableName("pms_product_operate_log")
+@ApiModel(value = "PmsProductOperateLog对象", description = "")
+public class PmsProductOperateLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-        @TableField("product_id")
+    @TableField("product_id")
     private Long productId;
 
-        @TableField("price_old")
+    @TableField("price_old")
     private BigDecimal priceOld;
 
-        @TableField("price_new")
+    @TableField("price_new")
     private BigDecimal priceNew;
 
-        @TableField("sale_price_old")
+    @TableField("sale_price_old")
     private BigDecimal salePriceOld;
 
-        @TableField("sale_price_new")
+    @TableField("sale_price_new")
     private BigDecimal salePriceNew;
 
-            @ApiModelProperty("赠送的积分")
-        @TableField("gift_point_old")
+    @ApiModelProperty("赠送的积分")
+    @TableField("gift_point_old")
     private Integer giftPointOld;
 
-        @TableField("gift_point_new")
+    @TableField("gift_point_new")
     private Integer giftPointNew;
 
-        @TableField("use_point_limit_old")
+    @TableField("use_point_limit_old")
     private Integer usePointLimitOld;
 
-        @TableField("use_point_limit_new")
+    @TableField("use_point_limit_new")
     private Integer usePointLimitNew;
 
-            @ApiModelProperty("操作人")
-        @TableField("operate_man")
+    @ApiModelProperty("操作人")
+    @TableField("operate_man")
     private String operateMan;
 
-            @ApiModelProperty("创建用户")
-        @TableField("create_user")
+    @ApiModelProperty("创建用户")
+    @TableField("create_user")
     private String createUser;
 
-            @ApiModelProperty("创建时间")
-        @TableField("create_time")
+    @ApiModelProperty("创建时间")
+    @TableField("create_time")
     private LocalDateTime createTime;
 
-            @ApiModelProperty("更新用户")
-        @TableField("update_user")
+    @ApiModelProperty("更新用户")
+    @TableField("update_user")
     private String updateUser;
 
-            @ApiModelProperty("更新时间")
-        @TableField("update_time")
+    @ApiModelProperty("更新时间")
+    @TableField("update_time")
     private LocalDateTime updateTime;
 
-            @ApiModelProperty("是否被逻辑删除 0-未被删除 1-已被删除")
-        @TableField("is_delete")
+    @ApiModelProperty("是否被逻辑删除 0-未被删除 1-已被删除")
+    @TableField("is_delete")
     private String isDelete;
 
 

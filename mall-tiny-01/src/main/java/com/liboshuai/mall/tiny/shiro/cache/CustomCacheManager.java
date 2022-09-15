@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 public class CustomCacheManager implements CacheManager {
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public CustomCacheManager(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;

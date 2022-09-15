@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.utils.Base64Util;
 import lombok.extern.slf4j.Slf4j;
@@ -24,21 +23,12 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${config.encrypt-jwtKey}")
-    private String ENCRYPT_JWT_KEY;
-
-    @Value("${config.accessToken-expireTime}")
-    private String ACCESS_TOKEN_EXPIRE_TIME;
-
     private static String ENCRYPT_JWT_KEY_STATIC;
     private static String ACCESS_TOKEN_EXPIRE_TIME_STATIC;
-
-    @PostConstruct
-    private void init() {
-        ENCRYPT_JWT_KEY_STATIC = ENCRYPT_JWT_KEY;
-        ACCESS_TOKEN_EXPIRE_TIME_STATIC = ACCESS_TOKEN_EXPIRE_TIME;
-    }
-
+    @Value("${config.encrypt-jwtKey}")
+    private String ENCRYPT_JWT_KEY;
+    @Value("${config.accessToken-expireTime}")
+    private String ACCESS_TOKEN_EXPIRE_TIME;
 
     /**
      * 效验token是否正确
@@ -94,5 +84,11 @@ public class JwtUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @PostConstruct
+    private void init() {
+        ENCRYPT_JWT_KEY_STATIC = ENCRYPT_JWT_KEY;
+        ACCESS_TOKEN_EXPIRE_TIME_STATIC = ACCESS_TOKEN_EXPIRE_TIME;
     }
 }

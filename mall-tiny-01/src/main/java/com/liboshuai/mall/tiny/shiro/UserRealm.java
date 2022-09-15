@@ -71,7 +71,7 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> roleNameSet = umsRoleDTOList.stream().map(UmsRoleDTO::getName).collect(Collectors.toSet());
         // 根据角色id集合获取权限值集合
         List<Long> userIdList = umsRoleDTOList.stream().map(UmsRoleDTO::getId).collect(Collectors.toList());
-        List<UmsPermissionDTO> permissionList =  umsPermissionService.findPermissionsByRoleIds(userIdList);
+        List<UmsPermissionDTO> permissionList = umsPermissionService.findPermissionsByRoleIds(userIdList);
         Set<String> permissionValueSet = permissionList.stream().map(UmsPermissionDTO::getValue).collect(Collectors.toSet());
         // 将角色名称集合和权限值集合放入到shiro认证信息中
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();

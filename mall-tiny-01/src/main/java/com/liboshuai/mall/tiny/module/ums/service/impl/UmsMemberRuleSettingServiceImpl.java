@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberRuleSetting;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberRuleSettingMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsMemberRuleSettingService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

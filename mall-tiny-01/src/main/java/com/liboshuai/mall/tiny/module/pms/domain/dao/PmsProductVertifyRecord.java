@@ -1,65 +1,66 @@
 package com.liboshuai.mall.tiny.module.pms.domain.dao;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.annotation.TableField;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import com.baomidou.mybatisplus.annotation.TableName;
-    import java.io.Serializable;
-    import java.time.LocalDateTime;
-    import io.swagger.annotations.ApiModel;
-    import io.swagger.annotations.ApiModelProperty;
-    import lombok.Data;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
-* <p>
-    * 商品审核记录
-    * </p>
-*
-* @author liboshuai
-* @since 2022-09-16
-*/
-    @Data
-    @TableName("pms_product_vertify_record")
-    @ApiModel(value = "PmsProductVertifyRecord对象", description = "商品审核记录")
-    public class PmsProductVertifyRecord implements Serializable {
+ * <p>
+ * 商品审核记录
+ * </p>
+ *
+ * @author liboshuai
+ * @since 2022-09-16
+ */
+@Data
+@TableName("pms_product_vertify_record")
+@ApiModel(value = "PmsProductVertifyRecord对象", description = "商品审核记录")
+public class PmsProductVertifyRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-        @TableField("product_id")
+    @TableField("product_id")
     private Long productId;
 
-            @ApiModelProperty("审核人")
-        @TableField("vertify_man")
+    @ApiModelProperty("审核人")
+    @TableField("vertify_man")
     private String vertifyMan;
 
-        @TableField("status")
+    @TableField("status")
     private Integer status;
 
-            @ApiModelProperty("反馈详情")
-        @TableField("detail")
+    @ApiModelProperty("反馈详情")
+    @TableField("detail")
     private String detail;
 
-            @ApiModelProperty("创建用户")
-        @TableField("create_user")
+    @ApiModelProperty("创建用户")
+    @TableField("create_user")
     private String createUser;
 
-            @ApiModelProperty("创建时间")
-        @TableField("create_time")
+    @ApiModelProperty("创建时间")
+    @TableField("create_time")
     private LocalDateTime createTime;
 
-            @ApiModelProperty("更新用户")
-        @TableField("update_user")
+    @ApiModelProperty("更新用户")
+    @TableField("update_user")
     private String updateUser;
 
-            @ApiModelProperty("更新时间")
-        @TableField("update_time")
+    @ApiModelProperty("更新时间")
+    @TableField("update_time")
     private LocalDateTime updateTime;
 
-            @ApiModelProperty("是否被逻辑删除 0-未被删除 1-已被删除")
-        @TableField("is_delete")
+    @ApiModelProperty("是否被逻辑删除 0-未被删除 1-已被删除")
+    @TableField("is_delete")
     private String isDelete;
 
 

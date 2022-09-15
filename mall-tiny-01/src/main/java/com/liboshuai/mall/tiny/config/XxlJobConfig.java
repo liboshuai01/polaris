@@ -12,6 +12,21 @@ import org.springframework.context.annotation.Configuration;
  * @Author: liboshuai
  * @Date: 2022-07-12 23:29
  * @Description: xxl-job配置类
+ * <p>
+ * 针对多网卡、容器内部署等情况，可借助 "spring-cloud-commons" 提供的 "InetUtils" 组件灵活定制注册IP；
+ * <p>
+ * 1、引入依赖：
+ * <dependency>
+ * <groupId>org.springframework.cloud</groupId>
+ * <artifactId>spring-cloud-commons</artifactId>
+ * <version>${version}</version>
+ * </dependency>
+ * <p>
+ * 2、配置文件，或者容器启动变量
+ * spring.cloud.inetutils.preferred-networks: 'xxx.xxx.xxx.'
+ * <p>
+ * 3、获取IP
+ * String ip_ = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
  *//*
 
 @Configuration
@@ -60,21 +75,21 @@ public class XxlJobConfig {
 
     */
 /**
-     * 针对多网卡、容器内部署等情况，可借助 "spring-cloud-commons" 提供的 "InetUtils" 组件灵活定制注册IP；
-     *
-     *      1、引入依赖：
-     *          <dependency>
-     *             <groupId>org.springframework.cloud</groupId>
-     *             <artifactId>spring-cloud-commons</artifactId>
-     *             <version>${version}</version>
-     *         </dependency>
-     *
-     *      2、配置文件，或者容器启动变量
-     *          spring.cloud.inetutils.preferred-networks: 'xxx.xxx.xxx.'
-     *
-     *      3、获取IP
-     *          String ip_ = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
-     *//*
+ * 针对多网卡、容器内部署等情况，可借助 "spring-cloud-commons" 提供的 "InetUtils" 组件灵活定制注册IP；
+ *
+ *      1、引入依赖：
+ *          <dependency>
+ *             <groupId>org.springframework.cloud</groupId>
+ *             <artifactId>spring-cloud-commons</artifactId>
+ *             <version>${version}</version>
+ *         </dependency>
+ *
+ *      2、配置文件，或者容器启动变量
+ *          spring.cloud.inetutils.preferred-networks: 'xxx.xxx.xxx.'
+ *
+ *      3、获取IP
+ *          String ip_ = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
+ *//*
 
 
 }

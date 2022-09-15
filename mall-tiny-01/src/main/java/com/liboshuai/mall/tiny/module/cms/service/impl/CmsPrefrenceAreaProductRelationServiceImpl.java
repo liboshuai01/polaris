@@ -1,9 +1,9 @@
 package com.liboshuai.mall.tiny.module.cms.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceAreaProductRelation;
 import com.liboshuai.mall.tiny.module.cms.mapper.CmsPrefrenceAreaProductRelationMapper;
 import com.liboshuai.mall.tiny.module.cms.service.CmsPrefrenceAreaProductRelationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

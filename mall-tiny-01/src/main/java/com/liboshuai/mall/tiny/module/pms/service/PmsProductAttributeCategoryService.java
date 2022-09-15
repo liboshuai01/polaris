@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductAttributeCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductAttributeCategory;
 
 /**
  * <p>
