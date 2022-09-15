@@ -75,7 +75,6 @@ public class LoginAdminController {
             umsAdminDTO.setSalt(salt);
             umsAdminDTO.setSaltCount(saltCount);
         }
-        umsAdminDTO.setCreateTime(LocalDateTime.now());
         umsAdminDTO.setStatus(UserStatusEnum.Enable.getCode());
         UmsAdmin umsAdmin = new UmsAdmin();
         BeanUtils.copyProperties(umsAdminDTO, umsAdmin);
