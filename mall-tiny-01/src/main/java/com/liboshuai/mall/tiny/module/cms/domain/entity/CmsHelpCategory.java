@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.liboshuai.mall.tiny.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
  * @since 2022-09-16
  */
 @Data
+@Builder
 @TableName("cms_help_category")
 @ApiModel(value = "CmsHelpCategory对象", description = "帮助分类表")
 public class CmsHelpCategory extends BaseEntity {

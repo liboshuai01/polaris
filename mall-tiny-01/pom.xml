@@ -153,6 +153,12 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j-swagger-version}</version>
         </dependency>
+        <!--测试数据生成工具-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>java-testdata-generator</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>

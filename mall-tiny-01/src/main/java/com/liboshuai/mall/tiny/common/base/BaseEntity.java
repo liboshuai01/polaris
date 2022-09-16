@@ -19,7 +19,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 3812542271764882944L;
