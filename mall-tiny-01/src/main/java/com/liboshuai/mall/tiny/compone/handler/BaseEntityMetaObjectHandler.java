@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Slf4j
 @Component
-public class BaseMetaObjectHandler implements MetaObjectHandler {
+public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     @Autowired
     private ShiroUtil shiroUtil;
