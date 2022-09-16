@@ -1,8 +1,11 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.module.ums.service.UmsMemberService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -15,5 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/mall.tiny.module.ums/ums-member")
 public class UmsMemberController {
+    @Autowired
+    private UmsMemberService umsMemberService;
 
+    @ApiOperation(value = "获取验证码", httpMethod = "GET")
+    @GetMapping(value = "/getAuthCode")
+    public ResponseResult<String> getAuthCode(@RequestParam String telephone) {
+        return umsMemberService.generateAuthCode(telephone);
+    }
+
+    @ApiOperation(value = "判断验证码是否正确", httpMethod = "POST")
+    @PostMapping(value = "/verifyAuthCode")
+    public ResponseResult<?>  verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+        return umsMemberService.verifyAuthCode(telephone, authCode);
+    }
 }
