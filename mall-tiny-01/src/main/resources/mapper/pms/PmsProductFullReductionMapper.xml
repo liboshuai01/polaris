@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.pms.mapper.PmsProductFullReductionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductFullReduction">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductFullReduction">
         <id column="id" property="id" />
         <result column="product_id" property="productId" />
         <result column="full_price" property="fullPrice" />

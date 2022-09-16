@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.pms.mapper.PmsSkuStockMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.dao.PmsSkuStock">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.entity.PmsSkuStock">
         <id column="id" property="id" />
         <result column="product_id" property="productId" />
         <result column="sku_code" property="skuCode" />

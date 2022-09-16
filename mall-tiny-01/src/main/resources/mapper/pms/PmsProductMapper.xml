@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.pms.mapper.PmsProductMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProduct">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct">
         <id column="id" property="id" />
         <result column="brand_id" property="brandId" />
         <result column="product_category_id" property="productCategoryId" />

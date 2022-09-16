@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.pms.mapper.PmsProductVertifyRecordMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductVertifyRecord">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductVertifyRecord">
         <id column="id" property="id" />
         <result column="product_id" property="productId" />
         <result column="vertify_man" property="vertifyMan" />

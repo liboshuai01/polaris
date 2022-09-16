@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsAlbum;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsAlbum;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsAlbumMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsAlbumService;
 import org.springframework.stereotype.Service;

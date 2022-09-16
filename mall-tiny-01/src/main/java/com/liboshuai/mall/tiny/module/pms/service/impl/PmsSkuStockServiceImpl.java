@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsSkuStock;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsSkuStock;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsSkuStockMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsSkuStockService;
 import org.springframework.stereotype.Service;

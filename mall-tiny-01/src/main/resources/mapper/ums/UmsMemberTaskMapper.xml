@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberTaskMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberTask">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.entity.UmsMemberTask">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="growth" property="growth" />

@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.ums.mapper.UmsRolePermissionRelationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRolePermissionRelation">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.entity.UmsRolePermissionRelation">
         <id column="id" property="id" />
         <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />

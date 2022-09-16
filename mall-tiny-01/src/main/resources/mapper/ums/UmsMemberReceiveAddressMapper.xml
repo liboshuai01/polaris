@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberReceiveAddressMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberReceiveAddress">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.entity.UmsMemberReceiveAddress">
         <id column="id" property="id" />
         <result column="member_id" property="memberId" />
         <result column="name" property="name" />

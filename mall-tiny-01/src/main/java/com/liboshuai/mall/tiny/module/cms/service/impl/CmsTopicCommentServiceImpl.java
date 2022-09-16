@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsTopicComment;
+import com.liboshuai.mall.tiny.module.cms.domain.entity.CmsTopicComment;
 import com.liboshuai.mall.tiny.module.cms.mapper.CmsTopicCommentMapper;
 import com.liboshuai.mall.tiny.module.cms.service.CmsTopicCommentService;
 import org.springframework.stereotype.Service;

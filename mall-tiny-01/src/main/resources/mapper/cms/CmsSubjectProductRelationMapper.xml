@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.cms.mapper.CmsSubjectProductRelationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.dao.CmsSubjectProductRelation">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.entity.CmsSubjectProductRelation">
         <id column="id" property="id" />
         <result column="subject_id" property="subjectId" />
         <result column="product_id" property="productId" />

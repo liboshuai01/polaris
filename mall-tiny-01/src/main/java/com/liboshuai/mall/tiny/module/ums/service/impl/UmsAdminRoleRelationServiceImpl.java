@@ -2,7 +2,7 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdminRoleRelation;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdminRoleRelation;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsAdminRoleRelationMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import org.springframework.beans.factory.annotation.Autowired;

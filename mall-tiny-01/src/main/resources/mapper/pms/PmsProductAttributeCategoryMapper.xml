@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.pms.mapper.PmsProductAttributeCategoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductAttributeCategory">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductAttributeCategory">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="attribute_count" property="attributeCount" />

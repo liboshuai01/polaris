@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRole;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsRole;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsRoleMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;

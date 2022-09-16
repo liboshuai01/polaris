@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsSubjectCategory;
+import com.liboshuai.mall.tiny.module.cms.domain.entity.CmsSubjectCategory;
 import com.liboshuai.mall.tiny.module.cms.mapper.CmsSubjectCategoryMapper;
 import com.liboshuai.mall.tiny.module.cms.service.CmsSubjectCategoryService;
 import org.springframework.stereotype.Service;

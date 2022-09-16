@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberRuleSettingMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.dao.UmsMemberRuleSetting">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.entity.UmsMemberRuleSetting">
         <id column="id" property="id" />
         <result column="continue_sign_day" property="continueSignDay" />
         <result column="continue_sign_point" property="continueSignPoint" />

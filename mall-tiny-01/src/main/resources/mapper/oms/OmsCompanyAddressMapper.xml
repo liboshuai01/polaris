@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.oms.mapper.OmsCompanyAddressMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.oms.domain.dao.OmsCompanyAddress">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.oms.domain.entity.OmsCompanyAddress">
         <id column="id" property="id" />
         <result column="address_name" property="addressName" />
         <result column="send_status" property="sendStatus" />

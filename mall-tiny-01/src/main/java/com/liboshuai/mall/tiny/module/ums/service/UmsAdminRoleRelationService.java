@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdminRoleRelation;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdminRoleRelation;
 
 import java.util.List;
 

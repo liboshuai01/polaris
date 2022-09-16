@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.oms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrder;
+import com.liboshuai.mall.tiny.module.oms.domain.entity.OmsOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

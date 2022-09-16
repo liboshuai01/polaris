@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.cms.mapper.CmsMemberReportMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.dao.CmsMemberReport">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.entity.CmsMemberReport">
         <result column="id" property="id" />
         <result column="report_type" property="reportType" />
         <result column="report_member_name" property="reportMemberName" />

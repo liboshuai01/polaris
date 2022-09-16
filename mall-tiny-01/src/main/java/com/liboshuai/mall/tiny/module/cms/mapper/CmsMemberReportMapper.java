@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsMemberReport;
+import com.liboshuai.mall.tiny.module.cms.domain.entity.CmsMemberReport;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

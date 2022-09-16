@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.sms.mapper.SmsHomeRecommendSubjectMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.sms.domain.dao.SmsHomeRecommendSubject">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.sms.domain.entity.SmsHomeRecommendSubject">
         <id column="id" property="id" />
         <result column="subject_id" property="subjectId" />
         <result column="subject_name" property="subjectName" />

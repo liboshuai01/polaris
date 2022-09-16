@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.sms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsHomeBrand;
+import com.liboshuai.mall.tiny.module.sms.domain.entity.SmsHomeBrand;
 import com.liboshuai.mall.tiny.module.sms.mapper.SmsHomeBrandMapper;
 import com.liboshuai.mall.tiny.module.sms.service.SmsHomeBrandService;
 import org.springframework.stereotype.Service;

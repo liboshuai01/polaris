@@ -7,7 +7,7 @@ import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.common.enums.UserStatusEnum;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
 import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVo;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;

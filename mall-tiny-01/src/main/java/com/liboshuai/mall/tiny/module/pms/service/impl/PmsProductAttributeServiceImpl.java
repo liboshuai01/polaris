@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductAttribute;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductAttribute;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsProductAttributeMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductAttributeService;
 import org.springframework.stereotype.Service;

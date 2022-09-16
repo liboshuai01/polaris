@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.oms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrder;
+import com.liboshuai.mall.tiny.module.oms.domain.entity.OmsOrder;
 import com.liboshuai.mall.tiny.module.oms.mapper.OmsOrderMapper;
 import com.liboshuai.mall.tiny.module.oms.service.OmsOrderService;
 import org.springframework.stereotype.Service;

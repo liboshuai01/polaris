@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductCategory;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductCategory;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsProductCategoryMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductCategoryService;
 import org.springframework.stereotype.Service;

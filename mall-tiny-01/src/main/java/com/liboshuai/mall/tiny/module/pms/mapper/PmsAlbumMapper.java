@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsAlbum;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsAlbum;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

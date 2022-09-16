@@ -1,8 +1,6 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.liboshuai.mall.tiny.MallTiny01Application;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;

@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.cms.mapper.CmsPrefrenceAreaMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceArea">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.entity.CmsPrefrenceArea">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="sub_title" property="subTitle" />

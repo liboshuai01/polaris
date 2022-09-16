@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.pms.domain.dao.PmsProductOperateLog;
+import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductOperateLog;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsProductOperateLogMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductOperateLogService;
 import org.springframework.stereotype.Service;

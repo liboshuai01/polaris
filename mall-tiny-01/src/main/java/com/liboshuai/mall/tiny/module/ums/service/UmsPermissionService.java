@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsPermission;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsPermission;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 
 import java.util.List;

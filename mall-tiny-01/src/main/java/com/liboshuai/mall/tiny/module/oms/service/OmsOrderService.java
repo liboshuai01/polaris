@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.oms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.module.oms.domain.dao.OmsOrder;
+import com.liboshuai.mall.tiny.module.oms.domain.entity.OmsOrder;
 
 /**
  * <p>

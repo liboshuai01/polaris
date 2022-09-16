@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.cms.mapper.CmsSubjectCommentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.dao.CmsSubjectComment">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.cms.domain.entity.CmsSubjectComment">
         <id column="id" property="id" />
         <result column="subject_id" property="subjectId" />
         <result column="member_nick_name" property="memberNickName" />

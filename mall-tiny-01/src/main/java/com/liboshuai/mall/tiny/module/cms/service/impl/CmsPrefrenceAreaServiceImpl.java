@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceArea;
+import com.liboshuai.mall.tiny.module.cms.domain.entity.CmsPrefrenceArea;
 import com.liboshuai.mall.tiny.module.cms.mapper.CmsPrefrenceAreaMapper;
 import com.liboshuai.mall.tiny.module.cms.service.CmsPrefrenceAreaService;
 import org.springframework.stereotype.Service;

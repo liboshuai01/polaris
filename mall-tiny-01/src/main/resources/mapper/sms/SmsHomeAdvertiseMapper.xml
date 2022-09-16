@@ -3,7 +3,7 @@
 <mapper namespace="com.liboshuai.mall.tiny.module.sms.mapper.SmsHomeAdvertiseMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.sms.domain.dao.SmsHomeAdvertise">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.sms.domain.entity.SmsHomeAdvertise">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="type" property="type" />

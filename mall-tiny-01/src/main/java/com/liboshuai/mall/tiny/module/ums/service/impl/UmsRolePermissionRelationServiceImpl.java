@@ -2,7 +2,7 @@ package com.liboshuai.mall.tiny.module.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsRolePermissionRelation;
+import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsRolePermissionRelation;
 import com.liboshuai.mall.tiny.module.ums.mapper.UmsRolePermissionRelationMapper;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRolePermissionRelationService;
 import org.springframework.beans.factory.annotation.Autowired;

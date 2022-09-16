@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.module.cms.domain.dao.CmsPrefrenceArea;
+import com.liboshuai.mall.tiny.module.cms.domain.entity.CmsPrefrenceArea;
 
 /**
  * <p>

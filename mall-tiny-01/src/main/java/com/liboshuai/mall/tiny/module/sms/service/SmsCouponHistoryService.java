@@ -1,7 +1,7 @@
 package com.liboshuai.mall.tiny.module.sms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.liboshuai.mall.tiny.module.sms.domain.dao.SmsCouponHistory;
+import com.liboshuai.mall.tiny.module.sms.domain.entity.SmsCouponHistory;
 
 /**
  * <p>
