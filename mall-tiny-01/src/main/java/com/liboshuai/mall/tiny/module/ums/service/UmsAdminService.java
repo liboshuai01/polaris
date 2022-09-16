@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.module.ums.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
+import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
 
 /**
  * <p>
@@ -13,4 +14,14 @@ import com.liboshuai.mall.tiny.module.ums.domain.dao.UmsAdmin;
  */
 public interface UmsAdminService extends IService<UmsAdmin> {
 
+
+    /**
+     * 根据用户名称查询用户id
+     */
+    Long findUserIdByUserName(String userName);
+
+    /**
+     * 根据用户名称查询用户全部信息
+     */
+    UmsAdminDTO findByUserName(String username);
 }
