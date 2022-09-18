@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.ums.controller;
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.service.UmsMemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author liboshuai
  * @since 2022-09-16
  */
+@Api(tags = "会员", value = "UmsMemberController")
 @RestController
 @RequestMapping("/mall.tiny.module.ums/ums-member")
 public class UmsMemberController {
