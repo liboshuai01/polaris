@@ -1,0 +1,1 @@
+ALTER TABLE ums_admin ADD `salt_count` int ( 1 ) DEFAULT NULL COMMENT '散列遍历次数' AFTER `salt`;
