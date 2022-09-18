@@ -65,7 +65,7 @@ public class ExceptionAdvice {
      * 该异常为以游客身份访问有权限管控的请求无法对匿名主体进行授权，而授权失败所抛出的异常
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UnauthenticatedException.class)
+    @ExceptionHandler(TokenExpiredException.class)
     public ResponseResult<?> handle401(TokenExpiredException e) {
         return ResponseResult.fail(ResponseCode.UNAUTHORIZED,
                 "无权访问(Unauthorized):当前Subject的令牌已过期-TokenExpiredException");
