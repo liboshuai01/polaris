@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.ums.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
+import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 
 /**
  * <p>

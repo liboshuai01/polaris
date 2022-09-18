@@ -1,5 +1,7 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.liboshuai.mall.tiny.common.constants.RedisConstant;
@@ -9,7 +11,7 @@ import com.liboshuai.mall.tiny.common.enums.UserStatusEnum;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
-import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVo;
+import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
@@ -61,7 +63,7 @@ public class LoginAdminController {
      */
     @ApiOperation(value = "注册", httpMethod = "POST")
     @PostMapping("/register")
-    public ResponseResult<?> register(@RequestBody UmsAdminVo umsAdminVo) {
+    public ResponseResult<?> register(@RequestBody UmsAdminVO umsAdminVo) {
         UmsAdminDTO umsAdminDTO = new UmsAdminDTO();
         BeanUtils.copyProperties(umsAdminVo, umsAdminDTO);
         String username = umsAdminDTO.getUsername();
@@ -93,6 +95,8 @@ public class LoginAdminController {
             return ResponseResult.fail(ResponseCode.USERNAME_PASSWORD_NULL);
         }
         UmsAdminDTO umsAdminDTO = umsAdminService.findByUserName(username);
+        // todo: 临时日志，待删除
+        log.info("umsAdminDTO等于：{}", JSONObject.toJSONString(umsAdminDTO));
         if (Objects.isNull(umsAdminDTO)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
         }

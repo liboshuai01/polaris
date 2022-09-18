@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UmsAdminVo implements Serializable {
+public class UmsAdminVO implements Serializable {
     private static final long serialVersionUID = 1321190682152399912L;
 
     @ApiModelProperty("用户名")
