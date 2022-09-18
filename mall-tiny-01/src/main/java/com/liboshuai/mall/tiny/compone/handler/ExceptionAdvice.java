@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.shiro.exception;
+package com.liboshuai.mall.tiny.compone.handler;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
@@ -60,47 +60,6 @@ public class ExceptionAdvice {
                 "无权访问(Unauthorized):当前Subject是匿名Subject，请先登录(This subject is anonymous.)");
     }
 
-//    /**
-//     * 捕捉效验异常（BindException）
-//     */
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(BindException.class)
-//    public ResponseResult<Object> validException(BindException e) {
-//        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-//        Map<String, Object> errorMap = this.getValidError(fieldErrors);
-//        return ResponseResult.fail(ResponseCode.UNAUTHORIZED, errorMap.get("errorMsg").toString(), errorMap.get("errorList"));
-//    }
-//
-//    /**
-//     * 捕捉效验异常(MethodArgumentNotValidException)
-//     */
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseResult<Object> validException(MethodArgumentNotValidException e) {
-//        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-//        Map<String, Object> errorMap = this.getValidError(fieldErrors);
-//        return ResponseResult.fail(ResponseCode.FAILED, errorMap.get("errorMsg").toString(), errorMap.get("errorList"));
-//
-//    }
-//
-//    /**
-//     * 捕捉其他所有异常
-//     */
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(Exception.class)
-//    public ResponseResult<?> globalException(Throwable ex) {
-//        return ResponseResult.fail(ResponseCode.FAILED, ex.toString() + ex.getMessage());
-//    }
-//
-//    /**
-//     * 捕捉其他所有自定义异常
-//     */
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(CustomException.class)
-//    public ResponseResult<?> handle(CustomException e) {
-//        return ResponseResult.fail(ResponseCode.FAILED, e.getMessage());
-//    }
-
     /**
      * 获取效验错误信息
      */
@@ -116,16 +75,5 @@ public class ExceptionAdvice {
         map.put("errorList", errorList);
         map.put("errorMsg", errorMsg);
         return map;
-    }
-
-    /**
-     * 获取状态码
-     */
-    private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.valueOf(statusCode);
     }
 }
