@@ -167,6 +167,6 @@ public class LoginAdminController {
     @ApiOperation(value = "信息脱敏", httpMethod = "GET")
     @GetMapping("/encryptor")
     public ResponseResult<String> logout(@RequestParam String originalText) {
-        return ResponseResult.success(encryptorUtil.encrypt(originalText));
+        return ResponseResult.success("脱敏成功", encryptorUtil.encrypt(originalText));
     }
 }
