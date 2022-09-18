@@ -51,7 +51,7 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
-            <version>2.3</version>
+            <version>${velocity-verson}</version>
         </dependency>
         <!--freemarker模板-->
         <dependency>
@@ -132,14 +132,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit-java-version}</version>
             <scope>test</scope>
         </dependency>
         <!-- 处理通用文本问题-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.1</version>
+            <version>${commons-text}</version>
         </dependency>
         <!-- 通用io工具包-->
         <dependency>
@@ -153,11 +153,11 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j-swagger-version}</version>
         </dependency>
-        <!--测试数据生成工具-->
+        <!-- 配置文件信息脱敏 -->
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>java-testdata-generator</artifactId>
-            <version>1.1.2</version>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt-version}</version>
         </dependency>
     </dependencies>
 

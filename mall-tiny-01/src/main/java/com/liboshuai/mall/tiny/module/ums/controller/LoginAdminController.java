@@ -13,6 +13,7 @@ import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVo;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
+import com.liboshuai.mall.tiny.utils.EncryptorUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +51,9 @@ public class LoginAdminController {
 
     @Autowired
     private UmsAdminService umsAdminService;
+
+    @Autowired
+    private EncryptorUtil encryptorUtil;
 
 
     /**
@@ -161,5 +162,11 @@ public class LoginAdminController {
             e.printStackTrace();
             return ResponseResult.fail(ResponseCode.FAILED, e.getMessage());
         }
+    }
+
+    @ApiOperation(value = "信息脱敏", httpMethod = "GET")
+    @GetMapping("/encryptor")
+    public ResponseResult<String> logout(@RequestParam String originalText) {
+        return ResponseResult.success(encryptorUtil.encrypt(originalText));
     }
 }
