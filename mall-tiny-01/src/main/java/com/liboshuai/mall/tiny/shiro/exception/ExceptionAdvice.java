@@ -1,5 +1,6 @@
 package com.liboshuai.mall.tiny.shiro.exception;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,17 @@ public class ExceptionAdvice {
     public ResponseResult<?> handle401(UnauthenticatedException e) {
         return ResponseResult.fail(ResponseCode.UNAUTHORIZED,
                 "无权访问(Unauthorized):当前Subject是匿名Subject，请先登录(This subject is anonymous.)");
+    }
+
+    /**
+     * 单独捕捉Shiro(UnauthenticatedException)异常
+     * 该异常为以游客身份访问有权限管控的请求无法对匿名主体进行授权，而授权失败所抛出的异常
+     */
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UnauthenticatedException.class)
+    public ResponseResult<?> handle401(TokenExpiredException e) {
+        return ResponseResult.fail(ResponseCode.UNAUTHORIZED,
+                "无权访问(Unauthorized):当前Subject的令牌已过期-TokenExpiredException");
     }
 
 //    /**
