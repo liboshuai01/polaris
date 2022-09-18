@@ -17,6 +17,7 @@ public class AutoMysqlUtil {
     private static final String FILE_END_FLAG = "文件结尾标识";
 
     public static void main(String[] args) {
+        // 刚才下载到本地的mysql表、字段数据文件地址
         List<String> readLines = FileUtil.readLines("C:\\Users\\李博帅\\Desktop\\mall03.txt", "UTF-8");
         // 拼接 "INSERT INTO ? SELECT content FROM tmp_table" + tableName 部分
         List<String> tableNameList = readLines.stream()
@@ -103,6 +104,7 @@ public class AutoMysqlUtil {
                 .map(mysql -> new StringBuilder(mysql).append(" FROM tmp_table;"))
                 .collect(Collectors.toList());
         truncateTableMysqlList.addAll(mysqlList);
+        // mysql文件生成的地址
         FileUtil.writeLines(truncateTableMysqlList, "C:\\Users\\李博帅\\Desktop\\mallMysql.sql", "UTF-8");
     }
 }
