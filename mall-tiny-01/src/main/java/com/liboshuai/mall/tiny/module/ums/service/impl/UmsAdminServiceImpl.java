@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * <p>
  * 后台用户表 服务实现类
@@ -44,7 +46,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         umsMemberLambdaQueryWrapper.eq(UmsAdmin::getUsername, username);
         UmsAdmin umsAdmin = umsAdminMapper.selectOne(umsMemberLambdaQueryWrapper);
         UmsAdminDTO umsAdminDTO = new UmsAdminDTO();
-        BeanUtils.copyProperties(umsAdmin, umsAdminDTO);
+        if (Objects.nonNull(umsAdmin)) {
+            BeanUtils.copyProperties(umsAdmin, umsAdminDTO);
+        }
         return umsAdminDTO;
     }
 }
