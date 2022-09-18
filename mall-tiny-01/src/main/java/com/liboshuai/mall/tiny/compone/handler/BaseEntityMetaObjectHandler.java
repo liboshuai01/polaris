@@ -26,7 +26,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         String currentUser = shiroUtil.getCurrentUser();
         // todo: 临时日志，待删除
-        log.debug("insertFill-currentUser为：{}", JSONObject.toJSONString(currentUser));
+        log.info("insertFill-currentUser为：{}", JSONObject.toJSONString(currentUser));
         this.setFieldValByName("createUser", currentUser, metaObject);
         this.setFieldValByName("createTime", new Date(), metaObject);
     }
