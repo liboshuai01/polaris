@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -30,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -172,5 +172,12 @@ public class LoginAdminController {
     @GetMapping("/encryptor")
     public ResponseResult<String> logout(@RequestParam String originalText) {
         return ResponseResult.success("脱敏成功", encryptorUtil.encrypt(originalText));
+    }
+
+    @ApiOperation(value = "用户信息导出", httpMethod = "GET")
+    @GetMapping("/userDataExport")
+    public ResponseResult<?> userDataExport(@RequestParam List<Long> userIdList) {
+        umsAdminService.userDataExport(userIdList);
+        return ResponseResult.success("用户信息导出成功");
     }
 }
