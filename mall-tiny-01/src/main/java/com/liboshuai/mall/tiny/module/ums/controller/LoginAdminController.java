@@ -80,6 +80,7 @@ public class LoginAdminController {
         umsAdminDTO.setStatus(UserStatusEnum.Enable.getCode());
         UmsAdmin umsAdmin = new UmsAdmin();
         BeanUtils.copyProperties(umsAdminDTO, umsAdmin);
+        log.info("日志umsAdmin:{}", JSONObject.toJSONString(umsAdmin));
         umsAdminService.save(umsAdmin);
         return ResponseResult.success("注册成功");
     }
