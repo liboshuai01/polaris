@@ -2,10 +2,12 @@ package com.liboshuai.mall.tiny.utils;
 
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @Author: liboshuai
@@ -23,6 +25,9 @@ public class ShiroUtil {
      */
     public String getCurrentUser() {
         String token = request.getHeader(ShiroConstant.AUTHORIZATION);
+        if (StringUtils.isBlank(token)) {
+            return "";
+        }
         return JwtUtil.getClaim(token, ShiroConstant.USERNAME);
     }
 }
