@@ -174,11 +174,4 @@ public class LoginAdminController {
     public ResponseResult<String> logout(@RequestParam String originalText) {
         return ResponseResult.success("脱敏成功", encryptorUtil.encrypt(originalText));
     }
-
-    @ApiOperation(value = "用户信息导出", httpMethod = "GET")
-    @GetMapping("/userDataExport")
-    public ResponseResult<?> userDataExport(@RequestParam List<Long> userIdList) {
-        umsAdminService.userDataExport(userIdList);
-        return ResponseResult.success("用户信息导出成功");
-    }
 }
