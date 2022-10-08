@@ -1,5 +1,5 @@
 /*
-package com.liboshuai.mall.tiny.config;
+package com.liboshuai.mall.tiny.compone.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import lombok.extern.slf4j.Slf4j;

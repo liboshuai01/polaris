@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.config;
+package com.liboshuai.mall.tiny.compone.config;
 
 import com.liboshuai.mall.tiny.shiro.UserRealm;
 import com.liboshuai.mall.tiny.shiro.cache.CustomCacheManager;

@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.config;
+package com.liboshuai.mall.tiny.compone.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.annotations.ApiOperation;
