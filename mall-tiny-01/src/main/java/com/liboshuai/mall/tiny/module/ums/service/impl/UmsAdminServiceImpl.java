@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -53,7 +54,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         umsMemberLambdaQueryWrapper.eq(UmsAdmin::getUsername, username);
         UmsAdmin umsAdmin = umsAdminMapper.selectOne(umsMemberLambdaQueryWrapper);
         UmsAdminDTO umsAdminDTO = new UmsAdminDTO();
-        BeanUtils.copyProperties(umsAdmin, umsAdminDTO);
+        if (Objects.nonNull(umsAdmin)) {
+            BeanUtils.copyProperties(umsAdmin, umsAdminDTO);
+        }
         return umsAdminDTO;
     }
 
