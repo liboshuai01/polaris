@@ -59,23 +59,4 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         }
         return umsAdminDTO;
     }
-
-    /**
-     * 用户信息下载接口
-     */
-    @Override
-    public void userDataExport(List<Long> userIdList) {
-        List<UmsAdmin> umsAdminList = umsAdminMapper.selectBatchIds(userIdList);
-        UmsAdminVO umsAdminVO = new UmsAdminVO();
-        BeanUtils.copyProperties(umsAdminList, umsAdminVO);
-        Workbook workbook = ExcelExportUtil.exportExcel(
-                new ExportParams("导出测试", null, "测试网"),
-                UmsAdminVO.class,
-                umsAdminList);
-        try (OutputStream ot = new FileOutputStream("C:\\Users\\李博帅\\Desktop\\umsAdminVO.xls")){
-            workbook.write(ot);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
 }
