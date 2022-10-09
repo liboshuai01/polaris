@@ -46,7 +46,8 @@
         <junit-java-version>4.13.2</junit-java-version>
         <commons-text>1.1</commons-text>
         <velocity-verson>2.3</velocity-verson>
-        <mapstruct-version>1.4.2.Final</mapstruct-version>
+<!--        <mapstruct-version>1.4.2.Final</mapstruct-version>-->
+        <easypoi-version>4.0.0</easypoi-version>
     </properties>
 
 
