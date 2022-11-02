@@ -19,6 +19,7 @@
 
     <!-- trace级别，按照每天生成日志文件 -->
     <appender name="trace" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}\trace\trace.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>trace</level>
@@ -43,6 +44,7 @@
 
     <!-- debug级别，按照每天生成日志文件 -->
     <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}\debug\debug.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>debug</level>
@@ -67,6 +69,7 @@
 
     <!-- info级别，按照每天生成日志文件 -->
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}\info\info.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>info</level>
@@ -91,6 +94,7 @@
 
     <!-- warn级别，按照每天生成日志文件 -->
     <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}\warn\warn.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>warn</level>
@@ -115,6 +119,7 @@
 
     <!-- error级别，按照每天生成日志文件 -->
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}\error\error.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>
