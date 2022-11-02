@@ -48,6 +48,7 @@
         <velocity-verson>2.3</velocity-verson>
 <!--        <mapstruct-version>1.4.2.Final</mapstruct-version>-->
         <easypoi-version>4.0.0</easypoi-version>
+        <es-version>6.2.4</es-version>
     </properties>
 
 

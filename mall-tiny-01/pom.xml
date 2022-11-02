@@ -172,6 +172,7 @@
             <artifactId>easypoi-spring-boot-starter</artifactId>
             <version>${easypoi-version}</version>
         </dependency>
+        <!--elasticSearch依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
