@@ -5,7 +5,6 @@ import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsRoleDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsRoleService;
-import com.liboshuai.mall.tiny.utils.EncryptorUtil;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -20,9 +19,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MallTiny01Application.class)
 public class UmsRoleServiceImplTest extends TestCase {
-
-    @Autowired
-    private EncryptorUtil encryptorUtil;
 
     @Autowired
     private UmsAdminService umsAdminService;

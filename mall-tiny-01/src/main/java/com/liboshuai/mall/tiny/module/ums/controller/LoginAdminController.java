@@ -14,7 +14,6 @@ import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
-import com.liboshuai.mall.tiny.utils.EncryptorUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,9 +51,6 @@ public class LoginAdminController {
 
     @Autowired
     private UmsAdminService umsAdminService;
-
-    @Autowired
-    private EncryptorUtil encryptorUtil;
 
 
     /**
@@ -169,9 +164,4 @@ public class LoginAdminController {
         }
     }
 
-    @ApiOperation(value = "信息脱敏", httpMethod = "GET")
-    @GetMapping("/encryptor")
-    public ResponseResult<String> logout(@RequestParam String originalText) {
-        return ResponseResult.success("脱敏成功", encryptorUtil.encrypt(originalText));
-    }
 }
