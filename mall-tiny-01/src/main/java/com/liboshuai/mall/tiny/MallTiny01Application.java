@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @SpringBootApplication
-@EnableEncryptableProperties
 @MapperScan("com.liboshuai.mall.tiny.module.*.mapper")
 public class MallTiny01Application {
     public static void main(String[] args) {
