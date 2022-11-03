@@ -1,85 +1,52 @@
 package com.liboshuai.mall.tiny.utils;
 
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.StandardPBEByteEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
 /**
- * Jasypt安全框架加密类工具包
+ * 加解密工具类
  *
- * @author Thinking.H
- */
+ * @author gblfy
+ * @date 2021-09-19
+ **/
 public class JasyptUtils {
-
-    private static final String ENCRYPTED_VALUE_PREFIX = "ENC(";
-    private static final String ENCRYPTED_VALUE_SUFFIX = ")";
-
-
-    /**
-     * 判断是否是 prefixes/suffixes 包裹的属性
-     *
-     * @param value
-     * @return
-     */
-    public static boolean isEncryptedValue(final String value) {
-        if (value == null) {
-            return false;
-        }
-        final String trimmedValue = value.trim();
-        return (trimmedValue.startsWith(ENCRYPTED_VALUE_PREFIX) &&
-                trimmedValue.endsWith(ENCRYPTED_VALUE_SUFFIX));
-    }
-
-    /**
-     * 如果通过 prefixes/suffixes 包裹的属性，那么返回密文的值；如果没有被包裹，返回原生的值。
-     *
-     * @param value
-     * @return
-     */
-    private static String getInnerEncryptedValue(final String value) {
-        return value.substring(
-                ENCRYPTED_VALUE_PREFIX.length(),
-                (value.length() - ENCRYPTED_VALUE_SUFFIX.length()));
-    }
 
 
     /**
      * Jasypt生成加密结果
      *
-     * @param password 配置文件中设定的加密密码 jasypt.encryptor.password
-     * @param value    待加密值
+     * @param password 配置文件中设定的加密盐值
+     * @param value    加密值
      * @return
      */
-    public static String encryptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptOr = new PooledPBEStringEncryptor();
-        encryptOr.setConfig(cryptOr(password));
-        return encryptOr.encrypt(value);
+    public static String encyptPwd(String password, String value) {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(cryptor(password));
+        String result = encryptor.encrypt(value);
+        return result;
     }
 
     /**
      * 解密
      *
-     * @param password 配置文件中设定的加密密码 jasypt.encryptor.password
-     * @param value    待解密密文
+     * @param password 配置文件中设定的加密盐值
+     * @param value    解密密文
      * @return
      */
     public static String decyptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptOr = new PooledPBEStringEncryptor();
-        encryptOr.setConfig(cryptOr(password));
-        return encryptOr.decrypt(isEncryptedValue(value) ? getInnerEncryptedValue(value) : value);
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(cryptor(password));
+        String result = encryptor.decrypt(value);
+        return result;
     }
 
-    /**
-     * @param password salt
-     * @return
-     */
-    public static SimpleStringPBEConfig cryptOr(String password) {
+    public static SimpleStringPBEConfig cryptor(String password) {
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(password);
-        config.setAlgorithm(StandardPBEByteEncryptor.DEFAULT_ALGORITHM);
+        config.setAlgorithm("PBEWithMD5AndDES");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
-        config.setProviderName(null);
+        config.setProviderName("SunJCE");
         config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
         config.setStringOutputType("base64");
         return config;
@@ -87,14 +54,13 @@ public class JasyptUtils {
 
 
     public static void main(String[] args) {
+        String slat = "slat";
         // 加密
-        System.out.println(encryptPwd("BPQyqpWPacz5vCPVa", "NWcXF4ISDwNz"));
-
-        // 解密一
-        System.out.println(decyptPwd("BPQyqpWPacz5vCPVa", "RxfEwaPa6cfWeAS1vXJb/diWX80jzwy4"));
-
-        // 解密二
-        System.out.println(decyptPwd("BPQyqpWPacz5vCPVa", "ENC(RxfEwaPa6cfWeAS1vXJb/diWX80jzwy4)"));
+        String encPwd = encyptPwd(slat, "password");
+        // 解密
+        String decPwd = decyptPwd(slat, encPwd);
+        System.out.println(encPwd);
+        System.out.println(decPwd);
     }
 
 }
