@@ -1,7 +1,8 @@
 package com.liboshuai.mall.tiny.utils;
 
-import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.jasypt.properties.PropertyValueEncryptionUtils;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
  * 加解密工具类
@@ -9,58 +10,54 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
  * @author gblfy
  * @date 2021-09-19
  **/
-public class JasyptUtils {
+@Slf4j
+public final class JasyptUtils {
+    /**
+     * 加密使用密钥
+     */
+    private static final String PRIVATE_KEY = "BPQyqpWPacz5vCPVa";
 
+    private static final BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+
+    static {
+        basicTextEncryptor.setPassword(PRIVATE_KEY);
+    }
 
     /**
-     * Jasypt生成加密结果
-     *
-     * @param password 配置文件中设定的加密盐值
-     * @param value    加密值
-     * @return
+     * 私有构造方法，防止被意外实例化
      */
-    public static String encyptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
-        encryptor.setConfig(cryptor(password));
-        String result = encryptor.encrypt(value);
-        return result;
+    private JasyptUtils() {
+    }
+
+    /**
+     * 明文加密
+     *
+     * @param plaintext 明文
+     * @return String
+     */
+    public static String encrypt(String plaintext) {
+        log.info("明文字符串为：{}", plaintext);
+        // 使用的加密算法参考2.2节内容，也可以在源码的类注释中看到
+        String ciphertext = basicTextEncryptor.encrypt(plaintext);
+        log.info("密文字符串为：{}", ciphertext);
+        return ciphertext;
     }
 
     /**
      * 解密
      *
-     * @param password 配置文件中设定的加密盐值
-     * @param value    解密密文
-     * @return
+     * @param ciphertext 密文
+     * @return String
      */
-    public static String decyptPwd(String password, String value) {
-        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
-        encryptor.setConfig(cryptor(password));
-        String result = encryptor.decrypt(value);
-        return result;
+    public static String decrypt(String ciphertext) {
+        log.info("密文字符串为：{}", ciphertext);
+        ciphertext = "ENC(" + ciphertext + ")";
+        if (PropertyValueEncryptionUtils.isEncryptedValue(ciphertext)) {
+            String plaintext = PropertyValueEncryptionUtils.decrypt(ciphertext, basicTextEncryptor);
+            log.info("明文字符串为：{}", plaintext);
+            return plaintext;
+        }
+        log.error("解密失败！");
+        return "";
     }
-
-    public static SimpleStringPBEConfig cryptor(String password) {
-        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(password);
-        config.setAlgorithm("PBEWithMD5AndDES");
-        config.setKeyObtentionIterations("1000");
-        config.setPoolSize("1");
-        config.setProviderName("SunJCE");
-        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
-        config.setStringOutputType("base64");
-        return config;
-    }
-
-
-    public static void main(String[] args) {
-        String slat = "slat";
-        // 加密
-        String encPwd = encyptPwd(slat, "password");
-        // 解密
-        String decPwd = decyptPwd(slat, encPwd);
-        System.out.println(encPwd);
-        System.out.println(decPwd);
-    }
-
 }
