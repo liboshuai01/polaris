@@ -44,4 +44,14 @@ public class BookController {
         bookRepository.delete(book);
         return ResponseResult.success("删除成功");
     }
+
+    /**
+     * 查询es中所有book数据
+     */
+    @ApiOperation(value = "查询es中所有book数据", httpMethod = "POST")
+    @PostMapping("/findAllBookEs")
+    public ResponseResult<Iterable<Book>> findAllBookEs() {
+        Iterable<Book> bookAllList = bookRepository.findAll();
+        return ResponseResult.success(bookAllList);
+    }
 }
