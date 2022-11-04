@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 
 /**
  * @Author: liboshuai
@@ -53,5 +55,15 @@ public class BookController {
     public ResponseResult<Iterable<Book>> findAllBookEs() {
         Iterable<Book> bookAllList = bookRepository.findAll();
         return ResponseResult.success(bookAllList);
+    }
+
+    /**
+     * 查询es中一条book数据
+     */
+    @ApiOperation(value = "查询es中一条book数据", httpMethod = "POST")
+    @PostMapping("/findOneBookEs")
+    public ResponseResult<Book> findOneBookEs(@RequestParam String id) {
+        Book book = bookRepository.findById(id).get();
+        return ResponseResult.success(book);
     }
 }
