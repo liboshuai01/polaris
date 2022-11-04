@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.module.ums.nosql;
+package com.liboshuai.mall.tiny.nosql.elasticsearch.document;
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import io.swagger.annotations.Api;
@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -24,12 +25,23 @@ public class BookController {
     private BookRepository bookRepository;
 
     /**
-     * 添加索引和更新索引id, 存在则更新,不存在则添加
+     * 添加或更新一条book到es中
      */
-    @ApiOperation(value = "添加或更新book到es中", httpMethod = "POST")
+    @ApiOperation(value = "添加或更新一条book到es中", httpMethod = "POST")
     @PostMapping("/saveOrUpdateBookEs")
     public ResponseResult<Book> saveOrUpdateBookEs(@RequestBody Book book) {
         Book save = bookRepository.save(book);
         return ResponseResult.success(save);
+    }
+
+    /**
+     * 删除一条book到es中
+     */
+    @ApiOperation(value = "删除一条book到es中", httpMethod = "POST")
+    @PostMapping("/deleteBookEs")
+    public ResponseResult<Book> deleteBookEs(@RequestParam String id) {
+        Book book = Book.builder().id(id).build();
+        bookRepository.delete(book);
+        return ResponseResult.success("删除成功");
     }
 }

@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.module.ums.nosql;
+package com.liboshuai.mall.tiny.nosql.elasticsearch.document;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
