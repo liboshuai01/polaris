@@ -73,7 +73,7 @@ public class BookController {
      */
     @ApiOperation(value = "查询es中所有book数据,并根据创建时间进行排序", httpMethod = "POST")
     @PostMapping("/findAllOrderByCreateDate")
-    public ResponseResult<Iterable<Book>> findAllOrderByCreateDate(@RequestParam String id) {
+    public ResponseResult<Iterable<Book>> findAllOrderByCreateDate() {
         Iterable<Book> books = bookRepository.findAll(Sort.by(Sort.Order.asc("createDate")));
         return ResponseResult.success(books);
     }
