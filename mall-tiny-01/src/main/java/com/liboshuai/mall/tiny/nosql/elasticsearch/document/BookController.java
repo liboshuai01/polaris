@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,5 +66,15 @@ public class BookController {
     public ResponseResult<Book> findOneBookEs(@RequestParam String id) {
         Book book = bookRepository.findById(id).get();
         return ResponseResult.success(book);
+    }
+
+    /**
+     * 查询es中所有book数据,并根据创建时间进行排序
+     */
+    @ApiOperation(value = "查询es中所有book数据,并根据创建时间进行排序", httpMethod = "POST")
+    @PostMapping("/findAllOrderByCreateDate")
+    public ResponseResult<Iterable<Book>> findAllOrderByCreateDate(@RequestParam String id) {
+        Iterable<Book> books = bookRepository.findAll(Sort.by(Sort.Order.asc("createDate")));
+        return ResponseResult.success(books);
     }
 }
