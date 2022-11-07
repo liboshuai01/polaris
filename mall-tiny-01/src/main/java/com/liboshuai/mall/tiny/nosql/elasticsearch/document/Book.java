@@ -38,4 +38,10 @@ public class Book {
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String content;
+
+    @Field(type = FieldType.Float)
+    private Double price;
+
+    @Field(type = FieldType.Boolean)
+    private Boolean show;
 }

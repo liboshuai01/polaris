@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -76,5 +77,65 @@ public class BookController {
     public ResponseResult<Iterable<Book>> findAllOrderByCreateDate() {
         Iterable<Book> books = bookRepository.findAll(Sort.by(Sort.Order.asc("createDate")));
         return ResponseResult.success(books);
+    }
+
+    /**
+     * 根据作者名称查询
+     */
+    @ApiOperation(value = "根据作者名称查询", httpMethod = "POST")
+    @PostMapping("/findByAuthor")
+    public ResponseResult<List<Book>> findByAuthor(String author) {
+        List<Book> bookList = bookRepository.findByAuthor(author);
+        return ResponseResult.success(bookList);
+    }
+
+    /**
+     * 根据内容查询
+     */
+    @ApiOperation(value = "根据内容查询", httpMethod = "POST")
+    @PostMapping("/findByContent")
+    public ResponseResult<List<Book>> findByContent(String content) {
+        List<Book> bookList = bookRepository.findByContent(content);
+        return ResponseResult.success(bookList);
+    }
+
+    /**
+     * 根据内容和名字查询
+     */
+    @ApiOperation(value = "根据内容和名字查询", httpMethod = "POST")
+    @PostMapping("/findByNameAndContent")
+    public ResponseResult<List<Book>> findByNameAndContent(@RequestParam String name, @RequestParam String content) {
+        List<Book> bookList = bookRepository.findByNameAndContent(name, content);
+        return ResponseResult.success(bookList);
+    }
+
+    /**
+     * 范围查询
+     */
+    @ApiOperation(value = "范围查询", httpMethod = "POST")
+    @PostMapping("/findByPriceBetween")
+    public ResponseResult<List<Book>> findByPriceBetween(@RequestParam Float startPrice, @RequestParam Float endPrice) {
+        List<Book> bookList = bookRepository.findByPriceBetween(startPrice, endPrice);
+        return ResponseResult.success(bookList);
+    }
+
+    /**
+     * 范围查询
+     */
+    @ApiOperation(value = "范围查询", httpMethod = "POST")
+    @PostMapping("/findByNameStartingWith")
+    public ResponseResult<List<Book>> findByNameStartingWith(@RequestParam String name) {
+        List<Book> bookList = bookRepository.findByNameStartingWith(name);
+        return ResponseResult.success(bookList);
+    }
+
+    /**
+     * 查询show字段值为true
+     */
+    @ApiOperation(value = "查询show字段值为true", httpMethod = "POST")
+    @PostMapping("/findByShowTrue")
+    public ResponseResult<List<Book>> findByShowTrue() {
+        List<Book> bookList = bookRepository.findByShowTrue();
+        return ResponseResult.success(bookList);
     }
 }

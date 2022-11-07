@@ -21,4 +21,24 @@ public interface BookRepository extends ElasticsearchRepository<Book, String> {
      */
     List<Book> findByContent(String content);
 
+
+    /**
+     * 根据内容和名字查询
+     */
+    List<Book> findByNameAndContent(String name, String content);
+
+    /**
+     * 范围查询
+     */
+    List<Book> findByPriceBetween(Float startPrice, Float endPrice);
+
+    /**
+     * 查询以指定名称开头的book
+     */
+    List<Book> findByNameStartingWith(String name);
+
+    /**
+     * 查询show字段值为true
+     */
+    List<Book> findByShowTrue();
 }
