@@ -46,5 +46,6 @@ public class UmsPermissionServiceImplTest extends TestCase {
     @Test
     public void testFindPermissionsByUsername() {
         List<UmsPermissionDTO> permissions = umsPermissionService.findPermissionsByUsername(USERNAME);
+        log.debug("这是我写完的新需求代码!");
     }
 }
