@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.TestSun;
+package com.liboshuai.mall.tiny.zlearning.TestSun;
 
 public interface UsbInterface {
     public void start();
