@@ -36,9 +36,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     @Autowired
     private UmsAdminMapper umsAdminMapper;
 
-    @Autowired
-    private MyBaseMapper<UmsAdmin> myBaseMapper;
-
 
     /**
      * 根据用户名称查询用户id
@@ -75,6 +72,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             BeanUtils.copyProperties(umsAdminVO, umsAdmin);
             return umsAdmin;
         }).collect(Collectors.toList());
-        return myBaseMapper.updateBatch(umsAdminList);
+        return umsAdminMapper.updateBatch(umsAdminList);
     }
 }
