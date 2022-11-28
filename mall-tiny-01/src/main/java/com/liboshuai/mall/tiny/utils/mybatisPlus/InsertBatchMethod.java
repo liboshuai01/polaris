@@ -12,22 +12,36 @@ import org.apache.ibatis.mapping.SqlSource;
  * @Date: 2022-11-28 13:55
  * @Description: 自定义mybatisPlus批量插入方法
  */
+
 @Slf4j
 public class InsertBatchMethod extends AbstractMethod {
+    /**
+     * insert into user(id, name, age) values (1, "a", 17), (2, "b", 18);
+     <script>
+     insert into user(id, name, age) values
+     <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+     #{item.id}, #{item.name}, #{item.age}
+     </foreach>
+     </script>
+     */
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         final String sql = "<script>insert into %s %s values %s</script>";
         final String fieldSql = prepareFieldSql(tableInfo);
         final String valueSql = prepareValuesSql(tableInfo);
         final String sqlResult = String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
+        log.debug("sqlResult----->{}", sqlResult);
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sqlResult, modelClass);
+        // 第三个参数必须和RootMapper的自定义方法名一致
         return this.addInsertMappedStatement(mapperClass, modelClass, "insertBatch", sqlSource, new NoKeyGenerator(), null, null);
     }
 
     private String prepareFieldSql(TableInfo tableInfo) {
         StringBuilder fieldSql = new StringBuilder();
         fieldSql.append(tableInfo.getKeyColumn()).append(",");
-        tableInfo.getFieldList().forEach(x -> fieldSql.append(x.getColumn()).append(","));
+        tableInfo.getFieldList().forEach(x -> {
+            fieldSql.append(x.getColumn()).append(",");
+        });
         fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
         fieldSql.insert(0, "(");
         fieldSql.append(")");

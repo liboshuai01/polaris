@@ -4,6 +4,7 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liboshuai.mall.tiny.common.base.MyBaseMapper;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
 import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,6 +35,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
 
     @Autowired
     private UmsAdminMapper umsAdminMapper;
+
+    @Autowired
+    private MyBaseMapper<UmsAdmin> myBaseMapper;
 
 
     /**
@@ -58,5 +63,18 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
             BeanUtils.copyProperties(umsAdmin, umsAdminDTO);
         }
         return umsAdminDTO;
+    }
+
+    /**
+     * 测试批量更新用户信息
+     */
+    @Override
+    public int updateBatchUserById(List<UmsAdminVO> umsAdminVOList) {
+        List<UmsAdmin> umsAdminList = umsAdminVOList.stream().map(umsAdminVO -> {
+            UmsAdmin umsAdmin = new UmsAdmin();
+            BeanUtils.copyProperties(umsAdminVO, umsAdmin);
+            return umsAdmin;
+        }).collect(Collectors.toList());
+        return myBaseMapper.updateBatch(umsAdminList);
     }
 }
