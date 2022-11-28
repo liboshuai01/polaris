@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.common.base;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

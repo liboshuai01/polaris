@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description: 自定义mybatisPlus配置类
  */
 
-@MapperScan(basePackages = "cn.mapper")
+@MapperScan(basePackages = "com.liboshuai.mall.tiny")
 @Configuration
 public class MybatisPlusConfig {
 
