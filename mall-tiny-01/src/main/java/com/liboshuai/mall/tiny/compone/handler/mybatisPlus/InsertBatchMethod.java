@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.utils.mybatisPlus;
+package com.liboshuai.mall.tiny.compone.handler.mybatisPlus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;

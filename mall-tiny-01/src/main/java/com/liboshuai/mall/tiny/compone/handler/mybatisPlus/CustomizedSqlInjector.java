@@ -1,9 +1,7 @@
-package com.liboshuai.mall.tiny.compone.handler;
+package com.liboshuai.mall.tiny.compone.handler.mybatisPlus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.liboshuai.mall.tiny.utils.mybatisPlus.InsertBatchMethod;
-import com.liboshuai.mall.tiny.utils.mybatisPlus.UpdateBatchMethod;
 
 import java.util.List;
 
