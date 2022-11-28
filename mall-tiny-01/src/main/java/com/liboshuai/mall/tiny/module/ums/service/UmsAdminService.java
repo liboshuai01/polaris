@@ -27,4 +27,9 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * 根据用户名称查询用户全部信息
      */
     UmsAdminDTO findByUserName(String username);
+
+    /**
+     * 测试批量更新用户信息
+     */
+    int updateBatchUserById(List<UmsAdminVO> umsAdminVOList);
 }
