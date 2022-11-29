@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.forXunHuan;
+package com.liboshuai.mall.tiny.utils.forXunHuan;
 
 public class For99 {
     public static void main(String[] args) {

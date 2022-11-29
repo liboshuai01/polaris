@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.forXunHuan;
+package com.liboshuai.mall.tiny.utils.forXunHuan;
 
 
 import java.util.Arrays;
