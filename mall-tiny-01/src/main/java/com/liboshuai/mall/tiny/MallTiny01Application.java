@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan("com.liboshuai.mall.tiny.module.*.mapper")
 public class MallTiny01Application {
     public static void main(String[] args) {
+        System.setProperty("es.set.netty.runtime.available.processors","false");
         SpringApplication.run(MallTiny01Application.class, args);
     }
 

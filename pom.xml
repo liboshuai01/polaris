@@ -42,6 +42,13 @@
         <jwt-version>3.2.0</jwt-version>
         <fastjson.version>1.2.58</fastjson.version>
         <knife4j-swagger-version>2.0.4</knife4j-swagger-version>
+        <jasypt-version>3.0.3</jasypt-version>
+        <junit-java-version>4.13.2</junit-java-version>
+        <commons-text>1.1</commons-text>
+        <velocity-verson>2.3</velocity-verson>
+<!--        <mapstruct-version>1.4.2.Final</mapstruct-version>-->
+        <easypoi-version>4.0.0</easypoi-version>
+        <es-version>6.2.4</es-version>
     </properties>
 
 

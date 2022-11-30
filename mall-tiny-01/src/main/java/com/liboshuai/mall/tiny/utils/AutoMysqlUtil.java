@@ -12,13 +12,22 @@ import java.util.stream.Collectors;
  * @Description: 随机生成mysql数据工具类
  */
 public class AutoMysqlUtil {
-
+    /**
+     * 临时表名
+     */
     private static final String TMP_TABLE = "tmp_table";
+    /**
+     * 生成的表数据文件末尾追加的一行内容
+     */
     private static final String FILE_END_FLAG = "文件结尾标识";
+    /**
+     * 生成的表数据文件地址
+     */
+    private static final String FILE_ADDRESS = "C:\\Users\\李博帅\\Desktop\\temp\\mallFour.txt";
 
     public static void main(String[] args) {
         // 刚才下载到本地的mysql表、字段数据文件地址
-        List<String> readLines = FileUtil.readLines("C:\\Users\\李博帅\\Desktop\\mall03.txt", "UTF-8");
+        List<String> readLines = FileUtil.readLines(FILE_ADDRESS, "UTF-8");
         // 拼接 "INSERT INTO ? SELECT content FROM tmp_table" + tableName 部分
         List<String> tableNameList = readLines.stream()
                 .map(readLine -> readLine.split("\\s+")[0])
@@ -105,6 +114,6 @@ public class AutoMysqlUtil {
                 .collect(Collectors.toList());
         truncateTableMysqlList.addAll(mysqlList);
         // mysql文件生成的地址
-        FileUtil.writeLines(truncateTableMysqlList, "C:\\Users\\李博帅\\Desktop\\mallMysql.sql", "UTF-8");
+        FileUtil.writeLines(truncateTableMysqlList, "C:\\Users\\李博帅\\Desktop\\temp\\mallMysql.sql", "UTF-8");
     }
 }
