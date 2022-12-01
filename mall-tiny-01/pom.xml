@@ -11,33 +11,35 @@
 
     <artifactId>mall-tiny-01</artifactId>
 
-    <!--配置不同的profile，对应不同的生产环境-->
     <profiles>
+        <!--开发-->
         <profile>
-            <!--开发/测试-->
             <id>dev</id>
             <activation>
-                <!--默认开发环境-->
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <!--自定义的变量名称env作为标签，
-                标签内是我们配置文件不同环境的后缀-->
-                <env>dev</env>
+                <profilesActive>dev</profilesActive>
             </properties>
         </profile>
+        <!--预生产-->
         <profile>
-            <!--预发-->
             <id>uat</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
-                <env>uat</env>
+                <profilesActive>uat</profilesActive>
             </properties>
         </profile>
+        <!--生产-->
         <profile>
-            <!--生产-->
-            <id>pro</id>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
-                <env>pro</env>
+                <profilesActive>prod</profilesActive>
             </properties>
         </profile>
     </profiles>
@@ -193,24 +195,24 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>application-${profilesActive}.properties</include>
+                    <include>application.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
-                <!--springboot使用maven打包的插件-->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <!--指定配置文件的位置-->
-                <directory>src/main/resources</directory>
-                <includes>
-                    <!--读取resources下的所有文件，include表示指定文件内的，相对的还有excludes，排除其下的文件 -->
-                    <include>**/*</include>
-                </includes>
-                <!-- 开启替换标签，比如我们的'@env'就是通过这个替换的-->
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 </project>
