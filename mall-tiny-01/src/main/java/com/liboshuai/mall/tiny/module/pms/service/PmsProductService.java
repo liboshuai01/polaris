@@ -28,7 +28,7 @@ public interface PmsProductService extends IService<PmsProduct> {
     /**
      * 根据id删除es中的商品
      */
-    void deleteProductById(Long id);
+    void deleteEsProductById(Long id);
 
     /**
      * 批量添加/修改商品信息

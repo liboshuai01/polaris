@@ -120,7 +120,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      * @param id 成功删除的商品数量
      */
     @Override
-    public void deleteProductById(Long id) {
+    public void deleteEsProductById(Long id) {
         esProductRepository.deleteById(id);
     }
 

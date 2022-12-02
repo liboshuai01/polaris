@@ -9,6 +9,7 @@ import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,6 +33,13 @@ public class PmsProductController {
     public ResponseResult<Integer> importAllProductToEs() {
         int result = pmsProductService.importAllProductToEs();
         return ResponseResult.success(result);
+    }
+
+    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
+    @PostMapping("/deleteEsProductById")
+    public ResponseResult<?> deleteEsProductById(@RequestParam Long id) {
+        pmsProductService.deleteEsProductById(id);
+        return ResponseResult.success();
     }
 
 }
