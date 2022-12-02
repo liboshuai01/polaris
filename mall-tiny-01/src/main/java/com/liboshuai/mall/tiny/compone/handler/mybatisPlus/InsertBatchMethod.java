@@ -1,11 +1,24 @@
 package com.liboshuai.mall.tiny.compone.handler.mybatisPlus;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.baomidou.mybatisplus.core.toolkit.sql.SqlScriptUtils;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator;
+import org.apache.ibatis.executor.keygen.KeyGenerator;
 import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @Author: liboshuai
@@ -16,45 +29,50 @@ import org.apache.ibatis.mapping.SqlSource;
 @Slf4j
 public class InsertBatchMethod extends AbstractMethod {
     /**
-     * insert into user(id, name, age) values (1, "a", 17), (2, "b", 18);
-     <script>
-     insert into user(id, name, age) values
-     <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-     #{item.id}, #{item.name}, #{item.age}
-     </foreach>
-     </script>
+     * 字段筛选条件
      */
+    @Setter
+    @Accessors(chain = true)
+    private Predicate<TableFieldInfo> predicate;
+
+    @SuppressWarnings("Duplicates")
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        final String sql = "<script>insert into %s %s values %s</script>";
-        final String fieldSql = prepareFieldSql(tableInfo);
-        final String valueSql = prepareValuesSql(tableInfo);
-        final String sqlResult = String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
-        log.debug("sqlResult----->{}", sqlResult);
-        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sqlResult, modelClass);
-        // 第三个参数必须和RootMapper的自定义方法名一致
-        return this.addInsertMappedStatement(mapperClass, modelClass, "insertBatch", sqlSource, new NoKeyGenerator(), null, null);
+        KeyGenerator keyGenerator = new NoKeyGenerator();
+        SqlMethod sqlMethod = SqlMethod.INSERT_ONE;
+        List<TableFieldInfo> fieldList = tableInfo.getFieldList();
+        String insertSqlColumn = tableInfo.getKeyInsertSqlColumn(false) +
+                this.filterTableFieldInfo(fieldList, predicate, TableFieldInfo::getInsertSqlColumn, EMPTY);
+        String columnScript = LEFT_BRACKET + insertSqlColumn.substring(0, insertSqlColumn.length() - 1) + RIGHT_BRACKET;
+        String insertSqlProperty = tableInfo.getKeyInsertSqlProperty(ENTITY_DOT, false) +
+                this.filterTableFieldInfo(fieldList, predicate, i -> i.getInsertSqlProperty(ENTITY_DOT), EMPTY);
+        insertSqlProperty = LEFT_BRACKET + insertSqlProperty.substring(0, insertSqlProperty.length() - 1) + RIGHT_BRACKET;
+        String valuesScript = SqlScriptUtils.convertForeach(insertSqlProperty, "list", null, ENTITY, COMMA);
+        String keyProperty = null;
+        String keyColumn = null;
+        // 表包含主键处理逻辑,如果不包含主键当普通字段处理
+        if (StringUtils.isNotBlank(tableInfo.getKeyProperty())) {
+            if (tableInfo.getIdType() == IdType.AUTO) {
+                /* 自增主键 */
+                keyGenerator = new Jdbc3KeyGenerator();
+                keyProperty = tableInfo.getKeyProperty();
+                keyColumn = tableInfo.getKeyColumn();
+            } else {
+                if (null != tableInfo.getKeySequence()) {
+                    keyGenerator = TableInfoHelper.genKeyGenerator(getMethod(sqlMethod), tableInfo, builderAssistant);
+                    keyProperty = tableInfo.getKeyProperty();
+                    keyColumn = tableInfo.getKeyColumn();
+                }
+            }
+        }
+        String sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), columnScript, valuesScript);
+        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
+        return this.addInsertMappedStatement(mapperClass, modelClass, getMethod(sqlMethod), sqlSource, keyGenerator, keyProperty, keyColumn);
     }
 
-    private String prepareFieldSql(TableInfo tableInfo) {
-        StringBuilder fieldSql = new StringBuilder();
-        fieldSql.append(tableInfo.getKeyColumn()).append(",");
-        tableInfo.getFieldList().forEach(x -> {
-            fieldSql.append(x.getColumn()).append(",");
-        });
-        fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
-        fieldSql.insert(0, "(");
-        fieldSql.append(")");
-        return fieldSql.toString();
-    }
-
-    private String prepareValuesSql(TableInfo tableInfo) {
-        final StringBuilder valueSql = new StringBuilder();
-        valueSql.append("<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-        valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
-        tableInfo.getFieldList().forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
-        valueSql.delete(valueSql.length() - 1, valueSql.length());
-        valueSql.append("</foreach>");
-        return valueSql.toString();
+    @Override
+    public String getMethod(SqlMethod sqlMethod) {
+        // 自定义 mapper 方法名
+        return "insertBatch";
     }
 }
