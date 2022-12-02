@@ -1,5 +1,6 @@
-package com.liboshuai.mall.tiny.nosql.elasticsearch.document;
+package com.liboshuai.mall.tiny.nosql.elasticsearch.repository;
 
+import com.liboshuai.mall.tiny.nosql.elasticsearch.document.Book;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
