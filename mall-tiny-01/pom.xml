@@ -12,11 +12,21 @@
     <artifactId>mall-tiny-01</artifactId>
 
     <profiles>
-        <!--开发-->
+        <!--本地-->
+        <profile>
+            <id>localhost</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profilesActive>localhost</profilesActive>
+            </properties>
+        </profile>
+        <!--测试-->
         <profile>
             <id>dev</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <profilesActive>dev</profilesActive>
@@ -30,16 +40,6 @@
             </activation>
             <properties>
                 <profilesActive>uat</profilesActive>
-            </properties>
-        </profile>
-        <!--生产-->
-        <profile>
-            <id>prod</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profilesActive>prod</profilesActive>
             </properties>
         </profile>
     </profiles>
