@@ -32,11 +32,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 
 //
 //    @Override
-//    public void delete(Long id) {
-//        productRepository.deleteById(id);
-//    }
-//
-//    @Override
 //    public EsProduct create(Long id) {
 //        EsProduct result = null;
 //        List<EsProduct> esProductList = productDao.getAllEsProductList(id);
@@ -73,18 +68,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Autowired
     private EsProductRepository esProductRepository;
 
-//    @Override
-//    public int importAll() {
-//        List<EsProduct> esProductList = productDao.getAllEsProductList(null);
-//        Iterable<EsProduct> esProductIterable = productRepository.saveAll(esProductList);
-//        Iterator<EsProduct> iterator = esProductIterable.iterator();
-//        int result = 0;
-//        while (iterator.hasNext()) {
-//            result++;
-//            iterator.next();
-//        }
-//        return result;
-//    }
 
     /**
      * 从数据库中导入所有商品到ES
@@ -132,13 +115,13 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     }
 
     /**
-     * 根据id批量删除商品
+     * 根据id删除es中的商品
      *
-     * @param id
+     * @param id 成功删除的商品数量
      */
     @Override
-    public int deleteProductById(Long id) {
-        return 0;
+    public void deleteProductById(Long id) {
+        esProductRepository.deleteById(id);
     }
 
     /**
