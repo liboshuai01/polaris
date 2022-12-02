@@ -37,4 +37,7 @@ public class ProductSaveOrUpdateReq implements Serializable {
 
     @ApiModelProperty("商品备注")
     private String note;
+
+    @ApiModelProperty("货号")
+    private String productSn;
 }
