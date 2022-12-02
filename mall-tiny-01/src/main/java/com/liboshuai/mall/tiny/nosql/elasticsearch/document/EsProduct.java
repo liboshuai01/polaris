@@ -20,6 +20,9 @@ import java.util.List;
 public class EsProduct implements Serializable {
     private static final long serialVersionUID = -7441167196478327398L;
 
+    @Id
+    private Long id;
+
     /**
      * 货号
      */

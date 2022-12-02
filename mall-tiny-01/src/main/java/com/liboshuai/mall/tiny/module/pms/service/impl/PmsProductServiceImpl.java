@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -69,7 +67,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 //    }
 
 
-
     @Autowired
     private PmsProductAttributeValueService pmsProductAttributeValueService;
 
@@ -88,26 +85,50 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 //        }
 //        return result;
 //    }
+
     /**
      * 从数据库中导入所有商品到ES
      */
     @Override
     public int importAllProductToEs() {
+        // 查询全部product
         List<PmsProduct> pmsProductList = this.list();
         List<EsProduct> esProductList = pmsProductList.stream().filter(Objects::nonNull).map(product -> {
             EsProduct esProduct = new EsProduct();
             BeanUtils.copyProperties(product, esProduct);
             return esProduct;
         }).collect(Collectors.toList());
+        // 拿到所有product的id集合
         List<Long> pmsProductIdList = pmsProductList.stream().map(PmsProduct::getId).collect(Collectors.toList());
-        // fixme: 逻辑带确认
-//        List<PmsProductAttributeValue> pmsProductAttributeValues = pmsProductAttributeValueService.lambdaQuery()
-//                .eq(PmsProductAttributeValue::getProductId, product.getId()).list();
-//
-//        List<EsProductAttributeValue> attrValueList = new ArrayList<>();
-//        esProduct.setAttrValueList();
+        // 根据proudctId集合查询PmsProductAttributeValue集合
+        List<PmsProductAttributeValue> pmsProductAttributeValues = pmsProductAttributeValueService.lambdaQuery()
+                .in(PmsProductAttributeValue::getProductId, pmsProductIdList).list();
+        // 拿到查询到的PmsProductAttributeValue集合, 然后根据ProductId进行分组
+        Map<Long, List<PmsProductAttributeValue>> productIdAndProductValueMap = pmsProductAttributeValues.stream()
+                .collect(Collectors.groupingBy(PmsProductAttributeValue::getProductId));
+        // 遍历设置Product集合中的attrValueList属性
+        for (Map.Entry<Long, List<PmsProductAttributeValue>> entry :
+                productIdAndProductValueMap.entrySet()) {
+            esProductList = esProductList.stream().peek(esProduct -> {
+                if (Objects.equals(esProduct.getId(), entry.getKey())) {
+                    List<EsProductAttributeValue> esProductAttributeValues = entry.getValue().stream()
+                            .map(pmsProductAttributeValue -> {
+                                EsProductAttributeValue esProductAttributeValue = new EsProductAttributeValue();
+                                BeanUtils.copyProperties(pmsProductAttributeValue, esProductAttributeValue);
+                                return esProductAttributeValue;
+                            }).collect(Collectors.toList());
+                    esProduct.setAttrValueList(esProductAttributeValues);
+                }
+            }).collect(Collectors.toList());
+        }
         Iterable<EsProduct> esProductIterable = esProductRepository.saveAll(esProductList);
-        return 0;
+        Iterator<EsProduct> iterator = esProductIterable.iterator();
+        int result = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            result++;
+        }
+        return result;
     }
 
     /**
