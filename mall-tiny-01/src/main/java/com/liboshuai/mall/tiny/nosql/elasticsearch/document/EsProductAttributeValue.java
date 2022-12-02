@@ -13,27 +13,10 @@ import java.io.Serializable;
 public class EsProductAttributeValue implements Serializable {
     private static final long serialVersionUID = -4782978728804424777L;
 
-    private Long id;
-
-    /**
-     * 产品属性分类id
-     */
-    private Long productAttributeCategoryId;
 
     /**
      * 商品属性值
      */
     @Field(type = FieldType.Keyword)
     private String value;
-
-    /**
-     * 商品属性参数：0->规格；1->参数
-     */
-    private Integer type;
-
-    /**
-     * 商品属性名称
-     */
-    @Field(type=FieldType.Keyword)
-    private String name;
 }
