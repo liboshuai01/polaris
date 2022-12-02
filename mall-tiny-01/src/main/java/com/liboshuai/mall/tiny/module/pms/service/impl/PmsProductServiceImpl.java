@@ -100,7 +100,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         }).collect(Collectors.toList());
         // 拿到所有product的id集合
         List<Long> pmsProductIdList = pmsProductList.stream().map(PmsProduct::getId).collect(Collectors.toList());
-        // 根据proudctId集合查询PmsProductAttributeValue集合
+        // 根据productId集合查询PmsProductAttributeValue集合
         List<PmsProductAttributeValue> pmsProductAttributeValues = pmsProductAttributeValueService.lambdaQuery()
                 .in(PmsProductAttributeValue::getProductId, pmsProductIdList).list();
         // 拿到查询到的PmsProductAttributeValue集合, 然后根据ProductId进行分组
