@@ -20,19 +20,11 @@ import java.util.List;
 public class EsProduct implements Serializable {
     private static final long serialVersionUID = -7441167196478327398L;
 
-    @Id
-    private Long id;
-
     /**
      * 货号
      */
     @Field(type = FieldType.Keyword)
     private String productSn;
-
-    /**
-     * 品牌id
-     */
-    private Long brandId;
 
     /**
      * 品牌名称
@@ -41,20 +33,10 @@ public class EsProduct implements Serializable {
     private String brandName;
 
     /**
-     * 商品类别id
-     */
-    private Long productCategoryId;
-
-    /**
      * 商品类别名称
      */
     @Field(type = FieldType.Keyword)
     private String productCategoryName;
-
-    /**
-     * 商品图片
-     */
-    private String pic;
 
     /**
      * 商品名称
@@ -73,41 +55,6 @@ public class EsProduct implements Serializable {
      */
     @Field(analyzer = "ik_max_word",type = FieldType.Text)
     private String keywords;
-
-    /**
-     * 商品价格
-     */
-    private BigDecimal price;
-
-    /**
-     * 商品销售量
-     */
-    private Integer sale;
-
-    /**
-     * 新品状态:0->不是新品；1->新品
-     */
-    private Integer newStatus;
-
-    /**
-     * 推荐状态；0->不推荐；1->推荐
-     */
-    private Integer recommandStatus;
-
-    /**
-     * 商品库存
-     */
-    private Integer stock;
-
-    /**
-     * 商品促销价格
-     */
-    private Integer promotionType;
-
-    /**
-     * 商品排序
-     */
-    private Integer sort;
 
     /**
      * 商品属性参数列表

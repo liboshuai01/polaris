@@ -19,6 +19,7 @@ import java.util.List;
  */
 public interface PmsProductService extends IService<PmsProduct> {
 
+
     /**
      * 从数据库中导入所有商品到ES
      */
