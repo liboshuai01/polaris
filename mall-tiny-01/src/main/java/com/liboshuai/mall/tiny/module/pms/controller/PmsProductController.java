@@ -2,15 +2,15 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSaveOrUpdateReq;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,6 +40,17 @@ public class PmsProductController {
     public ResponseResult<?> deleteEsProductById(@RequestParam Long id) {
         pmsProductService.deleteEsProductById(id);
         return ResponseResult.success();
+    }
+
+    @ApiOperation(value = "批量添加商品信息", httpMethod = "POST")
+    @PostMapping("/addProduct")
+    public ResponseResult<?> addProduct(@RequestBody List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs) {
+        int result = pmsProductService.addProduct(productSaveOrUpdateReqs);
+        if (result == 1) {
+            return ResponseResult.success();
+        } else {
+            return ResponseResult.fail();
+        }
     }
 
 }
