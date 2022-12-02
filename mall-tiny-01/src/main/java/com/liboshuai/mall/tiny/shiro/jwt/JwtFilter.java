@@ -4,6 +4,7 @@ import cn.hutool.core.util.CharsetUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.liboshuai.mall.tiny.common.constants.ProfilesActiveConstant;
 import com.liboshuai.mall.tiny.common.constants.RedisConstant;
 import com.liboshuai.mall.tiny.common.constants.ShiroConstant;
 import com.liboshuai.mall.tiny.common.enums.ResponseCode;
@@ -11,9 +12,11 @@ import com.liboshuai.mall.tiny.compone.exception.CustomException;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -38,6 +43,8 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
     @Autowired
     private RedisClient redis;
+    @Value("spring.profiles.active")
+    private String profilesActive;
 
     public JwtFilter() {
         ResourceBundle resource = ResourceBundle.getBundle("application");
@@ -98,12 +105,16 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * 添加免密登录路径
      */
     private boolean secretFree(HttpServletRequest httpServletRequest) {
-        String[] anonUrl = {"/register", "/login", "/swagger-ui.html", "/doc.html",
-                "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**"};
+        List<String> anonUrl = Arrays.asList("/register", "/login", "/swagger-ui.html", "/doc.html",
+                "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**");
+        // 本地调试启动时, 放行全部uri路径
+        if (StringUtils.equals(profilesActive, ProfilesActiveConstant.LOCALHOST)) {
+            anonUrl.add("/**");
+        }
         boolean match = false;
-        String requestURI = httpServletRequest.getRequestURI();
+        String requestUri = httpServletRequest.getRequestURI();
         for (String u : anonUrl) {
-            if (pathMatcher.match(serverServletContextPath + u, requestURI)) {
+            if (pathMatcher.match(serverServletContextPath + u, requestUri)) {
                 match = true;
             }
         }
