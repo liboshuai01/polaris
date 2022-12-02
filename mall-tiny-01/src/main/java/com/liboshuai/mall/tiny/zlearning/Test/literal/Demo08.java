@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.zlearning.Test.literal;
 
-import netscape.javascript.JSUtil;
 
 /**
  * @author:Sun
