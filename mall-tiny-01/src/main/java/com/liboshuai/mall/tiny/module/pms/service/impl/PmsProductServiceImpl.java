@@ -31,21 +31,6 @@ import java.util.stream.Collectors;
 public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProduct> implements PmsProductService {
 
 //
-//    @Override
-//    public void delete(Long id) {
-//        productRepository.deleteById(id);
-//    }
-//
-//    @Override
-//    public EsProduct create(Long id) {
-//        EsProduct result = null;
-//        List<EsProduct> esProductList = productDao.getAllEsProductList(id);
-//        if (esProductList.size() > 0) {
-//            EsProduct esProduct = esProductList.get(0);
-//            result = productRepository.save(esProduct);
-//        }
-//        return result;
-//    }
 //
 //    @Override
 //    public void delete(List<Long> ids) {
@@ -66,6 +51,8 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 //        return productRepository.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, pageable);
 //    }
 
+    @Autowired
+    private PmsProductMapper pmsProductMapper;
 
     @Autowired
     private PmsProductAttributeValueService pmsProductAttributeValueService;
@@ -73,18 +60,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Autowired
     private EsProductRepository esProductRepository;
 
-//    @Override
-//    public int importAll() {
-//        List<EsProduct> esProductList = productDao.getAllEsProductList(null);
-//        Iterable<EsProduct> esProductIterable = productRepository.saveAll(esProductList);
-//        Iterator<EsProduct> iterator = esProductIterable.iterator();
-//        int result = 0;
-//        while (iterator.hasNext()) {
-//            result++;
-//            iterator.next();
-//        }
-//        return result;
-//    }
 
     /**
      * 从数据库中导入所有商品到ES
@@ -132,23 +107,36 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     }
 
     /**
-     * 根据id批量删除商品
+     * 根据id删除es中的商品
      *
-     * @param id
+     * @param id 成功删除的商品数量
      */
     @Override
-    public int deleteProductById(Long id) {
-        return 0;
+    public void deleteEsProductById(Long id) {
+        esProductRepository.deleteById(id);
     }
 
+    //    @Override
+//    public EsProduct create(Long id) {
+//        EsProduct result = null;
+//        List<EsProduct> esProductList = productDao.getAllEsProductList(id);
+//        if (esProductList.size() > 0) {
+//            EsProduct esProduct = esProductList.get(0);
+//            result = productRepository.save(esProduct);
+//        }
+//        return result;
+//    }
     /**
-     * 批量添加/修改商品信息
-     *
-     * @param productSaveOrUpdateReqs
+     * 批量添加商品信息
      */
     @Override
-    public int saveOrUpdateProduct(List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs) {
-        return 0;
+    public int addProduct(List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs) {
+        List<PmsProduct> pmsProductList = productSaveOrUpdateReqs.stream().map(productSaveOrUpdateReq -> {
+            PmsProduct pmsProduct = new PmsProduct();
+            BeanUtils.copyProperties(productSaveOrUpdateReq, pmsProduct);
+            return pmsProduct;
+        }).collect(Collectors.toList());
+        return pmsProductMapper.insertBatch(pmsProductList);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liboshuai.mall.tiny.common.base.RootMapper;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-09-16
  */
 @Mapper
-public interface PmsProductMapper extends BaseMapper<PmsProduct> {
+public interface PmsProductMapper extends RootMapper<PmsProduct> {
 
 }

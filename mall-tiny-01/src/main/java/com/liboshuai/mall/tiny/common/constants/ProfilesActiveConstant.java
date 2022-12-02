@@ -7,7 +7,7 @@ package com.liboshuai.mall.tiny.common.constants;
  */
 public interface ProfilesActiveConstant {
 
-    String LOCALHOST = "localhost";
+    String LOCALHOST = "local";
 
     String DEV = "dev";
 
