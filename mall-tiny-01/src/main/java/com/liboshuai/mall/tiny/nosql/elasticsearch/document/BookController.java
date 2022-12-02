@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.nosql.elasticsearch.document;
 
 import com.liboshuai.mall.tiny.common.base.PageResult;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.nosql.elasticsearch.repository.BookRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
