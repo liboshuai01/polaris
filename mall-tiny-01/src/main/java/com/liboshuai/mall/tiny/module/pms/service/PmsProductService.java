@@ -26,14 +26,14 @@ public interface PmsProductService extends IService<PmsProduct> {
     int importAllProductToEs();
 
     /**
-     * 根据id批量删除商品
+     * 根据id删除es中的商品
      */
-    int deleteProductById(Long id);
+    void deleteEsProductById(Long id);
 
     /**
-     * 批量添加/修改商品信息
+     * 批量添加商品信息
      */
-    int saveOrUpdateProduct(List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs);
+    int addProduct(List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs);
 
     /**
      * 根据商品名称,商品副标题,商品关键字分页搜索商品信息

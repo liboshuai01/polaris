@@ -10,7 +10,7 @@ import java.util.List;
  * @Date: 2022-11-28 13:59
  * @Description: 自定义myabtisPlusMapper
  */
-public interface MyBaseMapper<T> extends BaseMapper<T> {
+public interface RootMapper<T> extends BaseMapper<T> {
 
 
     /**

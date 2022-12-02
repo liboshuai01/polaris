@@ -16,7 +16,7 @@ import java.util.List;
  * @Description: es搜索商品信息
  */
 @Data
-@Document(indexName = "dangdang", type = "book", shards = 1, replicas = 0)
+@Document(indexName = "mall_tiny", type = "product", shards = 1, replicas = 0)
 public class EsProduct implements Serializable {
     private static final long serialVersionUID = -7441167196478327398L;
 
