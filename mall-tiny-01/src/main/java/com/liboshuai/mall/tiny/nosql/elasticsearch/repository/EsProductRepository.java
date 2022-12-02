@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.nosql.elasticsearch.repository;
 
 import com.liboshuai.mall.tiny.nosql.elasticsearch.document.EsProduct;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
@@ -18,6 +19,6 @@ public interface EsProductRepository extends ElasticsearchRepository<EsProduct, 
      * @param keywords 商品关键字
      * @return 分页查询的结果
      */
-    Page<EsProduct> findByBrandNameOrSubTitleOrKeywords(String brandName, String subTitle, String keywords);
+    Page<EsProduct> findByBrandNameOrSubTitleOrKeywords(String brandName, String subTitle, String keywords, Pageable pageable);
 
 }

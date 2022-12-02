@@ -14,12 +14,12 @@
     <profiles>
         <!--本地-->
         <profile>
-            <id>localhost</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <profilesActive>localhost</profilesActive>
+                <profilesActive>local</profilesActive>
             </properties>
         </profile>
         <!--测试-->
