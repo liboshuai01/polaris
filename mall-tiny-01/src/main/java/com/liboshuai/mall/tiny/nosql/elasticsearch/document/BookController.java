@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -33,8 +32,6 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
 
 
     /**
@@ -146,31 +143,5 @@ public class BookController {
     public ResponseResult<List<Book>> findByShowTrue() {
         List<Book> bookList = bookRepository.findByShowTrue();
         return ResponseResult.success(bookList);
-    }
-
-
-    /**
-     * es分页查询
-     */
-    @ApiOperation(value = "es分页查询", httpMethod = "POST")
-    @PostMapping("/findAllPage")
-    public ResponseResult<PageResult<Book>> findAllPage(@RequestParam int pageNum, @RequestParam int pageSize) {
-//        SearchRequest searchRequest = new SearchRequest();
-//        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-//        sourceBuilder.from(0).size(2).sort("age", SortOrder.DESC).query(QueryBuilders.matchAllQuery());
-//        searchRequest.indices("ems").types("emp").source(sourceBuilder);
-//        SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-//        SearchHit[] hits = search.getHits().getHits();
-//        for (SearchHit hit : hits) {
-//            System.out.println(hit.getSourceAsString());
-//        }
-        SearchRequest searchRequest = new SearchRequest();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.from(pageNum).size(pageSize)
-                .sort("createDate", SortOrder.DESC)
-                .query(QueryBuilders.matchAllQuery());
-        searchRequest.indices("dangdang").types("book").source(searchSourceBuilder);
-//        SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-        return ResponseResult.success();
     }
 }

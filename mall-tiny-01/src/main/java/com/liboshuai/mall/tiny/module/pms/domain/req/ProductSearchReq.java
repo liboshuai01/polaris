@@ -10,8 +10,6 @@ import lombok.*;
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProductSearchReq extends BasePageReq {
     private static final long serialVersionUID = -363540702161440897L;
