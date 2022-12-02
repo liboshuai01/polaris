@@ -15,7 +15,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -134,6 +136,9 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         List<PmsProduct> pmsProductList = productSaveOrUpdateReqs.stream().map(productSaveOrUpdateReq -> {
             PmsProduct pmsProduct = new PmsProduct();
             BeanUtils.copyProperties(productSaveOrUpdateReq, pmsProduct);
+            if (!StringUtils.isEmpty(productSaveOrUpdateReq.getPrice())) {
+                pmsProduct.setPrice(new BigDecimal(productSaveOrUpdateReq.getPrice()));
+            }
             return pmsProduct;
         }).collect(Collectors.toList());
         return pmsProductMapper.insertBatch(pmsProductList);
