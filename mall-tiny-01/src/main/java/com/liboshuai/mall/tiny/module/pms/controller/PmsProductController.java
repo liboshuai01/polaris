@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author liboshuai
  * @since 2022-09-16
  */
+@Api(tags = "商品", value = "PmsProductController")
 @RestController
 @RequestMapping("/mall.tiny.module.pms/pms-product")
 public class PmsProductController {
