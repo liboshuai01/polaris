@@ -95,6 +95,22 @@ public class ATMSystem {
      * 销户功能
      */
     private static boolean deleteAccount(Account acc, Scanner sc, ArrayList<Account> accounts) {
+        System.out.println("===================用户销户========================");
+        System.out.println("您真的要销户？y/n");
+        String rs = sc.next();
+        switch (rs){
+            case "y":
+                if (acc.getMoney() > 0){
+                    System.out.println("您账户中还有钱没有取完，不允许销户~");
+                }else {
+                    accounts.remove(acc);
+                    System.out.println("你的账号销户完成");
+                    return true;
+                }
+                break;
+            default:
+                System.out.println("好的，当前账户继续保留~");
+        }
         return false;
     }
 
