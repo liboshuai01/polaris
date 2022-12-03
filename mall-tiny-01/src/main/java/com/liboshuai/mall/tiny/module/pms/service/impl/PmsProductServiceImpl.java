@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -43,6 +44,18 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Autowired
     private EsProductRepository esProductRepository;
 
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
+
+    /**
+     * 创建商品es索引和类型
+     */
+    @Override
+    public void createEsIndexType() {
+        elasticsearchTemplate.createIndex(EsProduct.class);
+        elasticsearchTemplate.putMapping(EsProduct.class);
+    }
 
     /**
      * 从数据库中导入所有商品到ES

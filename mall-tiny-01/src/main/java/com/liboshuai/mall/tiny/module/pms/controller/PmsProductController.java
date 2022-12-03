@@ -10,9 +10,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -29,6 +31,16 @@ public class PmsProductController {
 
     @Autowired
     private PmsProductService pmsProductService;
+
+    /**
+     * 创建商品es索引和类型
+     */
+    @ApiOperation(value = "创建商品es索引和类型", httpMethod = "POST")
+    @PostMapping("/createEsIndexType")
+    public ResponseResult<Integer> createEsIndexType() {
+        pmsProductService.createEsIndexType();
+        return ResponseResult.success();
+    }
 
     @ApiOperation(value = "导入全部商品到es中", httpMethod = "POST")
     @PostMapping("/importAllProductToEs")
