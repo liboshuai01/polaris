@@ -153,7 +153,50 @@ public class ATMSystem {
      * @param accounts 全部账户的集合。
      */
     private static void transferMoney(Scanner sc, Account acc, ArrayList<Account> accounts) {
+        System.out.println("===================用户转账操作========================");
+        if (accounts.size() < 2){
+            System.out.println("当前系统中，不足2个账户，不能进行转账，请去开户吧~~");
+            return;
+        }
+        if (acc.getMoney() == 0){
+            System.out.println("对不起，您自己都都没钱，就别转了吧~~");
+            return;
+        }
+        while(true){
+            System.out.println("请您输入对方账户的卡号");
+            String cardId = sc.next();
 
+            if (cardId.equals(acc.getCardId())){
+                System.out.println("对不起，您不可以给自己进行转账~~");
+                continue;
+            }
+            Account account = getAccountByCardId(cardId,accounts);
+            if (account == null){
+                System.out.println("对不起，您输入对方的这个账号不存在~~");
+            }else {
+                String userName = account.getUserName();
+                String tip = "*" + userName.substring(1);
+                System.out.println("请您输入["+ tip +"]的姓氏");
+                String preName = sc.next();
+
+                if (userName.startsWith(preName)){
+                    while(true){
+                        System.out.println("请您输入转账金额：");
+                        double money = sc.nextDouble();
+                        if (money > acc.getMoney()){
+                            System.out.println("对不起，您余额不足，您最多可以转账：" + acc.getMoney());
+                        }else {
+                            acc.setMoney(acc.getMoney()-money);
+                            account.setMoney(account.getMoney()+money);
+                            System.out.println("转账成功！您的账户还剩余：" + acc.getMoney());
+                            return;
+                        }
+                    }
+                }else {
+                    System.out.println("对不起，您输入的信息有误~~");
+                }
+            }
+        }
     }
     /**
      * 取钱功能
