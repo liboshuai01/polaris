@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.Test.literal;
+package com.liboshuai.mall.tiny.zlearning.TestSun;
 
 /**
  * @author:Sun
