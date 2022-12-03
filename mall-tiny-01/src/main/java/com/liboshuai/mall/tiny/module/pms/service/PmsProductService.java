@@ -38,5 +38,5 @@ public interface PmsProductService extends IService<PmsProduct> {
     /**
      * 根据商品名称,商品副标题,商品关键字分页搜索商品信息
      */
-    Page<EsProduct> productSearch(ProductSearchReq productSearchReq);
+    Page<EsProduct> esProductSearch(ProductSearchReq productSearchReq);
 }

@@ -14,6 +14,7 @@ import com.liboshuai.mall.tiny.nosql.elasticsearch.repository.EsProductRepositor
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -31,27 +32,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProduct> implements PmsProductService {
-
-//
-//
-//    @Override
-//    public void delete(List<Long> ids) {
-//        if (!CollectionUtils.isEmpty(ids)) {
-//            List<EsProduct> esProductList = new ArrayList<>();
-//            for (Long id : ids) {
-//                EsProduct esProduct = new EsProduct();
-//                esProduct.setId(id);
-//                esProductList.add(esProduct);
-//            }
-//            productRepository.deleteAll(esProductList);
-//        }
-//    }
-//
-//    @Override
-//    public Page<EsProduct> search(String keyword, Integer pageNum, Integer pageSize) {
-//        Pageable pageable = PageRequest.of(pageNum, pageSize);
-//        return productRepository.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, pageable);
-//    }
 
     @Autowired
     private PmsProductMapper pmsProductMapper;
@@ -118,16 +98,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         esProductRepository.deleteById(id);
     }
 
-    //    @Override
-//    public EsProduct create(Long id) {
-//        EsProduct result = null;
-//        List<EsProduct> esProductList = productDao.getAllEsProductList(id);
-//        if (esProductList.size() > 0) {
-//            EsProduct esProduct = esProductList.get(0);
-//            result = productRepository.save(esProduct);
-//        }
-//        return result;
-//    }
     /**
      * 批量添加商品信息
      */
@@ -146,11 +116,13 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
 
     /**
      * 根据商品名称,商品副标题,商品关键字分页搜索商品信息
-     *
-     * @param productSearchReq
      */
     @Override
-    public Page<EsProduct> productSearch(ProductSearchReq productSearchReq) {
-        return null;
+    public Page<EsProduct> esProductSearch(ProductSearchReq productSearchReq) {
+        if (Objects.isNull(productSearchReq)) {
+            return null;
+        }
+        PageRequest pageRequest = PageRequest.of(productSearchReq.getPageNum(), productSearchReq.getPageSize());
+        return esProductRepository.findByNameOrSubTitleOrKeywords(productSearchReq.getName(), productSearchReq.getSubTitle(), productSearchReq.getKeywords(), pageRequest);
     }
 }

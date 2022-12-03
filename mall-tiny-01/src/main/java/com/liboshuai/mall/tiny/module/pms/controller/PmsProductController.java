@@ -3,11 +3,14 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSaveOrUpdateReq;
+import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSearchReq;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
+import com.liboshuai.mall.tiny.nosql.elasticsearch.document.EsProduct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +54,13 @@ public class PmsProductController {
         } else {
             return ResponseResult.fail();
         }
+    }
+
+    @ApiOperation(value = "es搜索商品", httpMethod = "POST")
+    @PostMapping("/esProductSearch")
+    public ResponseResult<?> esProductSearch(@RequestBody ProductSearchReq productSearchReq) {
+        Page<EsProduct> esProducts = pmsProductService.esProductSearch(productSearchReq);
+        return ResponseResult.success(esProducts);
     }
 
 }
