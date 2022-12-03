@@ -62,6 +62,8 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      */
     @Override
     public int importAllProductToEs() {
+        // 清空之前es中的数据
+        esProductRepository.deleteAll();
         // 查询全部product
         List<PmsProduct> pmsProductList = this.list();
         if (CollectionUtils.isEmpty(pmsProductList)) {
