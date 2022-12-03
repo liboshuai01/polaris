@@ -11,10 +11,12 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -59,8 +61,12 @@ public class PmsProductController {
     @ApiOperation(value = "批量添加商品信息", httpMethod = "POST")
     @PostMapping("/addProduct")
     public ResponseResult<?> addProduct(@RequestBody List<AddProductReq> addProductReqs) {
+        if (CollectionUtils.isEmpty(addProductReqs)) {
+            return ResponseResult.fail();
+        }
+        addProductReqs = addProductReqs.stream().filter(Objects::nonNull).collect(Collectors.toList());
         int result = pmsProductService.addProduct(addProductReqs);
-        if (result == 1) {
+        if (result == addProductReqs.size()) {
             return ResponseResult.success();
         } else {
             return ResponseResult.fail();
