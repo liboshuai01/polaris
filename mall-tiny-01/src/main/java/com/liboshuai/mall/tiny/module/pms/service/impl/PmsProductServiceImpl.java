@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -50,6 +51,10 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     public int importAllProductToEs() {
         // 查询全部product
         List<PmsProduct> pmsProductList = this.list();
+        if (CollectionUtils.isEmpty(pmsProductList)) {
+            log.warn("从数据库中导入所有商品到ES-查询全部product为空");
+            return 0;
+        }
         List<EsProduct> esProductList = pmsProductList.stream().filter(Objects::nonNull).map(product -> {
             EsProduct esProduct = new EsProduct();
             BeanUtils.copyProperties(product, esProduct);
@@ -57,6 +62,10 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         }).collect(Collectors.toList());
         // 拿到所有product的id集合
         List<Long> pmsProductIdList = pmsProductList.stream().map(PmsProduct::getId).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(pmsProductIdList)) {
+            log.warn("从数据库中导入所有商品到ES-所有product的id集合为空");
+            return 0;
+        }
         // 根据productId集合查询PmsProductAttributeValue集合
         List<PmsProductAttributeValue> pmsProductAttributeValues = pmsProductAttributeValueService.lambdaQuery()
                 .in(PmsProductAttributeValue::getProductId, pmsProductIdList).list();
