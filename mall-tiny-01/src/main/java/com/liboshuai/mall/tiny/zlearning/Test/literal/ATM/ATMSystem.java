@@ -10,6 +10,27 @@ import java.util.Scanner;
  */
 public class ATMSystem {
     public static void main(String[] args) {
+        ArrayList<Account> accounts = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            System.out.println("===============黑马ATM系统=================");
+            System.out.println("1、账户登录");
+            System.out.println("2、账户开户");
+
+            System.out.println("请您选择操作：");
+            int command = sc.nextInt();
+            switch (command){
+                case 1:
+                    login(accounts,sc);
+                    break;
+                case 2:
+                    register(accounts,sc);
+                    break;
+                default:
+                    System.out.println("您输入的操作命令不存在~~");
+            }
+        }
 
     }
     /**
@@ -251,6 +272,30 @@ public class ATMSystem {
      */
     private static void register(ArrayList<Account> accounts,Scanner sc){
         System.out.println("===================系统开户操作========================");
+        Account account = new Account();
+
+        System.out.println("请您输入账户用户名:");
+        String userName = sc.next();
+        account.setUserName(userName);
+        while(true){
+            System.out.println("请您输入账户密码：");
+            String passWord = sc.next();
+            System.out.println("请您输入确认密码：");
+            String okPassWord = sc.next();
+            if (passWord.equals(okPassWord)){
+                account.setPassWord(passWord);
+                break;
+            }else {
+                System.out.println("对不起，您输入的2次密码不一致，请重新确认~~");
+            }
+        }
+        System.out.println("请您输入账户当次限额：");
+        double quotaMoney = sc.nextDouble();
+        account.setQuotaMoney(quotaMoney);
+
+        String carId = getRandomCardId(accounts);
+        account.setCardId(carId);
+        System.out.println("恭喜您，" + userName + "先生/女生，您开户成功，您的卡号是：" + carId + "，请您妥善保管卡号" );
     }
     /**
      * 为账户生成8位与其他账户卡号不同的号码。
