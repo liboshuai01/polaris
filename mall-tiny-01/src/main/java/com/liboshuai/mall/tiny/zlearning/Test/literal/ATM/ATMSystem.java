@@ -202,6 +202,27 @@ public class ATMSystem {
      * 取钱功能
      * */
     private static void drawMoney(Account acc,Scanner sc){
+        System.out.println("===================用户取钱操作========================");
+        if (acc.getMoney() < 100){
+            System.out.println("对不起，当前账户中不够100元，不能取钱~");
+            return;
+        }
+        while(true){
+            System.out.println("请您输入取款金额：");
+            double money = sc.nextDouble();
+            if (money > acc.getQuotaMoney()){
+                System.out.println("对不起，您当前取款金额超过每次限额，每次最多可取：" + acc.getQuotaMoney());
+            }else {
+                if (money > acc.getMoney()){
+                    System.out.println("余额不足，您账户目前总余额是：" + acc.getMoney());
+                }else {
+                    System.out.println("恭喜您，取钱" + money +"元，成功！");
+                    acc.setMoney(acc.getMoney() - money);
+                    showAccount(acc);
+                    return;
+                }
+            }
+        }
 
     }
     /**
