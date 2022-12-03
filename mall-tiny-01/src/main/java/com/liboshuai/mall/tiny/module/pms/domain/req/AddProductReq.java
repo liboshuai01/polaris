@@ -11,13 +11,13 @@ import java.io.Serializable;
 /**
  * @Author: liboshuai
  * @Date: 2022-12-02 17:29
- * @Description: 添加或修改商品的请求对象
+ * @Description: 添加商品的请求对象
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductSaveOrUpdateReq implements Serializable {
+public class AddProductReq implements Serializable {
     private static final long serialVersionUID = -1516026568844827396L;
 
     @ApiModelProperty("商品名称")

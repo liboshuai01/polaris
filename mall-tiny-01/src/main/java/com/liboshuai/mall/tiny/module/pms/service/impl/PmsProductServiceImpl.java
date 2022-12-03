@@ -3,8 +3,8 @@ package com.liboshuai.mall.tiny.module.pms.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProductAttributeValue;
-import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSaveOrUpdateReq;
-import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSearchReq;
+import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
+import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsProductMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductAttributeValueService;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
@@ -102,12 +102,12 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      * 批量添加商品信息
      */
     @Override
-    public int addProduct(List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs) {
-        List<PmsProduct> pmsProductList = productSaveOrUpdateReqs.stream().map(productSaveOrUpdateReq -> {
+    public int addProduct(List<AddProductReq> addProductReqs) {
+        List<PmsProduct> pmsProductList = addProductReqs.stream().map(addProductReq -> {
             PmsProduct pmsProduct = new PmsProduct();
-            BeanUtils.copyProperties(productSaveOrUpdateReq, pmsProduct);
-            if (!StringUtils.isEmpty(productSaveOrUpdateReq.getPrice())) {
-                pmsProduct.setPrice(new BigDecimal(productSaveOrUpdateReq.getPrice()));
+            BeanUtils.copyProperties(addProductReq, pmsProduct);
+            if (!StringUtils.isEmpty(addProductReq.getPrice())) {
+                pmsProduct.setPrice(new BigDecimal(addProductReq.getPrice()));
             }
             return pmsProduct;
         }).collect(Collectors.toList());
@@ -118,11 +118,11 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      * 根据商品名称,商品副标题,商品关键字分页搜索商品信息
      */
     @Override
-    public Page<EsProduct> esProductSearch(ProductSearchReq productSearchReq) {
-        if (Objects.isNull(productSearchReq)) {
+    public Page<EsProduct> esProductSearch(EsSearchProduct esSearchProduct) {
+        if (Objects.isNull(esSearchProduct)) {
             return null;
         }
-        PageRequest pageRequest = PageRequest.of(productSearchReq.getPageNum(), productSearchReq.getPageSize());
-        return esProductRepository.findByNameOrSubTitleOrKeywords(productSearchReq.getName(), productSearchReq.getSubTitle(), productSearchReq.getKeywords(), pageRequest);
+        PageRequest pageRequest = PageRequest.of(esSearchProduct.getPageNum(), esSearchProduct.getPageSize());
+        return esProductRepository.findByNameOrSubTitleOrKeywords(esSearchProduct.getName(), esSearchProduct.getSubTitle(), esSearchProduct.getKeywords(), pageRequest);
     }
 }

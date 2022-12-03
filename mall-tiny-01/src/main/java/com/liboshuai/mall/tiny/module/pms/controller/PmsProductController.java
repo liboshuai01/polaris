@@ -2,13 +2,12 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
-import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSaveOrUpdateReq;
-import com.liboshuai.mall.tiny.module.pms.domain.req.ProductSearchReq;
+import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
+import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import com.liboshuai.mall.tiny.nosql.elasticsearch.document.EsProduct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +46,8 @@ public class PmsProductController {
 
     @ApiOperation(value = "批量添加商品信息", httpMethod = "POST")
     @PostMapping("/addProduct")
-    public ResponseResult<?> addProduct(@RequestBody List<ProductSaveOrUpdateReq> productSaveOrUpdateReqs) {
-        int result = pmsProductService.addProduct(productSaveOrUpdateReqs);
+    public ResponseResult<?> addProduct(@RequestBody List<AddProductReq> addProductReqs) {
+        int result = pmsProductService.addProduct(addProductReqs);
         if (result == 1) {
             return ResponseResult.success();
         } else {
@@ -58,8 +57,8 @@ public class PmsProductController {
 
     @ApiOperation(value = "es搜索商品", httpMethod = "POST")
     @PostMapping("/esProductSearch")
-    public ResponseResult<?> esProductSearch(@RequestBody ProductSearchReq productSearchReq) {
-        Page<EsProduct> esProducts = pmsProductService.esProductSearch(productSearchReq);
+    public ResponseResult<?> esProductSearch(@RequestBody EsSearchProduct esSearchProduct) {
+        Page<EsProduct> esProducts = pmsProductService.esProductSearch(esSearchProduct);
         return ResponseResult.success(esProducts);
     }
 
