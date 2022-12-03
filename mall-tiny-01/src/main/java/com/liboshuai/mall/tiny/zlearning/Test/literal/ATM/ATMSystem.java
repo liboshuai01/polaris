@@ -229,7 +229,12 @@ public class ATMSystem {
      * 存钱方法
      */
     private static void depositMoney(Account acc,Scanner sc){
-
+        System.out.println("===================用户存钱操作========================");
+        System.out.println("请您输入存款金额：");
+        double money = sc.nextDouble();
+        acc.setMoney(acc.getMoney()+money);
+        System.out.println("恭喜您，存钱成功，当前账户信息如下：");
+        showAccount(acc);
     }
     /**
      * 展示账户信息
