@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.Test.literal.staticuse.d2_static.d6_extends_test;
+package com.liboshuai.mall.tiny.zlearning.Test.literal.staticuse.d6_extends_test;
 
 /**
  * @author:Sun
