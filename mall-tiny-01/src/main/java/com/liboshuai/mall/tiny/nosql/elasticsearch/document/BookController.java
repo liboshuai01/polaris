@@ -1,9 +1,15 @@
 package com.liboshuai.mall.tiny.nosql.elasticsearch.document;
 
+import com.liboshuai.mall.tiny.common.base.PageResult;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.nosql.elasticsearch.repository.BookRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -27,6 +32,7 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+
 
     /**
      * 添加或更新一条book到es中

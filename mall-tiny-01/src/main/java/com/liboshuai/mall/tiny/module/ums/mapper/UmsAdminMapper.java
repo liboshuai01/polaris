@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.module.ums.mapper;
 
-import com.liboshuai.mall.tiny.common.base.MyBaseMapper;
+import com.liboshuai.mall.tiny.common.base.RootMapper;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-09-16
  */
 @Mapper
-public interface UmsAdminMapper extends MyBaseMapper<UmsAdmin> {
+public interface UmsAdminMapper extends RootMapper<UmsAdmin> {
 
 }
