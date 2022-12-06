@@ -25,6 +25,7 @@ public class Test2 {
                 return middleIndex;
             }
         }
-        return -1;// 查无此元素
+//        return -1;// 查无此元素
+
     }
 }
