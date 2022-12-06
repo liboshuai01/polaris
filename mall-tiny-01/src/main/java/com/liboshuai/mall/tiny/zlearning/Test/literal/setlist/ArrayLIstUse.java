@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.setlist;
+package com.liboshuai.mall.tiny.zlearning.Test.literal.setlist;
 
 import java.util.ArrayList;
 

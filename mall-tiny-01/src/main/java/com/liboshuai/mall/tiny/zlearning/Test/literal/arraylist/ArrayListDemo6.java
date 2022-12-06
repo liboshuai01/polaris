@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.zlearning.arraylist;
+package com.liboshuai.mall.tiny.zlearning.Test.literal.arraylist;
 
 import java.util.ArrayList;
 import java.util.Scanner;
