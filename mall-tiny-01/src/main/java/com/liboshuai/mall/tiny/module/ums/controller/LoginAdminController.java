@@ -202,7 +202,7 @@ public class LoginAdminController {
     @RequestMapping("/wxLogin")
     public void wxLogin(HttpServletResponse response) throws IOException {
         //这个url的域名必须在公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl = "http://7ca0c439f61c.ngrok.io/callback";//使用自己的域名
+        String backUrl = "http://j.jyy.cool:18081/mall-tiny/callback";//使用自己的域名
         // 第一步：用户同意授权，获取code
         //请求地址  snsapi_base   snsapi_userinfo
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize" +
