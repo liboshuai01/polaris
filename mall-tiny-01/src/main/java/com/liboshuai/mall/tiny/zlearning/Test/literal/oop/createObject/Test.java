@@ -1,6 +1,5 @@
 package com.liboshuai.mall.tiny.zlearning.Test.literal.oop.createObject;
 
-import org.elasticsearch.common.recycler.Recycler;
 
 /**
  * @author:Sun

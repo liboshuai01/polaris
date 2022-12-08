@@ -1,7 +1,5 @@
 package com.liboshuai.mall.tiny.zlearning.Test.literal.api_lambda_app.collection_app.d5_collection_list;
 
-import netscape.javascript.JSUtil;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

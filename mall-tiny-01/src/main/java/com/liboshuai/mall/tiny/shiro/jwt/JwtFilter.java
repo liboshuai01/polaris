@@ -103,7 +103,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     private boolean secretFree(HttpServletRequest httpServletRequest) {
         List<String> anonUrlList = Arrays.asList("/register", "/login", "/swagger-ui.html", "/doc.html",
-        "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**");
+        "/webjars/**", "/swagger-resources", "/v2/api-docs", "/swagger-resources/**", "/checkToken", "/wxLogin", "/callback");
         // 本地调试启动时, 放行全部uri路径
         if (StringUtils.equals(profilesAction, ProfilesActiveConstant.LOCALHOST)) {
             anonUrlList = Collections.singletonList("/**");
