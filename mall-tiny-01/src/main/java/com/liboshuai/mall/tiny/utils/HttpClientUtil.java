@@ -34,8 +34,8 @@ public class HttpClientUtil {
 
 
     //appid、secret为自己公众号平台的appid和secret
-    public static final String APPID="xxxxxxx";
-    public static final String APPSECRET ="xxxxxxx";
+    public static final String APPID="wx9c26d9fab3454bd7";
+    public static final String APPSECRET ="1b317cb53df03bd98228e9dd383b4ced";
 
     public static String doGet(String url, Map<String, String> param) {
         // 创建Httpclient对象
