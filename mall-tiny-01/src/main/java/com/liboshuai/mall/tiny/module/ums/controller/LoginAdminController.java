@@ -187,10 +187,10 @@ public class LoginAdminController {
         // 随机字符串
         String echostr = request.getParameter("echostr");
         if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-            System.out.println("校验token成功");
+            log.info("校验token成功");
             return echostr;
         }else{
-            System.out.println("校验token不成功");
+            log.info("校验token不成功");
             return  null;
         }
     }
@@ -222,6 +222,7 @@ public class LoginAdminController {
     @ApiOperation(value = "公众号微信登录授权回调函数", httpMethod = "GET")
     @RequestMapping("/callback")
     public ResponseResult<?> callback(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JSONObject userInfo;
         try{
             /*start 获取微信用户基本信息*/
             String code = req.getParameter("code");
@@ -231,7 +232,7 @@ public class LoginAdminController {
                     + "&secret=" + HttpClientUtil.APPSECRET
                     + "&code=" + code
                     + "&grant_type=authorization_code";
-            System.out.println(url);
+            log.info(url);
 
             String result = HttpClientUtil.doGet(url);
             JSONObject jsonObject = JSON.parseObject(result);
@@ -252,7 +253,7 @@ public class LoginAdminController {
                     + access_token + "&openid=" + openid;
             String resultInfo = HttpClientUtil.doGet(chickUrl);
             JSONObject chickuserInfo = JSON.parseObject(resultInfo);
-            System.out.println(chickuserInfo.toString());
+            log.info(chickuserInfo.toString());
             if (!"0".equals(chickuserInfo.getString("errcode"))) {
                 String refreshInfo1 = HttpClientUtil.doGet(chickUrl);
                 JSONObject refreshInfo = JSON.parseObject(refreshInfo1);
@@ -270,7 +271,7 @@ public class LoginAdminController {
             String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token
                     + "&openid=" + openid
                     + "&lang=zh_CN";
-            JSONObject userInfo = JSON.parseObject(HttpClientUtil.doGet(infoUrl));
+            userInfo = JSON.parseObject(HttpClientUtil.doGet(infoUrl));
             /*
          {  "openid":" OPENID",
             "nickname": NICKNAME,
@@ -283,12 +284,13 @@ public class LoginAdminController {
             "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
            }
          */
-            System.out.println(userInfo.getString("openid") + ":" + userInfo.getString("nickname") +":" + userInfo.getString("sex"));
+            log.info(userInfo.getString("openid") + ":" + userInfo.getString("nickname") +":" + userInfo.getString("sex"));
         }catch (Exception e){
             e.printStackTrace();
             return ResponseResult.fail();
         }
-        return ResponseResult.success();
+        return ResponseResult.success(userInfo.toJSONString());
     }
 
 }
+
