@@ -175,6 +175,7 @@ public class LoginAdminController {
      * @param request
      * @param response
      * */
+    @ApiOperation(value = "用于给微信验证token", httpMethod = "GET")
     @RequestMapping("/checkToken")
     public String checkToken(HttpServletRequest request,HttpServletResponse response) throws IOException {
         // 微信加密签名
@@ -197,6 +198,7 @@ public class LoginAdminController {
     /**
      * 公众号微信登录授权
      */
+    @ApiOperation(value = "公众号微信登录授权", httpMethod = "GET")
     @RequestMapping("/wxLogin")
     public void wxLogin(HttpServletResponse response) throws IOException {
         //这个url的域名必须在公众号中进行注册验证，这个地址是成功后的回调地址
@@ -217,6 +219,7 @@ public class LoginAdminController {
     /**
      * 公众号微信登录授权回调函数
      */
+    @ApiOperation(value = "公众号微信登录授权回调函数", httpMethod = "GET")
     @RequestMapping("/callback")
     public ResponseResult<?> callback(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
