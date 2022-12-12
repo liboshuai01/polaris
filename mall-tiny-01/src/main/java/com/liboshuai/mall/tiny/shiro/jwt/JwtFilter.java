@@ -44,7 +44,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     private String profilesAction;
 
     public JwtFilter() {
-        ResourceBundle resource = ResourceBundle.getBundle("application");
+        ResourceBundle resource = ResourceBundle.getBundle("application-" + profilesAction);
         serverServletContextPath = resource.getString("server.servlet.context-path");
         refreshTokenExpireTime = resource.getString("config.refreshToken-expireTime");
     }
