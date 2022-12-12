@@ -1,7 +1,6 @@
 package com.liboshuai.mall.tiny.zlearning.Test.literal.day06.d6_map_api;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author:Sun
@@ -30,16 +29,33 @@ public class MapDemo {
         System.out.println(maps.remove("iphoneX"));
         System.out.println(maps);
 
+//        maps.clear();//清空集合
+//        System.out.println(maps);
 
 
+        System.out.println(maps.containsKey("娃娃"));
+        System.out.println(maps.containsKey("娃娃2"));
+        System.out.println(maps.containsKey("iphoneX"));
 
+        System.out.println(maps.containsKey(100));
+        System.out.println(maps.containsKey(10));
+        System.out.println(maps.containsKey(22));
 
+        Set<String> keys = maps.keySet();
+        System.out.println(keys);
 
+        Collection<Integer> values = maps.values();
+        System.out.println(values);
 
-
-
-
-
+        Map<String,Integer> map1 = new HashMap<>();
+        map1.put("java1",1);
+        map1.put("java2",100);
+        Map<String,Integer> map2 = new HashMap<>();
+        map2.put("java2",1);
+        map2.put("java2",100);
+        map1.putAll(map2);
+        System.out.println(map1);
+        System.out.println(map2);
 
 
     }
