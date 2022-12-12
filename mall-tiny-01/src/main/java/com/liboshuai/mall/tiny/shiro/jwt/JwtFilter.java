@@ -42,11 +42,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     private RedisClient redis;
     @Value("${spring.profiles.active}")
     private String profilesAction;
-    @Value("${spring.active}")
-    private String springActive;
 
     public JwtFilter() {
-        ResourceBundle resource = ResourceBundle.getBundle("application-" + springActive);
+        ResourceBundle resource = ResourceBundle.getBundle("application");
         serverServletContextPath = resource.getString("server.servlet.context-path");
         refreshTokenExpireTime = resource.getString("config.refreshToken-expireTime");
     }
