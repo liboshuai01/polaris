@@ -1,5 +1,6 @@
 package com.liboshuai.mall.tiny.module.ums.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -14,6 +15,8 @@ import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
 import com.liboshuai.mall.tiny.shiro.jwt.JwtUtil;
+import com.liboshuai.mall.tiny.utils.HttpClientUtil;
+import com.liboshuai.mall.tiny.utils.SignUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +27,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.Objects;
@@ -164,4 +170,127 @@ public class LoginAdminController {
         }
     }
 
+    /**
+     * 用于给微信验证token
+     * @param request
+     * @param response
+     * */
+    @ApiOperation(value = "用于给微信验证token", httpMethod = "GET")
+    @RequestMapping("/checkToken")
+    public String checkToken(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        // 微信加密签名
+        String signature = request.getParameter("signature");
+        // 时间戳
+        String timestamp = request.getParameter("timestamp");
+        // 随机数
+        String nonce = request.getParameter("nonce");
+        // 随机字符串
+        String echostr = request.getParameter("echostr");
+        if (SignUtil.checkSignature(signature, timestamp, nonce)) {
+            log.info("校验token成功");
+            return echostr;
+        }else{
+            log.info("校验token不成功");
+            return  null;
+        }
+    }
+
+    /**
+     * 公众号微信登录授权
+     */
+    @ApiOperation(value = "公众号微信登录授权", httpMethod = "GET")
+    @RequestMapping("/wxLogin")
+    public void wxLogin(HttpServletResponse response) throws IOException {
+        //这个url的域名必须在公众号中进行注册验证，这个地址是成功后的回调地址
+        String backUrl = "http://j.jyy.cool:18081/mall-tiny/callback";//使用自己的域名
+        // 第一步：用户同意授权，获取code
+        //请求地址  snsapi_base   snsapi_userinfo
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize" +
+                "?appid=" + HttpClientUtil.APPID +
+                "&redirect_uri=" + URLEncoder.encode(backUrl,"utf-8") +
+                "&response_type=code" +
+                "&scope=snsapi_userinfo" +
+                "&state=STATE#wechat_redirect";
+        log.info("forward重定向地址{" + url + "}");
+        //必须重定向，否则不能成功
+        response.sendRedirect(url);
+    }
+
+    /**
+     * 公众号微信登录授权回调函数
+     */
+    @ApiOperation(value = "公众号微信登录授权回调函数", httpMethod = "GET")
+    @RequestMapping("/callback")
+    public ResponseResult<?> callback(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JSONObject userInfo;
+        try{
+            /*start 获取微信用户基本信息*/
+            String code = req.getParameter("code");
+            //第二步：通过code换取网页授权access_token
+            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?"
+                    + "appid=" + HttpClientUtil.APPID
+                    + "&secret=" + HttpClientUtil.APPSECRET
+                    + "&code=" + code
+                    + "&grant_type=authorization_code";
+            log.info(url);
+
+            String result = HttpClientUtil.doGet(url);
+            JSONObject jsonObject = JSON.parseObject(result);
+
+            /*
+         {   "access_token":"ACCESS_TOKEN",
+            "expires_in":7200,
+            "refresh_token":"REFRESH_TOKEN",
+            "openid":"OPENID",
+            "scope":"SCOPE"
+           }
+         */
+            String openid = jsonObject.getString("openid");
+            String access_token = jsonObject.getString("access_token");
+
+            //第三步验证access_token是否失效；
+            String chickUrl = "https://api.weixin.qq.com/sns/auth?access_token="
+                    + access_token + "&openid=" + openid;
+            String resultInfo = HttpClientUtil.doGet(chickUrl);
+            JSONObject chickuserInfo = JSON.parseObject(resultInfo);
+            log.info(chickuserInfo.toString());
+            if (!"0".equals(chickuserInfo.getString("errcode"))) {
+                String refreshInfo1 = HttpClientUtil.doGet(chickUrl);
+                JSONObject refreshInfo = JSON.parseObject(refreshInfo1);
+             /*
+              { "access_token":"ACCESS_TOKEN",
+                "expires_in":7200,
+                "refresh_token":"REFRESH_TOKEN",
+                "openid":"OPENID",
+                "scope":"SCOPE" }
+             */
+                access_token = refreshInfo.getString("access_token");
+            }
+
+            // 第四步：拉取用户信息
+            String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token
+                    + "&openid=" + openid
+                    + "&lang=zh_CN";
+            userInfo = JSON.parseObject(HttpClientUtil.doGet(infoUrl));
+            /*
+         {  "openid":" OPENID",
+            "nickname": NICKNAME,
+            "sex":"1",
+            "province":"PROVINCE"
+            "city":"CITY",
+            "country":"COUNTRY",
+            "headimgurl": "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+            "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],
+            "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+           }
+         */
+            log.info(userInfo.getString("openid") + ":" + userInfo.getString("nickname") +":" + userInfo.getString("sex"));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.fail();
+        }
+        return ResponseResult.success(userInfo.toJSONString());
+    }
+
 }
+

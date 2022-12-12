@@ -46,9 +46,9 @@
         <junit-java-version>4.13.2</junit-java-version>
         <commons-text>1.1</commons-text>
         <velocity-verson>2.3</velocity-verson>
-<!--        <mapstruct-version>1.4.2.Final</mapstruct-version>-->
         <easypoi-version>4.0.0</easypoi-version>
         <es-version>6.2.4</es-version>
+        <redis.clients-version>2.9.0</redis.clients-version>
     </properties>
 
     <repositories>

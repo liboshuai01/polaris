@@ -15,9 +15,9 @@ public class OrderTimeOutCancelTask {
     /**
      * 每10分钟扫描一次，扫描设定超时时间之前下的订单，如果没支付则取消该订单
      */
-    @Scheduled(cron = "0 0/10 * ? * ?")
-    private void cancelTimeOutOrder() {
-        // TODO: 业务代码待实现
-        log.info("取消订单，并根据sku编号释放锁定库存");
-    }
+//    @Scheduled(cron = "0 0/10 * ? * ?")
+//    private void cancelTimeOutOrder() {
+//        // TODO: 业务代码待实现
+//        log.info("取消订单，并根据sku编号释放锁定库存");
+//    }
 }
