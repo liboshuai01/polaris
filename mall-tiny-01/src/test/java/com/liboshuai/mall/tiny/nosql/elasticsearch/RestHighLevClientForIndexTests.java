@@ -8,6 +8,8 @@ import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,6 +49,55 @@ public class RestHighLevClientForIndexTests extends MallTiny01TestApplication{
     public void testCreateIndexAndMapping() throws IOException {
         //参数 1: 创建索引请求对象  参数 2: 请求配置对象
         CreateIndexRequest createIndexRequest = new CreateIndexRequest(INDEX_NAME);
-//        createIndexRequest.mapping()
+        //指定映射 参数 1: 指定映射 json 结构  参数 2:指定数据类型
+        createIndexRequest.mapping("{\n" +
+                "    \"properties\": {\n" +
+                "        \"brand_name\": {\n" +
+                "            \"type\": \"keyword\"\n" +
+                "        },\n" +
+                "        \"create_time\": {\n" +
+                "            \"type\": \"date\"\n" +
+                "        },\n" +
+                "        \"id\": {\n" +
+                "            \"type\": \"long\"\n" +
+                "        },\n" +
+                "        \"keywords\": {\n" +
+                "            \"type\": \"text\",\n" +
+                "            \"analyzer\": \"ik_max_word\"\n" +
+                "        },\n" +
+                "        \"name\": {\n" +
+                "            \"type\": \"text\",\n" +
+                "            \"analyzer\": \"ik_max_word\"\n" +
+                "        },\n" +
+                "        \"product_attribute_value\": {\n" +
+                "            \"type\": \"nested\",\n" +
+                "            \"properties\": {\n" +
+                "                \"product_attribute_id\": {\n" +
+                "                    \"type\": \"long\"\n" +
+                "                },\n" +
+                "                \"product_id\": {\n" +
+                "                    \"type\": \"long\"\n" +
+                "                },\n" +
+                "                \"value\": {\n" +
+                "                    \"type\": \"keyword\"\n" +
+                "                }\n" +
+                "            }\n" +
+                "        },\n" +
+                "        \"product_category_name\": {\n" +
+                "            \"type\": \"keyword\"\n" +
+                "        },\n" +
+                "        \"sub_title\": {\n" +
+                "            \"type\": \"text\",\n" +
+                "            \"analyzer\": \"ik_max_word\"\n" +
+                "        },\n" +
+                "        \"update_time\": {\n" +
+                "            \"type\": \"date\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}", XContentType.JSON);
+        CreateIndexResponse createIndexResponse = restHighLevelClient.indices().create(createIndexRequest, RequestOptions.DEFAULT);
+        log.info("创建状态: {}", createIndexResponse.isAcknowledged());
+        // 关闭资源
+        restHighLevelClient.close();
     }
 }
