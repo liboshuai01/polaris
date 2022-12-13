@@ -55,12 +55,12 @@ public class PmsProductES implements Serializable {
     /**
      * 创建时间
      */
-    private String createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private String updateTime;
+    private Date updateTime;
 
     /**
      * 产品参数列表
