@@ -1,7 +1,10 @@
 package com.liboshuai.mall.tiny.zlearning.Test.literal.day07.d2_stream;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author:Sun
@@ -36,8 +39,25 @@ public class StreamDemo04 {
 
         System.out.println(t);
 
-//        one.stream().sorted((e1,e2) -> Double.compare())
+        one.stream().sorted((e1, e2) -> Double.compare(e1.getSalary() + e1.getBonus(),  e2.getSalary() + e2.getBonus())).skip(1).limit(one.size()-2).forEach(e -> {
+            allMoney += (e.getSalary() + e.getBonus());
+        });
+        System.out.println("开发一部的平均工资是：" + allMoney / (one.size() - 2));
 
+        Stream<Employee> s1 = one.stream();
+        Stream<Employee> s2 = two.stream();
+        Stream<Employee> s3 = Stream.concat(s1 , s2);
+
+        s3.sorted((e1, e2) -> Double.compare(e1.getSalary() + e1.getBonus(),  e2.getSalary() + e2.getBonus()))
+                .skip(1).limit(one.size() + two.size() - 2).forEach(e -> {
+                    // 求出总和：剩余员工的工资总和
+                    allMoney2 += (e.getSalary() + e.getBonus());
+                });
+        BigDecimal a = BigDecimal.valueOf(allMoney);
+        BigDecimal b = BigDecimal.valueOf(one.size() + two.size() -2);
+//        System.out.println(two.size());
+//        System.out.println(two.size()-2);
+        System.out.println("开发部的平均工资是：" + a.divide(b,2, RoundingMode.HALF_UP));
 
     }
 }

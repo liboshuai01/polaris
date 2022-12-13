@@ -31,6 +31,9 @@ public class StreamDemo03 {
         list.add("张三丰");
         list.add("张三丰");
 
+
+        list.stream().map(s -> "倚天屠龙" + s).forEach(System.out::println);
+        list.stream().skip(2).map(s -> "go" + s).forEach(System.out::println);
         list.stream().filter(s -> s.startsWith("张")).forEach(s -> System.out.println(s));
 
         long size = list.stream().filter(s -> s.length() == 3).count();
