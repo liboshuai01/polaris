@@ -187,8 +187,8 @@ public class PmsProductController {
                 .productCategoryName("乳制品")
                 .subTitle("不是所有牛奶都叫特仑苏")
                 .productAttributeValues(Arrays.asList(valueOneEs, valueTwoEs))
-                .createTime(new Date())
-                .updateTime(new Date())
+                .createTime("2022-10-10")
+                .updateTime("2022-10-10")
                 .build();
         // 创建索引请求对象
         IndexRequest indexRequest = new IndexRequest(INDEX_NAME, TYPE_NAME).id(pmsProductES.getId().toString()).source(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
