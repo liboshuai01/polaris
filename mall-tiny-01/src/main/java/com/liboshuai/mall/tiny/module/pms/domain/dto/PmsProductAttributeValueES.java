@@ -1,5 +1,10 @@
 package com.liboshuai.mall.tiny.module.pms.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +12,10 @@ import java.io.Serializable;
  * @Date: 2022/12/13 23:56
  * @Description:
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PmsProductAttributeValueES implements Serializable {
 
     private static final long serialVersionUID = -3195101467897807261L;

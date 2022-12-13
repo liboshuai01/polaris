@@ -3,6 +3,8 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
 import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
@@ -25,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -96,7 +101,6 @@ public class PmsProductController {
 //        Page<EsProduct> esProducts = pmsProductService.esProductSearch(esSearchProduct);
 //        return ResponseResult.success(esProducts);
 //    }
-
     @ApiOperation(value = "创建索引和映射", httpMethod = "POST")
     @PostMapping("/testCreateIndexAndMapping")
     public ResponseResult<?> testCreateIndexAndMapping() throws IOException {
@@ -171,11 +175,25 @@ public class PmsProductController {
     @ApiOperation(value = "保存或更新一条文档", httpMethod = "POST")
     @PostMapping("/testSaveOrUpdateIndex")
     public ResponseResult<?> testSaveOrUpdateIndex() throws IOException {
-
-
-        BulkRequest bulkRequest = new BulkRequest();
-//        bulkRequest.add(new IndexRequest(INDEX_NAME).source(JSONObject.toJSONString()))
-        return ResponseResult.success();
+        // 造假数据
+        PmsProductAttributeValueES valueOneEs = PmsProductAttributeValueES.builder().productId(1L).productAttributeId(1L).value("牛奶王one").build();
+        PmsProductAttributeValueES valueTwoEs = PmsProductAttributeValueES.builder().productId(2L).productAttributeId(2L).value("牛奶王two").build();
+        PmsProductES pmsProductES = PmsProductES.builder()
+                .id(1L)
+                .name("特仑苏")
+                .keywords("纯牛奶")
+                .brandName("蒙牛")
+                .productCategoryName("乳制品")
+                .subTitle("不是所有牛奶都叫特仑苏")
+                .productAttributeValues(Arrays.asList(valueOneEs, valueTwoEs))
+                .createTime(new Date())
+                .updateTime(new Date())
+                .build();
+        // 创建索引请求对象
+        IndexRequest indexRequest = new IndexRequest(INDEX_NAME).id(pmsProductES.getId().toString()).source(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
+        // 执行增加文档
+        IndexResponse indexResponse = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(indexResponse.status());
     }
 
 }

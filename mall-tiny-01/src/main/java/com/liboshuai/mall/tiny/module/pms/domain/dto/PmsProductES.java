@@ -15,9 +15,9 @@ import java.util.List;
  * @Description:
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class PmsProductES implements Serializable {
 
     private static final long serialVersionUID = -6937669108955255767L;
