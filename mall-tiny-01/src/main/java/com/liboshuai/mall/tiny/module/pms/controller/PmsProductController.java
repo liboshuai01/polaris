@@ -10,7 +10,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
@@ -102,10 +105,10 @@ public class PmsProductController {
         //指定映射 参数 1: 指定映射 json 结构  参数 2:指定数据类型
         createIndexRequest.mapping("{\n" +
                 "    \"properties\": {\n" +
-                "        \"brand_name\": {\n" +
+                "        \"brandName\": {\n" +
                 "            \"type\": \"keyword\"\n" +
                 "        },\n" +
-                "        \"create_time\": {\n" +
+                "        \"createTime\": {\n" +
                 "            \"type\": \"date\"\n" +
                 "        },\n" +
                 "        \"id\": {\n" +
@@ -119,13 +122,13 @@ public class PmsProductController {
                 "            \"type\": \"text\",\n" +
                 "            \"analyzer\": \"ik_max_word\"\n" +
                 "        },\n" +
-                "        \"product_attribute_value\": {\n" +
+                "        \"productAttributeValue\": {\n" +
                 "            \"type\": \"nested\",\n" +
                 "            \"properties\": {\n" +
-                "                \"product_attribute_id\": {\n" +
+                "                \"productAttributeId\": {\n" +
                 "                    \"type\": \"long\"\n" +
                 "                },\n" +
-                "                \"product_id\": {\n" +
+                "                \"productId\": {\n" +
                 "                    \"type\": \"long\"\n" +
                 "                },\n" +
                 "                \"value\": {\n" +
@@ -133,14 +136,14 @@ public class PmsProductController {
                 "                }\n" +
                 "            }\n" +
                 "        },\n" +
-                "        \"product_category_name\": {\n" +
+                "        \"productCategoryName\": {\n" +
                 "            \"type\": \"keyword\"\n" +
                 "        },\n" +
-                "        \"sub_title\": {\n" +
+                "        \"subTitle\": {\n" +
                 "            \"type\": \"text\",\n" +
                 "            \"analyzer\": \"ik_max_word\"\n" +
                 "        },\n" +
-                "        \"update_time\": {\n" +
+                "        \"updateTime\": {\n" +
                 "            \"type\": \"date\"\n" +
                 "        }\n" +
                 "    }\n" +
@@ -155,9 +158,23 @@ public class PmsProductController {
     @ApiOperation(value = "删除索引", httpMethod = "POST")
     @PostMapping("/testDeleteIndex")
     public ResponseResult<?> testDeleteIndex() throws IOException {
-        //参数 1: 删除索引对象  参数 2:请求配置对象
-        AcknowledgedResponse product = restHighLevelClient.indices().delete(new DeleteIndexRequest(INDEX_NAME), RequestOptions.DEFAULT);
-        log.info("删除索引: {}", JSONObject.toJSONString(product));
+        IndicesClient indices = restHighLevelClient.indices();
+        // 创建delete请求方式
+        DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(INDEX_NAME);
+        AcknowledgedResponse delete = indices.delete(deleteIndexRequest, RequestOptions.DEFAULT);
+        if (delete.isAcknowledged()) {
+            return ResponseResult.success();
+        }
+        return ResponseResult.fail();
+    }
+
+    @ApiOperation(value = "保存或更新一条文档", httpMethod = "POST")
+    @PostMapping("/testSaveOrUpdateIndex")
+    public ResponseResult<?> testSaveOrUpdateIndex() throws IOException {
+
+
+        BulkRequest bulkRequest = new BulkRequest();
+//        bulkRequest.add(new IndexRequest(INDEX_NAME).source(JSONObject.toJSONString()))
         return ResponseResult.success();
     }
 
