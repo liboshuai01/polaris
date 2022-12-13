@@ -55,6 +55,7 @@ public class PmsProductController {
     private RestHighLevelClient restHighLevelClient;
 
     private static final String INDEX_NAME = "product";
+    private static final String TYPE_NAME = "doc";
 
     /**
      * 创建商品es索引和类型
@@ -190,7 +191,7 @@ public class PmsProductController {
                 .updateTime("2022-10-10")
                 .build();
         // 创建索引请求对象
-        IndexRequest indexRequest = new IndexRequest(INDEX_NAME).id(pmsProductES.getId().toString()).source(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
+        IndexRequest indexRequest = new IndexRequest(INDEX_NAME, TYPE_NAME).id(pmsProductES.getId().toString()).source(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
         // 执行增加文档
         IndexResponse indexResponse = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
         return ResponseResult.success(indexResponse.status());
