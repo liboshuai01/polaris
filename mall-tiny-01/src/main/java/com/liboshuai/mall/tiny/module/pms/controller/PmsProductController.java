@@ -122,7 +122,7 @@ public class PmsProductController {
                 "            \"type\": \"text\",\n" +
                 "            \"analyzer\": \"ik_max_word\"\n" +
                 "        },\n" +
-                "        \"productAttributeValue\": {\n" +
+                "        \"productAttributeValues\": {\n" +
                 "            \"type\": \"nested\",\n" +
                 "            \"properties\": {\n" +
                 "                \"productAttributeId\": {\n" +
