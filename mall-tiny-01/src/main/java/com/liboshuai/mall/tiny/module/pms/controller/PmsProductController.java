@@ -55,7 +55,7 @@ public class PmsProductController {
     private RestHighLevelClient restHighLevelClient;
 
     private static final String INDEX_NAME = "product";
-    private static final String TYPE_NAME = "doc";
+    private static final String TYPE_NAME = "_doc";
 
     /**
      * 创建商品es索引和类型
