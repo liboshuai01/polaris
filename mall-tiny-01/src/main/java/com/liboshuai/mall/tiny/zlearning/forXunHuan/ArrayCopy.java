@@ -1,4 +1,4 @@
-package com.liboshuai.mall.tiny.utils.forXunHuan;
+package com.liboshuai.mall.tiny.zlearning.forXunHuan;
 
 public class ArrayCopy {
     public static void main(String[] args) {
