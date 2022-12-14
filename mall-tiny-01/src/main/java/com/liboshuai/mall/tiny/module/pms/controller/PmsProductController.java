@@ -187,6 +187,17 @@ public class PmsProductController {
         return ResponseResult.success(JSONObject.toJSONString(mappings));
     }
 
+    @ApiOperation(value = "判断索引是否存在", httpMethod = "POST")
+    @PostMapping("/testIndexExists")
+    public ResponseResult<?> testIndexExists() throws IOException {
+        IndicesClient indicesClient = restHighLevelClient.indices();
+        // 创建get请求
+        GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
+        // 判断索引是否存在
+        boolean result = indicesClient.exists(request, RequestOptions.DEFAULT);
+        return ResponseResult.success(result);
+    }
+
     @ApiOperation(value = "保存或更新一条文档", httpMethod = "POST")
     @PostMapping("/testSaveOrUpdateIndex")
     public ResponseResult<?> testSaveOrUpdateIndex() throws IOException {
