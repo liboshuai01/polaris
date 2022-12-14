@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
@@ -14,10 +15,15 @@ import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -80,6 +86,37 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             log.error("从数据库中导入所有商品到ES失败: {}", ioException);
             return false;
         }
+    }
+
+    /**
+     * es精确查询测试
+     */
+    @Override
+    public List<PmsBrandDTO> testTermQuery() {
+        // 构建查询条件（注意：termQuery 支持多种格式查询，如 boolean、int、double、string 等，这里使用的是 string 的查询）
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.termsQuery("name", "小米13pro", "IPhone", "红米k50pro"));
+        // 展示100条, 默认只展示10条记录
+        searchSourceBuilder.size(100);
+        // 创建查询请求对象, 将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询, 然后处理响应结果
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException ioException) {
+            log.error("es精确查询测试异常: {}", ioException);
+            return null;
+        }
+        // 根据状态和数据条数验证是否返回了数据
+        List<PmsBrandDTO> pmsBrandDTOList = new ArrayList<>();
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            hits.forEach(hit -> pmsBrandDTOList.add(JSONObject.parseObject(hit.getSourceAsString(), PmsBrandDTO.class)));
+            return pmsBrandDTOList;
+        }
+        return null;
     }
 
     private List<PmsProductES> getPmsProductES() {

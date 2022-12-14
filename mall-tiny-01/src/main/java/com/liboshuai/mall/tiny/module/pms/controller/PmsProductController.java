@@ -3,6 +3,7 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
@@ -69,6 +70,13 @@ public class PmsProductController {
     public ResponseResult<Boolean> importAllProductToEs() {
         boolean result = pmsProductService.importAllProductToEs();
         return ResponseResult.success(result);
+    }
+
+    @ApiOperation(value = "es精确查询", httpMethod = "POST")
+    @PostMapping("/testTermQuery")
+    public ResponseResult<List<PmsBrandDTO>> testTermQuery() {
+        List<PmsBrandDTO> pmsBrandDTOList = pmsProductService.testTermQuery();
+        return ResponseResult.success(pmsBrandDTOList);
     }
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")

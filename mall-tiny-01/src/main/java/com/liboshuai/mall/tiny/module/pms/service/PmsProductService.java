@@ -1,7 +1,10 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
+
+import java.util.List;
 
 
 /**
@@ -18,6 +21,11 @@ public interface PmsProductService extends IService<PmsProduct> {
      * 从数据库中导入所有商品到ES
      */
     boolean importAllProductToEs();
+
+    /**
+     * es精确查询测试
+     */
+    List<PmsBrandDTO> testTermQuery();
 
     /**
      * 根据id删除es中的商品
