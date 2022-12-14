@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
@@ -222,4 +224,13 @@ public class PmsProductController {
         return ResponseResult.success(indexResponse.status());
     }
 
+    @ApiOperation(value = "查询文档数据", httpMethod = "POST")
+    @PostMapping("/testGetDocument")
+    public ResponseResult<?> testGetDocument() throws IOException {
+        // 创建获取请求对象
+        GetRequest getRequest = new GetRequest(INDEX_NAME);
+        getRequest.id("1");
+        GetResponse response = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.getSourceAsString());
+    }
 }
