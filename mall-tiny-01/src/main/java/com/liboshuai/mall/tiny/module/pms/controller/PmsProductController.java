@@ -63,22 +63,13 @@ public class PmsProductController {
     private static final String INDEX_NAME = "product";
     private static final String TYPE_NAME = "_doc";
 
-    /**
-     * 创建商品es索引和类型
-     */
-//    @ApiOperation(value = "创建商品es索引和类型", httpMethod = "POST")
-//    @PostMapping("/createEsIndexType")
-//    public ResponseResult<Integer> createEsIndexType() {
-//        pmsProductService.createEsIndexType();
-//        return ResponseResult.success();
-//    }
 
-//    @ApiOperation(value = "导入全部商品到es中", httpMethod = "POST")
-//    @PostMapping("/importAllProductToEs")
-//    public ResponseResult<Integer> importAllProductToEs() {
-//        int result = pmsProductService.importAllProductToEs();
-//        return ResponseResult.success(result);
-//    }
+    @ApiOperation(value = "导入全部商品到es中", httpMethod = "POST")
+    @PostMapping("/importAllProductToEs")
+    public ResponseResult<Boolean> importAllProductToEs() {
+        boolean result = pmsProductService.importAllProductToEs();
+        return ResponseResult.success(result);
+    }
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")
