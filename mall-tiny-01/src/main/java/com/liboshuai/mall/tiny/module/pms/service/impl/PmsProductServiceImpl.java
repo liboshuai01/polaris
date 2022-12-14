@@ -20,10 +20,12 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -115,6 +117,41 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             SearchHits hits = searchResponse.getHits();
             hits.forEach(hit -> pmsBrandDTOList.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
             return pmsBrandDTOList;
+        }
+        return null;
+    }
+
+    /**
+     * es查询全部数据
+     */
+    @Override
+    public List<PmsProductES> testMatchAllQuery() {
+        // 构建查询条件
+        MatchAllQueryBuilder matchAllQueryBuilder = QueryBuilders.matchAllQuery();
+        // 创建查询源构造器
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(matchAllQueryBuilder);
+        // 设置分页
+        searchSourceBuilder.from(0);
+        searchSourceBuilder.size(3);
+        // 设置排序
+        searchSourceBuilder.sort("createTime", SortOrder.DESC);
+        // 创建查询请求对象, 将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询, 然后处理响应结果
+        SearchResponse searchResponse = null;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException ioException) {
+            log.error("es查询全部数据异常:{}", ioException);
+        }
+        // 根据状态验证是否返回了数据
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            hits.forEach(hit -> {
+                JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class);
+            });
         }
         return null;
     }

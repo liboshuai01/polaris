@@ -29,6 +29,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     List<PmsProductES> testTermQuery();
 
     /**
+     * es查询全部数据
+     */
+    List<PmsProductES> testMatchAllQuery();
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);

@@ -78,6 +78,13 @@ public class PmsProductController {
         List<PmsProductES> pmsProductESList = pmsProductService.testTermQuery();
         return ResponseResult.success(pmsProductESList);
     }
+
+    @ApiOperation(value = "es查询全部数据", httpMethod = "POST")
+    @PostMapping("/testMatchAllQuery")
+    public ResponseResult<List<PmsProductES>> testMatchAllQuery() {
+        List<PmsProductES> pmsProductESList = pmsProductService.testMatchAllQuery();
+        return ResponseResult.success(pmsProductESList);
+    }
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")
