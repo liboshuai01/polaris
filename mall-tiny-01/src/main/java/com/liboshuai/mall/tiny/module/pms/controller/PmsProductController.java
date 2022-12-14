@@ -18,6 +18,8 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -44,10 +46,10 @@ import java.util.stream.Collectors;
  * @author liboshuai
  * @since 2022-09-16
  */
-@Api(tags = "商品", value = "PmsProductController")
 @Slf4j
 @RestController
 @RequestMapping("/mall.tiny.module.pms/pms-product")
+@Api(tags = "商品", value = "PmsProductController")
 public class PmsProductController {
 
     @Autowired
@@ -224,7 +226,7 @@ public class PmsProductController {
         return ResponseResult.success(indexResponse.status());
     }
 
-    @ApiOperation(value = "查询文档数据", httpMethod = "POST")
+    @ApiOperation(value = "根据id查询文档数据", httpMethod = "POST")
     @PostMapping("/testGetDocument")
     public ResponseResult<?> testGetDocument() throws IOException {
         // 创建获取请求对象
@@ -232,5 +234,31 @@ public class PmsProductController {
         getRequest.id("1");
         GetResponse response = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);
         return ResponseResult.success(response.getSourceAsString());
+    }
+
+    @ApiOperation(value = "根据id更新文档数据", httpMethod = "POST")
+    @PostMapping("/testUpdateDocument")
+    public ResponseResult<?> testUpdateDocument() throws IOException {
+        // 造假数据
+        PmsProductAttributeValueES valueOneEs = PmsProductAttributeValueES.builder().productId(1L).productAttributeId(1L).value("牛奶王one").build();
+        PmsProductAttributeValueES valueTwoEs = PmsProductAttributeValueES.builder().productId(2L).productAttributeId(2L).value("牛奶王two").build();
+        PmsProductES pmsProductES = PmsProductES.builder()
+                .id(1L)
+                .name("特仑苏")
+                .keywords("纯牛奶")
+                .brandName("蒙牛")
+                .productCategoryName("乳制品")
+                .subTitle("不是所有牛奶都叫特仑苏")
+                .productAttributeValues(Arrays.asList(valueOneEs, valueTwoEs))
+                .createTime("2022-10-12")
+                .updateTime("2022-10-14")
+                .build();
+        // 创建索引请求对象
+        UpdateRequest updateRequest = new UpdateRequest(INDEX_NAME, TYPE_NAME, pmsProductES.getId().toString());
+        // 设置更新文档内容
+        updateRequest.doc(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
+        // 执行更新文档
+        UpdateResponse response = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.status());
     }
 }
