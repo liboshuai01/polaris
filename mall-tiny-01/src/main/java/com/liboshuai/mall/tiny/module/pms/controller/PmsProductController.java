@@ -74,8 +74,8 @@ public class PmsProductController {
 
     @ApiOperation(value = "es精确查询", httpMethod = "POST")
     @PostMapping("/testTermQuery")
-    public ResponseResult<List<PmsBrandDTO>> testTermQuery() {
-        List<PmsBrandDTO> pmsBrandDTOList = pmsProductService.testTermQuery();
+    public ResponseResult<List<PmsProductES>> testTermQuery() {
+        List<PmsProductES> pmsProductESList = pmsProductService.testTermQuery();
         return ResponseResult.success(pmsBrandDTOList);
     }
 //
