@@ -76,7 +76,7 @@ public class PmsProductController {
     @PostMapping("/testTermQuery")
     public ResponseResult<List<PmsProductES>> testTermQuery() {
         List<PmsProductES> pmsProductESList = pmsProductService.testTermQuery();
-        return ResponseResult.success(pmsBrandDTOList);
+        return ResponseResult.success(pmsProductESList);
     }
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
