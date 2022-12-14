@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -259,6 +261,16 @@ public class PmsProductController {
         updateRequest.doc(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
         // 执行更新文档
         UpdateResponse response = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.status());
+    }
+
+    @ApiOperation(value = "根据id删除文档", httpMethod = "POST")
+    @PostMapping("/testDeleteDocument")
+    public ResponseResult<?> testDeleteDocument() throws IOException {
+        // 创建删除请求对象
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX_NAME, TYPE_NAME, "1");
+        // 执行删除文档
+        DeleteResponse response = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
         return ResponseResult.success(response.status());
     }
 }
