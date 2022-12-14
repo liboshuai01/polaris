@@ -95,7 +95,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     public List<PmsBrandDTO> testTermQuery() {
         // 构建查询条件（注意：termQuery 支持多种格式查询，如 boolean、int、double、string 等，这里使用的是 string 的查询）
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termsQuery("name", "小米13pro", "IPhone", "红米k50pro"));
+        searchSourceBuilder.query(QueryBuilders.termsQuery("name", "小米13pro"));
         // 展示100条, 默认只展示10条记录
         searchSourceBuilder.size(100);
         // 创建查询请求对象, 将查询对象配置到其中
