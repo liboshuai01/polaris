@@ -149,9 +149,11 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         // 根据状态验证是否返回了数据
         if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
             SearchHits hits = searchResponse.getHits();
+            List<PmsProductES> pmsProductESList = new ArrayList<>();
             hits.forEach(hit -> {
-                JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class);
+                pmsProductESList.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class));
             });
+            return pmsProductESList;
         }
         return null;
     }
