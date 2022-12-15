@@ -158,6 +158,35 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         return null;
     }
 
+    /**
+     * es查询匹配数据
+     */
+    @Override
+    public List<PmsProductES> testMatchQuery(String name) {
+        // 构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchQuery("name", name));
+        // 创建查询请求对象, 将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(TYPE_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询, 然后处理响应结果
+        SearchResponse searchResponse = null;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException ioException) {
+            log.error("es查询匹配数据异常: ", ioException);
+            return null;
+        }
+        // 根据状态验证是否返回了数据
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return pmsProductES;
+        }
+        return null;
+    }
+
     private List<PmsProductES> getPmsProductES() {
         List<PmsProduct> pmsProductList = this.list();
         if (CollectionUtils.isEmpty(pmsProductList)) {

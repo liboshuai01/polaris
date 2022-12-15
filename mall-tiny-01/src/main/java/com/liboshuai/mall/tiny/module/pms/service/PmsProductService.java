@@ -34,6 +34,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     List<PmsProductES> testMatchAllQuery();
 
     /**
+     * es查询匹配数据
+     */
+    List<PmsProductES> testMatchQuery(String name);
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);
