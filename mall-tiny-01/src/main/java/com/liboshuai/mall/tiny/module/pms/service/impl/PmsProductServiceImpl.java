@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liboshuai.mall.tiny.common.constants.DatePattern;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
@@ -13,6 +14,7 @@ import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.mapper.PmsProductMapper;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductAttributeValueService;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
+import com.liboshuai.mall.tiny.utils.DateUtil;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -70,8 +72,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      */
     @Override
     public boolean importAllProductToEs() {
-        // 清空之前es中的数据
-//        restHighLevelClient.deleteAll();
         // 查询全部product
         List<PmsProductES> esProductList = getPmsProductES();
         if (esProductList == null) {return true;}
@@ -355,6 +355,8 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         List<PmsProductES> esProductList = pmsProductList.stream().filter(Objects::nonNull).map(product -> {
             PmsProductES esProduct = new PmsProductES();
             BeanUtils.copyProperties(product, esProduct);
+            esProduct.setCreateTime(DateUtil.date2String(product.getCreateTime(), DatePattern.NORM_DATETIME_PATTERN));
+            esProduct.setUpdateTime(DateUtil.date2String(product.getUpdateTime(), DatePattern.NORM_DATETIME_PATTERN));
             return esProduct;
         }).collect(Collectors.toList());
         // 拿到所有product的id集合
