@@ -292,6 +292,34 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         return ResponseResult.fail();
     }
 
+    /**
+     * es排序查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testSortQuery(int pageNum, int pageSize) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        // 设置分页
+        searchSourceBuilder.from(pageNum);
+        searchSourceBuilder.size(pageSize);
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es排序查询: ", e);
+            return ResponseResult.fail();
+        }
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return ResponseResult.fail();
+    }
+
     private List<PmsProductES> getPmsProductES() {
         List<PmsProduct> pmsProductList = this.list();
         if (CollectionUtils.isEmpty(pmsProductList)) {

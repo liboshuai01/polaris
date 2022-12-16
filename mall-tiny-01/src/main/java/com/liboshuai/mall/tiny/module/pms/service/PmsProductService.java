@@ -60,6 +60,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testFuzzQuery(String subTitle);
 
     /**
+     * es排序查询
+     */
+    ResponseResult<List<PmsProductES>> testSortQuery(int pageNum, int pageSize);
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);

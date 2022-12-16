@@ -116,6 +116,12 @@ public class PmsProductController {
         return pmsProductService.testFuzzQuery(subTitle);
     }
 
+    @ApiOperation(value = "es排序查询", httpMethod = "POST")
+    @PostMapping("/testSortQuery")
+    public ResponseResult<List<PmsProductES>> testSortQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testSortQuery(pageNum, pageSize);
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")
