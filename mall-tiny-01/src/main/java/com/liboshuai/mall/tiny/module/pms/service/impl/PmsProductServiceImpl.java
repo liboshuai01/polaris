@@ -2,6 +2,7 @@ package com.liboshuai.mall.tiny.module.pms.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
@@ -185,6 +186,34 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             return pmsProductES;
         }
         return null;
+    }
+
+    /**
+     * es词语匹配查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testMatchPhraseQuery(String name) {
+        // 构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchPhraseQuery("name", name));
+        // 创建查询请求对象, 将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询, 然后处理响应结果
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es词语匹配查询: ", e);
+            return ResponseResult.fail();
+        }
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return ResponseResult.fail();
     }
 
     private List<PmsProductES> getPmsProductES() {

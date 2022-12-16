@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
@@ -37,6 +38,11 @@ public interface PmsProductService extends IService<PmsProduct> {
      * es查询匹配数据
      */
     List<PmsProductES> testMatchQuery(String name);
+
+    /**
+     * es词语匹配查询
+     */
+    ResponseResult<List<PmsProductES>> testMatchPhraseQuery(String name);
 
     /**
      * 根据id删除es中的商品
