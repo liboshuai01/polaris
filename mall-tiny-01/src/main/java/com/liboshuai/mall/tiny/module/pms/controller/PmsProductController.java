@@ -118,8 +118,14 @@ public class PmsProductController {
 
     @ApiOperation(value = "es排序查询", httpMethod = "POST")
     @PostMapping("/testSortQuery")
-    public ResponseResult<List<PmsProductES>> testSortQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
-        return pmsProductService.testSortQuery(pageNum, pageSize);
+    public ResponseResult<List<PmsProductES>> testSortQuery() {
+        return pmsProductService.testSortQuery();
+    }
+
+    @ApiOperation(value = "es分页查询", httpMethod = "POST")
+    @PostMapping("/testPageQuery")
+    public ResponseResult<List<PmsProductES>> testPageQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testPageQuery(pageNum, pageSize);
     }
 
 //
