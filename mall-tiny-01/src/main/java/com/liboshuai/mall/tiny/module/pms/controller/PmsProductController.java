@@ -89,6 +89,10 @@ public class PmsProductController {
     @ApiOperation(value = "es查询匹配数据", httpMethod = "POST")
     @PostMapping("/testMatchQuery")
     public ResponseResult<List<PmsProductES>> testMatchQuery(@RequestParam String name) {
+        if (Objects.isNull(name)) {
+            log.warn("入参不能为空");
+            return ResponseResult.fail();
+        }
         List<PmsProductES> pmsProductESList = pmsProductService.testMatchQuery(name);
         return ResponseResult.success(pmsProductESList);
     }
