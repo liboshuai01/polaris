@@ -116,6 +116,12 @@ public class PmsProductController {
         return pmsProductService.testWildcardQuery(name);
     }
 
+    @ApiOperation(value = "es模糊查询", httpMethod = "POST")
+    @PostMapping("/testFuzzQuery")
+    public ResponseResult<List<PmsProductES>> testFuzzQuery(@RequestParam String name) {
+        return pmsProductService.testFuzzQuery(name);
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

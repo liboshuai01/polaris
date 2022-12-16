@@ -55,6 +55,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testWildcardQuery(String name);
 
     /**
+     * es模糊查询
+     */
+    ResponseResult<List<PmsProductES>> testFuzzQuery(String name);
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);
