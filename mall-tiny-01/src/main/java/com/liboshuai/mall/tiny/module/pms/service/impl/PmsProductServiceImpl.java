@@ -241,6 +241,31 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         return ResponseResult.fail();
     }
 
+    /**
+     * es通配符查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testWildcardQuery(String name) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.wildcardQuery("name", name));
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es通配符查询: ", e);
+            return ResponseResult.fail();
+        }
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return ResponseResult.fail();
+    }
+
     private List<PmsProductES> getPmsProductES() {
         List<PmsProduct> pmsProductList = this.list();
         if (CollectionUtils.isEmpty(pmsProductList)) {

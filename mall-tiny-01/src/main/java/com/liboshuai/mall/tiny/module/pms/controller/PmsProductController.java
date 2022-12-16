@@ -110,6 +110,12 @@ public class PmsProductController {
         return pmsProductService.testMatchMultiQuery(query);
     }
 
+    @ApiOperation(value = "es通配符查询", httpMethod = "POST")
+    @PostMapping("/testWildcardQuery")
+    public ResponseResult<List<PmsProductES>> testWildcardQuery(@RequestParam String name) {
+        return pmsProductService.testWildcardQuery(name);
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

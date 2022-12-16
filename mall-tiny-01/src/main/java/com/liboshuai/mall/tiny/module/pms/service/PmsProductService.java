@@ -50,6 +50,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testMatchMultiQuery(String query);
 
     /**
+     * es通配符查询
+     */
+    ResponseResult<List<PmsProductES>> testWildcardQuery(String name);
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);
