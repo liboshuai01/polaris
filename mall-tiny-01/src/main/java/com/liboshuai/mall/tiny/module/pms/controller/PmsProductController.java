@@ -3,17 +3,13 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
-import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
-import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
-import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
@@ -33,13 +29,11 @@ import org.elasticsearch.client.indices.GetIndexResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -118,8 +112,8 @@ public class PmsProductController {
 
     @ApiOperation(value = "es模糊查询", httpMethod = "POST")
     @PostMapping("/testFuzzQuery")
-    public ResponseResult<List<PmsProductES>> testFuzzQuery(@RequestParam String name) {
-        return pmsProductService.testFuzzQuery(name);
+    public ResponseResult<List<PmsProductES>> testFuzzQuery(@RequestParam String subTitle) {
+        return pmsProductService.testFuzzQuery(subTitle);
     }
 
 //

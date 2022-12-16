@@ -271,9 +271,9 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      * es模糊查询
      */
     @Override
-    public ResponseResult<List<PmsProductES>> testFuzzQuery(String name) {
+    public ResponseResult<List<PmsProductES>> testFuzzQuery(String subTitle) {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.fuzzyQuery("name", name).fuzziness(Fuzziness.AUTO));
+        searchSourceBuilder.query(QueryBuilders.fuzzyQuery("subTitle", subTitle).fuzziness(Fuzziness.AUTO));
         SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse;

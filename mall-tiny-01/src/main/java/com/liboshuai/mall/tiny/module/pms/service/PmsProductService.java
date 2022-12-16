@@ -57,7 +57,7 @@ public interface PmsProductService extends IService<PmsProduct> {
     /**
      * es模糊查询
      */
-    ResponseResult<List<PmsProductES>> testFuzzQuery(String name);
+    ResponseResult<List<PmsProductES>> testFuzzQuery(String subTitle);
 
     /**
      * 根据id删除es中的商品
