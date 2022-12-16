@@ -18,15 +18,19 @@ import com.liboshuai.mall.tiny.utils.DateUtil;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.ClearScrollRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
+import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -344,6 +348,61 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             return ResponseResult.success(pmsProductES);
         }
         return ResponseResult.fail();
+    }
+
+    /**
+     * es滚动查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testScrollQuery(int pageNum, int pageSize) {
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery()).size(pageSize);
+        String scrollId = null;
+        SearchResponse scrollResponse = null;
+        Scroll scroll = new Scroll(TimeValue.timeValueMinutes(2));
+        ArrayList<String> scrollIds = new ArrayList<>();
+        for (int i = 0; i < pageNum; i++) {
+            if (i == 0) {
+                searchRequest.scroll(scroll);
+                SearchResponse response = null;
+                try {
+                    response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+                } catch (IOException e) {
+                    log.error("es滚动查询: ", e);
+                    return ResponseResult.fail(e.getMessage());
+                }
+                scrollId = response.getScrollId();
+            }else {
+                // 不需要在使用其他条件，也不需要指定索引名称，只需要使用执行游标id存活时间和上次游标id即可，毕竟信息都在上次游标id里面呢
+                SearchScrollRequest searchScrollRequest = new SearchScrollRequest(scrollId);
+                searchScrollRequest.scroll(scroll);
+                try {
+                    scrollResponse = restHighLevelClient.scroll(searchScrollRequest, RequestOptions.DEFAULT);
+                } catch (IOException e) {
+                    log.error("es滚动查询: ", e);
+                    return ResponseResult.fail(e.getMessage());
+                }
+                scrollId = scrollResponse.getScrollId();
+            }
+            scrollIds.add(scrollId);
+        }
+        ClearScrollRequest clearScrollRequest = new ClearScrollRequest();
+        clearScrollRequest.scrollIds(scrollIds);
+        try {
+            restHighLevelClient.clearScroll(clearScrollRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("清除滚动查询游标id失败: ", e);
+        }
+        SearchHits hits = null;
+        if (scrollResponse != null) {
+            hits = scrollResponse.getHits();
+        }
+        ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+        if (hits != null) {
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+        }
+        return ResponseResult.success(pmsProductES);
     }
 
     private List<PmsProductES> getPmsProductES() {

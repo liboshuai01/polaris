@@ -128,6 +128,12 @@ public class PmsProductController {
         return pmsProductService.testPageQuery(pageNum, pageSize);
     }
 
+    @ApiOperation(value = "es滚动查询", httpMethod = "POST")
+    @PostMapping("/testScrollQuery")
+    public ResponseResult<List<PmsProductES>> testScrollQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testScrollQuery(pageNum, pageSize);
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")
