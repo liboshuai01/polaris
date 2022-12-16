@@ -104,6 +104,12 @@ public class PmsProductController {
         return pmsProductService.testMatchPhraseQuery(name);
     }
 
+    @ApiOperation(value = "es内容在多字段中进行查询", httpMethod = "POST")
+    @PostMapping("/testMatchMultiQuery")
+    public ResponseResult<List<PmsProductES>> testMatchMultiQuery(@RequestParam String query) {
+        return pmsProductService.testMatchMultiQuery(query);
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

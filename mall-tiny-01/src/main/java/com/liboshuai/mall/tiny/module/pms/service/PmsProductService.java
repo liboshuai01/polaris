@@ -45,6 +45,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testMatchPhraseQuery(String name);
 
     /**
+     * es内容在多字段中进行查询
+     */
+    ResponseResult<List<PmsProductES>> testMatchMultiQuery(String query);
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);

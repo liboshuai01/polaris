@@ -216,6 +216,31 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         return ResponseResult.fail();
     }
 
+    /**
+     * es内容在多字段中进行查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testMatchMultiQuery(String query) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.multiMatchQuery(query, "name", "subTitle"));
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es内容在多字段中进行查询: ", e);
+            return ResponseResult.fail();
+        }
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return ResponseResult.fail();
+    }
+
     private List<PmsProductES> getPmsProductES() {
         List<PmsProduct> pmsProductList = this.list();
         if (CollectionUtils.isEmpty(pmsProductList)) {
