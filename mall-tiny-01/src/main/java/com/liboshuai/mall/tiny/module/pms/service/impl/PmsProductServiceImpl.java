@@ -356,9 +356,9 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             PmsProductES esProduct = new PmsProductES();
             BeanUtils.copyProperties(product, esProduct);
             esProduct.setCreateTime(Objects.isNull(product.getCreateTime()) ? null
-                    : DateUtil.date2String(product.getCreateTime(), DatePattern.NORM_DATETIME_PATTERN));
+                    : DateUtil.date2String(product.getCreateTime(), DatePattern.NORM_DATE_PATTERN));
             esProduct.setUpdateTime(Objects.isNull(product.getUpdateTime()) ? null
-                    : DateUtil.date2String(product.getUpdateTime(), DatePattern.NORM_DATETIME_PATTERN));
+                    : DateUtil.date2String(product.getUpdateTime(), DatePattern.NORM_DATE_PATTERN));
             return esProduct;
         }).collect(Collectors.toList());
         // 拿到所有product的id集合
