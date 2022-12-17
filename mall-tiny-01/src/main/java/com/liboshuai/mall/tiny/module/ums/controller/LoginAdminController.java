@@ -11,6 +11,7 @@ import com.liboshuai.mall.tiny.common.enums.UserStatusEnum;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
+import com.liboshuai.mall.tiny.module.ums.domain.req.LoginReq;
 import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
 import com.liboshuai.mall.tiny.shiro.cache.RedisClient;
@@ -92,7 +93,12 @@ public class LoginAdminController {
      */
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("/login")
-    public ResponseResult<?> login(@RequestParam String username, @RequestParam String password, HttpServletResponse response) {
+    public ResponseResult<?> login(@RequestBody LoginReq loginReq, HttpServletResponse response) {
+        if (Objects.isNull(loginReq)) {
+            return ResponseResult.fail(ResponseCode.PARAMETER_IS_NULL);
+        }
+        String username = loginReq.getUsername();
+        String password = loginReq.getPassword();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return ResponseResult.fail(ResponseCode.USERNAME_PASSWORD_NULL);
         }
