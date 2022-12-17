@@ -393,6 +393,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             restHighLevelClient.clearScroll(clearScrollRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             log.error("清除滚动查询游标id失败: ", e);
+            return ResponseResult.fail();
         }
         SearchHits hits = null;
         if (scrollResponse != null) {
@@ -403,6 +404,35 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
         }
         return ResponseResult.success(pmsProductES);
+    }
+
+    /**
+     * es范围查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testRangeQuery() {
+        // 构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.rangeQuery("createTime").gte("2022-12-01"));
+        // 创建查询请求对象，将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询，然后处理响应结果
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es范围查询: ", e);
+            return ResponseResult.fail();
+        }
+        // 根据状态判断是否返回了数据
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return null;
     }
 
     private List<PmsProductES> getPmsProductES() {

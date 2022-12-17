@@ -134,6 +134,12 @@ public class PmsProductController {
         return pmsProductService.testScrollQuery(pageNum, pageSize);
     }
 
+    @ApiOperation(value = "es范围查询", httpMethod = "POST")
+    @PostMapping("/testRangeQuery")
+    public ResponseResult<List<PmsProductES>> testRangeQuery() {
+        return pmsProductService.testRangeQuery();
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

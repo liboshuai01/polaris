@@ -75,6 +75,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testScrollQuery(int pageNum, int pageSize);
 
     /**
+     * es范围查询
+     */
+    ResponseResult<List<PmsProductES>> testRangeQuery();
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);
