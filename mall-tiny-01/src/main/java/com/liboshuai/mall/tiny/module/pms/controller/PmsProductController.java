@@ -140,6 +140,12 @@ public class PmsProductController {
         return pmsProductService.testRangeQuery();
     }
 
+    @ApiOperation(value = "es布尔查询", httpMethod = "POST")
+    @PostMapping("/testBoolQuery")
+    public ResponseResult<List<PmsProductES>> testBoolQuery() {
+        return pmsProductService.testBoolQuery();
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

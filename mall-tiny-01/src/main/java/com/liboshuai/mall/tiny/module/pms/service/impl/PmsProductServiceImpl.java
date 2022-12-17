@@ -27,6 +27,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
@@ -432,7 +433,40 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
             hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
             return ResponseResult.success(pmsProductES);
         }
-        return null;
+        return ResponseResult.fail();
+    }
+
+    /**
+     * es布尔查询
+     */
+    @Override
+    public ResponseResult<List<PmsProductES>> testBoolQuery() {
+        // 创建 Bool 查询构建器
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        // 构建查询条件
+        boolQueryBuilder.must(QueryBuilders.matchQuery("name", "小米")).filter().add(QueryBuilders.rangeQuery("createTime").gte("2022-12-01"));
+        // 构建查询源构建器
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(boolQueryBuilder);
+        // 创建查询请求对象，将查询对象配置到其中
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.source(searchSourceBuilder);
+        // 执行查询，然后处理响应结果
+        SearchResponse searchResponse;
+        try {
+            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error("es范围查询: ", e);
+            return ResponseResult.fail();
+        }
+        // 根据状态判断是否返回了数据
+        if (Objects.equals(searchResponse.status(), RestStatus.OK)) {
+            SearchHits hits = searchResponse.getHits();
+            ArrayList<PmsProductES> pmsProductES = new ArrayList<>();
+            hits.forEach(hit -> pmsProductES.add(JSONObject.parseObject(hit.getSourceAsString(), PmsProductES.class)));
+            return ResponseResult.success(pmsProductES);
+        }
+        return ResponseResult.fail();
     }
 
     private List<PmsProductES> getPmsProductES() {

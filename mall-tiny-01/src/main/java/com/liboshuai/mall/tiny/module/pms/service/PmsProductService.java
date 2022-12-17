@@ -80,6 +80,11 @@ public interface PmsProductService extends IService<PmsProduct> {
     ResponseResult<List<PmsProductES>> testRangeQuery();
 
     /**
+     * es布尔查询
+     */
+    ResponseResult<List<PmsProductES>> testBoolQuery();
+
+    /**
      * 根据id删除es中的商品
      */
 //    void deleteEsProductById(Long id);
