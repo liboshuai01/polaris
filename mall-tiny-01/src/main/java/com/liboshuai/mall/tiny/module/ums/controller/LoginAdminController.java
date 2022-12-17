@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -132,7 +134,10 @@ public class LoginAdminController {
         umsAdminLambdaUpdateWrapper.eq(UmsAdmin::getId, umsAdminDTO.getId());
         umsAdminLambdaUpdateWrapper.set(UmsAdmin::getLoginTime, umsAdminDTO.getLoginTime());
         umsAdminService.update(umsAdminLambdaUpdateWrapper);
-        return ResponseResult.success("登录成功");
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", "Bearer ");
+        return ResponseResult.success(tokenMap);
 
 
     }
