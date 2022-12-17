@@ -103,8 +103,6 @@ public class LoginAdminController {
             return ResponseResult.fail(ResponseCode.USERNAME_PASSWORD_NULL);
         }
         UmsAdminDTO umsAdminDTO = umsAdminService.findByUserName(username);
-        // todo: 临时日志，待删除
-        log.info("umsAdminDTO等于：{}", JSONObject.toJSONString(umsAdminDTO));
         if (Objects.isNull(umsAdminDTO)) {
             return ResponseResult.fail(ResponseCode.INCORRECT_CREDENTIALS);
         }
