@@ -3,31 +3,37 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
-import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
-import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
+import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.client.indices.GetIndexResponse;
+import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * <p>
@@ -37,10 +43,10 @@ import java.util.stream.Collectors;
  * @author liboshuai
  * @since 2022-09-16
  */
-@Api(tags = "商品", value = "PmsProductController")
 @Slf4j
 @RestController
 @RequestMapping("/mall.tiny.module.pms/pms-product")
+@Api(tags = "商品", value = "PmsProductController")
 public class PmsProductController {
 
     @Autowired
@@ -50,23 +56,96 @@ public class PmsProductController {
     private RestHighLevelClient restHighLevelClient;
 
     private static final String INDEX_NAME = "product";
+    private static final String TYPE_NAME = "_doc";
 
-    /**
-     * 创建商品es索引和类型
-     */
-//    @ApiOperation(value = "创建商品es索引和类型", httpMethod = "POST")
-//    @PostMapping("/createEsIndexType")
-//    public ResponseResult<Integer> createEsIndexType() {
-//        pmsProductService.createEsIndexType();
-//        return ResponseResult.success();
-//    }
 
-//    @ApiOperation(value = "导入全部商品到es中", httpMethod = "POST")
-//    @PostMapping("/importAllProductToEs")
-//    public ResponseResult<Integer> importAllProductToEs() {
-//        int result = pmsProductService.importAllProductToEs();
-//        return ResponseResult.success(result);
-//    }
+    @ApiOperation(value = "导入全部商品到es中", httpMethod = "POST")
+    @PostMapping("/importAllProductToEs")
+    public ResponseResult<Boolean> importAllProductToEs() {
+        boolean result = pmsProductService.importAllProductToEs();
+        return ResponseResult.success(result);
+    }
+
+    @ApiOperation(value = "es精确查询", httpMethod = "POST")
+    @PostMapping("/testTermQuery")
+    public ResponseResult<List<PmsProductES>> testTermQuery() {
+        List<PmsProductES> pmsProductESList = pmsProductService.testTermQuery();
+        return ResponseResult.success(pmsProductESList);
+    }
+
+    @ApiOperation(value = "es查询全部数据", httpMethod = "POST")
+    @PostMapping("/testMatchAllQuery")
+    public ResponseResult<List<PmsProductES>> testMatchAllQuery() {
+        List<PmsProductES> pmsProductESList = pmsProductService.testMatchAllQuery();
+        return ResponseResult.success(pmsProductESList);
+    }
+
+    @ApiOperation(value = "es查询匹配数据", httpMethod = "POST")
+    @PostMapping("/testMatchQuery")
+    public ResponseResult<List<PmsProductES>> testMatchQuery(@RequestParam String name) {
+        if (Objects.isNull(name)) {
+            log.warn("入参不能为空");
+            return ResponseResult.fail();
+        }
+        List<PmsProductES> pmsProductESList = pmsProductService.testMatchQuery(name);
+        return ResponseResult.success(pmsProductESList);
+    }
+
+
+    @ApiOperation(value = "es词语匹配查询", httpMethod = "POST")
+    @PostMapping("/testMatchPhraseQuery")
+    public ResponseResult<List<PmsProductES>> testMatchPhraseQuery(@RequestParam String name) {
+        return pmsProductService.testMatchPhraseQuery(name);
+    }
+
+    @ApiOperation(value = "es内容在多字段中进行查询", httpMethod = "POST")
+    @PostMapping("/testMatchMultiQuery")
+    public ResponseResult<List<PmsProductES>> testMatchMultiQuery(@RequestParam String query) {
+        return pmsProductService.testMatchMultiQuery(query);
+    }
+
+    @ApiOperation(value = "es通配符查询", httpMethod = "POST")
+    @PostMapping("/testWildcardQuery")
+    public ResponseResult<List<PmsProductES>> testWildcardQuery(@RequestParam String name) {
+        return pmsProductService.testWildcardQuery(name);
+    }
+
+    @ApiOperation(value = "es模糊查询", httpMethod = "POST")
+    @PostMapping("/testFuzzQuery")
+    public ResponseResult<List<PmsProductES>> testFuzzQuery(@RequestParam String subTitle) {
+        return pmsProductService.testFuzzQuery(subTitle);
+    }
+
+    @ApiOperation(value = "es排序查询", httpMethod = "POST")
+    @PostMapping("/testSortQuery")
+    public ResponseResult<List<PmsProductES>> testSortQuery() {
+        return pmsProductService.testSortQuery();
+    }
+
+    @ApiOperation(value = "es分页查询", httpMethod = "POST")
+    @PostMapping("/testPageQuery")
+    public ResponseResult<List<PmsProductES>> testPageQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testPageQuery(pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "es滚动查询", httpMethod = "POST")
+    @PostMapping("/testScrollQuery")
+    public ResponseResult<List<PmsProductES>> testScrollQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testScrollQuery(pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "es范围查询", httpMethod = "POST")
+    @PostMapping("/testRangeQuery")
+    public ResponseResult<List<PmsProductES>> testRangeQuery() {
+        return pmsProductService.testRangeQuery();
+    }
+
+    @ApiOperation(value = "es布尔查询", httpMethod = "POST")
+    @PostMapping("/testBoolQuery")
+    public ResponseResult<List<PmsProductES>> testBoolQuery() {
+        return pmsProductService.testBoolQuery();
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")
@@ -96,7 +175,6 @@ public class PmsProductController {
 //        Page<EsProduct> esProducts = pmsProductService.esProductSearch(esSearchProduct);
 //        return ResponseResult.success(esProducts);
 //    }
-
     @ApiOperation(value = "创建索引和映射", httpMethod = "POST")
     @PostMapping("/testCreateIndexAndMapping")
     public ResponseResult<?> testCreateIndexAndMapping() throws IOException {
@@ -168,14 +246,98 @@ public class PmsProductController {
         return ResponseResult.fail();
     }
 
+    @ApiOperation(value = "获取索引映射结构", httpMethod = "POST")
+    @PostMapping("/testGetIndexMapping")
+    public ResponseResult<?> testGetIndexMapping() throws IOException {
+        IndicesClient indicesClient = restHighLevelClient.indices();
+        // 创建get请求
+        GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
+        // 发送get请求
+        GetIndexResponse response = indicesClient.get(request, RequestOptions.DEFAULT);
+        // 获取索引映射结构
+        Map<String, MappingMetaData> mappings = response.getMappings();
+        log.info("获取索引映射结构: {}", JSONObject.toJSONString(mappings));
+        return ResponseResult.success(JSONObject.toJSONString(mappings));
+    }
+
+    @ApiOperation(value = "判断索引是否存在", httpMethod = "POST")
+    @PostMapping("/testIndexExists")
+    public ResponseResult<?> testIndexExists() throws IOException {
+        IndicesClient indicesClient = restHighLevelClient.indices();
+        // 创建get请求
+        GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
+        // 判断索引是否存在
+        boolean result = indicesClient.exists(request, RequestOptions.DEFAULT);
+        return ResponseResult.success(result);
+    }
+
     @ApiOperation(value = "保存或更新一条文档", httpMethod = "POST")
     @PostMapping("/testSaveOrUpdateIndex")
     public ResponseResult<?> testSaveOrUpdateIndex() throws IOException {
-
-
-        BulkRequest bulkRequest = new BulkRequest();
-//        bulkRequest.add(new IndexRequest(INDEX_NAME).source(JSONObject.toJSONString()))
-        return ResponseResult.success();
+        // 造假数据
+        PmsProductAttributeValueES valueOneEs = PmsProductAttributeValueES.builder().productId(1L).productAttributeId(1L).value("牛奶王one").build();
+        PmsProductAttributeValueES valueTwoEs = PmsProductAttributeValueES.builder().productId(2L).productAttributeId(2L).value("牛奶王two").build();
+        PmsProductES pmsProductES = PmsProductES.builder()
+                .id(1L)
+                .name("特仑苏")
+                .keywords("纯牛奶")
+                .brandName("蒙牛")
+                .productCategoryName("乳制品")
+                .subTitle("不是所有牛奶都叫特仑苏")
+                .productAttributeValues(Arrays.asList(valueOneEs, valueTwoEs))
+                .createTime("2022-10-10")
+                .updateTime("2022-10-10")
+                .build();
+        // 创建索引请求对象
+        IndexRequest indexRequest = new IndexRequest(INDEX_NAME, TYPE_NAME).id(pmsProductES.getId().toString()).source(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
+        // 执行增加文档
+        IndexResponse indexResponse = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(indexResponse.status());
     }
 
+    @ApiOperation(value = "根据id查询文档数据", httpMethod = "POST")
+    @PostMapping("/testGetDocument")
+    public ResponseResult<?> testGetDocument() throws IOException {
+        // 创建获取请求对象
+        GetRequest getRequest = new GetRequest(INDEX_NAME);
+        getRequest.id("1");
+        GetResponse response = restHighLevelClient.get(getRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.getSourceAsString());
+    }
+
+    @ApiOperation(value = "根据id更新文档数据", httpMethod = "POST")
+    @PostMapping("/testUpdateDocument")
+    public ResponseResult<?> testUpdateDocument() throws IOException {
+        // 造假数据
+        PmsProductAttributeValueES valueOneEs = PmsProductAttributeValueES.builder().productId(1L).productAttributeId(1L).value("牛奶王one").build();
+        PmsProductAttributeValueES valueTwoEs = PmsProductAttributeValueES.builder().productId(2L).productAttributeId(2L).value("牛奶王two").build();
+        PmsProductES pmsProductES = PmsProductES.builder()
+                .id(1L)
+                .name("特仑苏")
+                .keywords("纯牛奶")
+                .brandName("蒙牛")
+                .productCategoryName("乳制品")
+                .subTitle("不是所有牛奶都叫特仑苏")
+                .productAttributeValues(Arrays.asList(valueOneEs, valueTwoEs))
+                .createTime("2022-10-12")
+                .updateTime("2022-10-14")
+                .build();
+        // 创建索引请求对象
+        UpdateRequest updateRequest = new UpdateRequest(INDEX_NAME, TYPE_NAME, pmsProductES.getId().toString());
+        // 设置更新文档内容
+        updateRequest.doc(JSONObject.toJSONString(pmsProductES), XContentType.JSON);
+        // 执行更新文档
+        UpdateResponse response = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.status());
+    }
+
+    @ApiOperation(value = "根据id删除文档", httpMethod = "POST")
+    @PostMapping("/testDeleteDocument")
+    public ResponseResult<?> testDeleteDocument() throws IOException {
+        // 创建删除请求对象
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX_NAME, TYPE_NAME, "1");
+        // 执行删除文档
+        DeleteResponse response = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
+        return ResponseResult.success(response.status());
+    }
 }

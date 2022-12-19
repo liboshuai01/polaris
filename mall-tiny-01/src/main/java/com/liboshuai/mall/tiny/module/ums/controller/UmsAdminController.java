@@ -9,6 +9,7 @@ import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsAdminDTO;
 import com.liboshuai.mall.tiny.module.ums.domain.entity.UmsAdmin;
 import com.liboshuai.mall.tiny.module.ums.domain.vo.UmsAdminVO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -35,6 +36,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping("/mall.tiny.module.ums/ums-admin")
+@Api(tags = "用户后台", value = "UmsAdminController")
 public class UmsAdminController {
 
     @Autowired

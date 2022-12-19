@@ -16,6 +16,7 @@ public enum ResponseCode {
     INCORRECT_CREDENTIALS(401, "账号或密码错误"),
     TOKEN_EXPIRE_OR_ERROR(401, "token不正确或过期"),
     SALT_IS_NOT_EXISTED(401, "盐或加盐数为空"),
+    PARAMETER_IS_NULL(401, "入参不能为空"),
     FORBIDDEN(403, "没有相关权限");
 
 
