@@ -18,6 +18,7 @@
     <modules>
         <module>mall-admin</module>
         <module>mall-monitor</module>
+        <module>mall-common</module>
     </modules>
     <packaging>pom</packaging>
 
