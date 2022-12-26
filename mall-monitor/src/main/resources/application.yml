@@ -1,5 +1,13 @@
 spring:
   application:
     name: mall-monitor
+  security:
+    user:
+      name: liboshuai01
+      password: mall@2023
+  boot: # 不显示mall-monitor的监控信息
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}
 server:
-  port: 9302
+  port: 8102

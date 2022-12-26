@@ -3,6 +3,7 @@ package com.liboshuai.mallMonitor;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @Author: liboshuai
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description: 主启动类
  */
 @EnableAdminServer
+@EnableDiscoveryClient
 @SpringBootApplication
 public class MallMonitorApplication {
     public static void main(String[] args) {
