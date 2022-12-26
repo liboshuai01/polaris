@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: mall-monitor
+server:
+  port: 9302
