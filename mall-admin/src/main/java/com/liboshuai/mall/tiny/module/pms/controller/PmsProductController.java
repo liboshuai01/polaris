@@ -26,8 +26,7 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.client.indices.GetIndexResponse;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -249,15 +248,15 @@ public class PmsProductController {
     @ApiOperation(value = "获取索引映射结构", httpMethod = "POST")
     @PostMapping("/testGetIndexMapping")
     public ResponseResult<?> testGetIndexMapping() throws IOException {
-        IndicesClient indicesClient = restHighLevelClient.indices();
-        // 创建get请求
-        GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
-        // 发送get请求
-        GetIndexResponse response = indicesClient.get(request, RequestOptions.DEFAULT);
-        // 获取索引映射结构
-        Map<String, MappingMetaData> mappings = response.getMappings();
-        log.info("获取索引映射结构: {}", JSONObject.toJSONString(mappings));
-        return ResponseResult.success(JSONObject.toJSONString(mappings));
+//        IndicesClient indicesClient = restHighLevelClient.indices();
+//        // 创建get请求
+//        GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
+//        // 发送get请求
+//        GetIndexResponse response = indicesClient.get(request, RequestOptions.DEFAULT);
+//        // 获取索引映射结构
+//        Map<String, MappingMetaData> mappings = response.getMappings();
+//        log.info("获取索引映射结构: {}", JSONObject.toJSONString(mappings));
+        return ResponseResult.success();
     }
 
     @ApiOperation(value = "判断索引是否存在", httpMethod = "POST")

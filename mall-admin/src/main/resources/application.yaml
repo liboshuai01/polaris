@@ -5,9 +5,7 @@ server:
 
 spring:
   profiles:
-    active: @profilesActive@ # 用于区分不同配置环境
-  main:
-      allow-bean-definition-overriding: true # 允许重复定义bean
+    active: local # 用于区分不同配置环境
 
 management: # 开启spring-admin监控
   endpoints:

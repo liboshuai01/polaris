@@ -83,7 +83,7 @@ public class RedisClient {
             if (key.length == 1) {
                 redisTemplate.delete(key[0]);
             } else {
-                redisTemplate.delete(CollectionUtils.arrayToList(key));
+                redisTemplate.delete((List<String>)CollectionUtils.arrayToList(key));
             }
         }
     }

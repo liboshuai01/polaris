@@ -11,39 +11,6 @@
 
     <artifactId>mall-admin</artifactId>
 
-    <profiles>
-        <!--本地-->
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <profilesActive>local</profilesActive>
-            </properties>
-        </profile>
-        <!--测试-->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profilesActive>dev</profilesActive>
-            </properties>
-        </profile>
-        <!--预生产-->
-        <profile>
-            <id>uat</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profilesActive>uat</profilesActive>
-            </properties>
-        </profile>
-    </profiles>
-
     <dependencies>
         <!--nacos相关依赖-->
         <dependency>
@@ -179,12 +146,6 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
-        <!--excel word文件导入导出依赖-->
-        <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-spring-boot-starter</artifactId>
-            <version>${easypoi-version}</version>
-        </dependency>
         <!--消息队列相关依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -193,38 +154,16 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>application-${profilesActive}.properties</include>
-                    <include>application.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <url>http://repo.spring.io/libs-snapshot</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <url>http://repo.spring.io/libs-snapshot</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>

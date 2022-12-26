@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -38,7 +35,7 @@ public class Swagger2Config {
                 .paths(PathSelectors.any())
                 .build()
                 //添加登录认证
-                .securitySchemes(securitySchemes())
+//                .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
     }
 
@@ -46,7 +43,7 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("mall电商项目")
                 .description("mall-tiny")
-                .contact("liboshuai")
+                .contact(new Contact("liboshuai", "liboshuai.com", "liboshuai01@gmail.com"))
                 .version("1.0")
                 .build();
     }
