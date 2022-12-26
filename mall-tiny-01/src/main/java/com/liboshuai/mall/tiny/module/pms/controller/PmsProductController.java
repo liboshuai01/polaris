@@ -3,17 +3,13 @@ package com.liboshuai.mall.tiny.module.pms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liboshuai.mall.tiny.compone.response.ResponseResult;
-import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductAttributeValueES;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
-import com.liboshuai.mall.tiny.module.pms.domain.req.AddProductReq;
-import com.liboshuai.mall.tiny.module.pms.domain.req.EsSearchProduct;
 import com.liboshuai.mall.tiny.module.pms.service.PmsProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
@@ -33,13 +29,11 @@ import org.elasticsearch.client.indices.GetIndexResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -89,9 +83,69 @@ public class PmsProductController {
     @ApiOperation(value = "es查询匹配数据", httpMethod = "POST")
     @PostMapping("/testMatchQuery")
     public ResponseResult<List<PmsProductES>> testMatchQuery(@RequestParam String name) {
+        if (Objects.isNull(name)) {
+            log.warn("入参不能为空");
+            return ResponseResult.fail();
+        }
         List<PmsProductES> pmsProductESList = pmsProductService.testMatchQuery(name);
         return ResponseResult.success(pmsProductESList);
     }
+
+
+    @ApiOperation(value = "es词语匹配查询", httpMethod = "POST")
+    @PostMapping("/testMatchPhraseQuery")
+    public ResponseResult<List<PmsProductES>> testMatchPhraseQuery(@RequestParam String name) {
+        return pmsProductService.testMatchPhraseQuery(name);
+    }
+
+    @ApiOperation(value = "es内容在多字段中进行查询", httpMethod = "POST")
+    @PostMapping("/testMatchMultiQuery")
+    public ResponseResult<List<PmsProductES>> testMatchMultiQuery(@RequestParam String query) {
+        return pmsProductService.testMatchMultiQuery(query);
+    }
+
+    @ApiOperation(value = "es通配符查询", httpMethod = "POST")
+    @PostMapping("/testWildcardQuery")
+    public ResponseResult<List<PmsProductES>> testWildcardQuery(@RequestParam String name) {
+        return pmsProductService.testWildcardQuery(name);
+    }
+
+    @ApiOperation(value = "es模糊查询", httpMethod = "POST")
+    @PostMapping("/testFuzzQuery")
+    public ResponseResult<List<PmsProductES>> testFuzzQuery(@RequestParam String subTitle) {
+        return pmsProductService.testFuzzQuery(subTitle);
+    }
+
+    @ApiOperation(value = "es排序查询", httpMethod = "POST")
+    @PostMapping("/testSortQuery")
+    public ResponseResult<List<PmsProductES>> testSortQuery() {
+        return pmsProductService.testSortQuery();
+    }
+
+    @ApiOperation(value = "es分页查询", httpMethod = "POST")
+    @PostMapping("/testPageQuery")
+    public ResponseResult<List<PmsProductES>> testPageQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testPageQuery(pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "es滚动查询", httpMethod = "POST")
+    @PostMapping("/testScrollQuery")
+    public ResponseResult<List<PmsProductES>> testScrollQuery(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return pmsProductService.testScrollQuery(pageNum, pageSize);
+    }
+
+    @ApiOperation(value = "es范围查询", httpMethod = "POST")
+    @PostMapping("/testRangeQuery")
+    public ResponseResult<List<PmsProductES>> testRangeQuery() {
+        return pmsProductService.testRangeQuery();
+    }
+
+    @ApiOperation(value = "es布尔查询", httpMethod = "POST")
+    @PostMapping("/testBoolQuery")
+    public ResponseResult<List<PmsProductES>> testBoolQuery() {
+        return pmsProductService.testBoolQuery();
+    }
+
 //
 //    @ApiOperation(value = "根据id删除es中的商品", httpMethod = "POST")
 //    @PostMapping("/deleteEsProductById")

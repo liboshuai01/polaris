@@ -51,6 +51,15 @@
         <redis.clients-version>2.9.0</redis.clients-version>
     </properties>
 
+<!--    <dependencies>-->
+<!--        &lt;!&ndash; SpringBoot的依赖配置 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-dependencies</artifactId>-->
+<!--            <version>2.2.2.RELEASE</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
     <repositories>
         <repository>
             <id>spring-snapshots</id>

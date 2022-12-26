@@ -1,6 +1,7 @@
 package com.liboshuai.mall.tiny.module.pms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liboshuai.mall.tiny.compone.response.ResponseResult;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsBrandDTO;
 import com.liboshuai.mall.tiny.module.pms.domain.dto.PmsProductES;
 import com.liboshuai.mall.tiny.module.pms.domain.entity.PmsProduct;
@@ -37,6 +38,51 @@ public interface PmsProductService extends IService<PmsProduct> {
      * es查询匹配数据
      */
     List<PmsProductES> testMatchQuery(String name);
+
+    /**
+     * es词语匹配查询
+     */
+    ResponseResult<List<PmsProductES>> testMatchPhraseQuery(String name);
+
+    /**
+     * es内容在多字段中进行查询
+     */
+    ResponseResult<List<PmsProductES>> testMatchMultiQuery(String query);
+
+    /**
+     * es通配符查询
+     */
+    ResponseResult<List<PmsProductES>> testWildcardQuery(String name);
+
+    /**
+     * es模糊查询
+     */
+    ResponseResult<List<PmsProductES>> testFuzzQuery(String subTitle);
+
+    /**
+     * es分页查询
+     */
+    ResponseResult<List<PmsProductES>> testPageQuery(int pageNum, int pageSize);
+
+    /**
+     * es排序查询
+     */
+    ResponseResult<List<PmsProductES>> testSortQuery();
+
+    /**
+     * es滚动查询
+     */
+    ResponseResult<List<PmsProductES>> testScrollQuery(int pageNum, int pageSize);
+
+    /**
+     * es范围查询
+     */
+    ResponseResult<List<PmsProductES>> testRangeQuery();
+
+    /**
+     * es布尔查询
+     */
+    ResponseResult<List<PmsProductES>> testBoolQuery();
 
     /**
      * 根据id删除es中的商品
