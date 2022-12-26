@@ -1,6 +1,7 @@
 package com.liboshuai.mall.common.config;
 
 import com.liboshuai.mall.common.domain.SwaggerProperties;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,9 @@ public abstract class BaseSwaggerConfig {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
+//                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
+                //为有@ApiOperation注解的方法生成API文档
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
         if (swaggerProperties.isEnableSecurity()) {

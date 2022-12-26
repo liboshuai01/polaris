@@ -1,7 +1,7 @@
 server:
   port: 8081 # 项目端口
   servlet:
-    context-path: /mall-tiny # 项目根路径
+    context-path: /mall-admin # 项目根路径
 
 spring:
   profiles:

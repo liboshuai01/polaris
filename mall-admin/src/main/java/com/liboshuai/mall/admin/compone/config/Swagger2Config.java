@@ -16,7 +16,8 @@ public class Swagger2Config extends BaseSwaggerConfig {
     @Override
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
-                .apiBasePackage("com.liboshuai.mall.admin.module.*.controller")
+                // 修改为根据方法上带有swagger注解生成的方式
+//                .apiBasePackage("com.liboshuai.mall.admin.module.*.controller")
                 .title("mall后台系统")
                 .description("mall后台相关接口文档")
                 .contactName("liboshuai")
