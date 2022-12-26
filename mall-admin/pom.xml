@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mall-tiny-01</artifactId>
+    <artifactId>mall-admin</artifactId>
 
     <profiles>
         <!--本地-->
