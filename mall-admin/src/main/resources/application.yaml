@@ -4,16 +4,10 @@ server:
     context-path: /mall-tiny # 项目根路径
 
 spring:
-  application:
-    name: mall-admin # 项目服务名称
-  cloud:
-    nacos:
-      config:
-        server-addr: http://1.117.233.154:18848 # nacos地址
   profiles:
-    active:@profilesActive@ # 用于区分不同配置环境
+    active: @profilesActive@ # 用于区分不同配置环境
   main:
-    allow-bean-definition-overriding: true # 允许重复定义bean
+      allow-bean-definition-overriding: true # 允许重复定义bean
 
 management: # 开启spring-admin监控
   endpoints:

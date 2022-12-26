@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mall-admin # 项目服务名称
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://1.117.233.154:18848 # nacos服务注册地址
+      config:
+        server-addr: http://1.117.233.154:18848 # nacos配置中心地址
+        file-extension: yaml # 指定nacos中配置的文件格式
