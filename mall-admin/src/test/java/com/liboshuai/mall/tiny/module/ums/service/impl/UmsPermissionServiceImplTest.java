@@ -1,6 +1,6 @@
 package com.liboshuai.mall.tiny.module.ums.service.impl;
 
-import com.liboshuai.mall.tiny.MallTiny01Application;
+import com.liboshuai.mall.tiny.MallAdminApplication;
 import com.liboshuai.mall.tiny.module.ums.domain.dto.UmsPermissionDTO;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminRoleRelationService;
 import com.liboshuai.mall.tiny.module.ums.service.UmsAdminService;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MallTiny01Application.class)
+@SpringBootTest(classes = MallAdminApplication.class)
 public class UmsPermissionServiceImplTest extends TestCase {
 
     @Autowired

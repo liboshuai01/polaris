@@ -17,10 +17,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @SpringBootApplication
 @MapperScan("com.liboshuai.mall.tiny.module.*.mapper")
-public class MallTiny01Application {
+public class MallAdminApplication {
     public static void main(String[] args) {
         System.setProperty("es.set.netty.runtime.available.processors","false");
-        SpringApplication.run(MallTiny01Application.class, args);
+        SpringApplication.run(MallAdminApplication.class, args);
     }
 
     @Bean
