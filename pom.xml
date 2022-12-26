@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>com.liboshuai</groupId>
-    <artifactId>mall-tiny</artifactId>
+    <artifactId>mall</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>mall-admin</module>
