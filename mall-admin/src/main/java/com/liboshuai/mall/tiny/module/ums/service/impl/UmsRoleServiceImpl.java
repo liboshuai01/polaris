@@ -31,9 +31,6 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     private UmsAdminRoleRelationService umsAdminRoleRelationService;
 
     @Autowired
-    private UmsRoleService umsRoleService;
-
-    @Autowired
     private UmsRoleMapper umsRoleMapper;
 
     /**
@@ -58,6 +55,6 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     public List<UmsRoleDTO> findRolesByUsername(String username) {
         Long adminId = umsAdminService.findUserIdByUserName("admin");
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
-        return umsRoleService.findRolesByRoleIds(roleIds);
+        return this.findRolesByRoleIds(roleIds);
     }
 }

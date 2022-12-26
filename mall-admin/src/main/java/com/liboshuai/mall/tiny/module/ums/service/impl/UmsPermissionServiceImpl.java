@@ -35,9 +35,6 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
     private UmsRolePermissionRelationService umsRolePermissionRelationService;
 
     @Autowired
-    private UmsPermissionService umsPermissionService;
-
-    @Autowired
     private UmsPermissionMapper umsPermissionMapper;
 
     /**
@@ -63,7 +60,7 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
         Long adminId = umsAdminService.findUserIdByUserName(username);
         List<Long> roleIds = umsAdminRoleRelationService.findRoleIdsByUserId(adminId);
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
-        return umsPermissionService.findPermissionsByPermissionIds(permissionIds);
+        return this.findPermissionsByPermissionIds(permissionIds);
     }
 
     /**
@@ -72,6 +69,6 @@ public class UmsPermissionServiceImpl extends ServiceImpl<UmsPermissionMapper, U
     @Override
     public List<UmsPermissionDTO> findPermissionsByRoleIds(List<Long> roleIds) {
         List<Long> permissionIds = umsRolePermissionRelationService.findPermissionIdsByRoleIds(roleIds);
-        return umsPermissionService.findPermissionsByPermissionIds(permissionIds);
+        return this.findPermissionsByPermissionIds(permissionIds);
     }
 }
