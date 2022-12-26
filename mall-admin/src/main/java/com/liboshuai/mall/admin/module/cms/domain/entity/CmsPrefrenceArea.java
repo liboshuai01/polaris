@@ -1,10 +1,10 @@
-package com.liboshuai.mall.tiny.module.cms.domain.entity;
+package com.liboshuai.mall.admin.module.cms.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.liboshuai.mall.tiny.common.base.BaseEntity;
+import com.liboshuai.mall.admin.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

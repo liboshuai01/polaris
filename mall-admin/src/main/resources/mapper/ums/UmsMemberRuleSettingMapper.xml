@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.liboshuai.mall.tiny.module.ums.mapper.UmsMemberRuleSettingMapper">
+<mapper namespace="com.liboshuai.mall.admin.module.ums.mapper.UmsMemberRuleSettingMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.liboshuai.mall.tiny.module.ums.domain.entity.UmsMemberRuleSetting">
+    <resultMap id="BaseResultMap" type="com.liboshuai.mall.admin.module.ums.domain.entity.UmsMemberRuleSetting">
         <id column="id" property="id" />
         <result column="continue_sign_day" property="continueSignDay" />
         <result column="continue_sign_point" property="continueSignPoint" />
