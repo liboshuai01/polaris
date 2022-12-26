@@ -1,0 +1,54 @@
+server:
+  port: 8081 # 项目端口
+  servlet:
+    context-path: /mall-tiny # 项目根路径
+
+spring:
+  application:
+    name: mall-admin # 项目服务名称
+  cloud:
+    nacos:
+      config:
+        server-addr: http://1.117.233.154:18848 # nacos地址
+  profiles:
+    active:@profilesActive@ # 用于区分不同配置环境
+  main:
+    allow-bean-definition-overriding: true # 允许重复定义bean
+
+management: # 开启spring-admin监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+mybatis-plus: # mybatis-plus相关配置
+  mapper-locations:classpath: /mapper/*.xml
+  global-config: # 配置mybatis plus逻辑删除
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+redis: # redis相关配置
+  key:
+    prefix:
+      authCode: "portal:authCode:" # 手机号验证码key前缀
+    expire:
+      authCode: 60 # 手机验证码超时时间
+
+logging: # logback配置文件路径
+  config:classpath: logback-spring.xml
+
+config: # jwt相关配置
+  encrypt-jwtKey: gHMzjdlP84njamo29YgoAjpH # JWT认证加密私钥(Base64加密)
+  accessToken-expireTime: 86400 # AccessToken过期时间(秒): 24小时
+  refreshToken-expireTime: 604800 # RefreshToken过期时间(秒) 604800秒=7天
+  shiro-cache-expireTime: 600 # Shiro缓存过期时间(秒)(一般设置与AccessToken过期时间一致)
+
+jasypt: # 密码加密工具配置
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

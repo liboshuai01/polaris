@@ -1,0 +1,31 @@
+spring:
+  datasource: # mysql\u76F8\u5173\u914D\u7F6E
+    url:jdbc: mysql://liboshuai.mysql.rds.aliyuncs.com:58107/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: Rongshu@2023
+  redis: # redis\u76F8\u5173\u914D\u7F6E
+    host: liboshuai.redis.rds.aliyuncs.com
+    database: 0
+    port: 58108
+    password: ENC(+cJyhlOeoBf+vV5SMp4B/EaLVzpAhBsa)
+    timeout: 300
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  rabbitmq: # rabbitmq\u76F8\u5173\u914D\u7F6E
+    host: 1.117.233.154
+    port: 18672
+    virtual-host: /mall
+    username: liboshuai01
+    password: BI13sOOHhdSJHGL
+    publisher-confirm-type: CORRELATED
+
+elasticSearch: # elasticSearch\u76F8\u5173\u914D\u7F6E
+  scheme: http
+  host: 1.117.233.154
+  port: 18200
+  userName: elastic
+  password: Rongshu@2023
