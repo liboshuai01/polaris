@@ -17,6 +17,8 @@ import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,9 +46,15 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     private String profilesAction;
 
     public JwtFilter() {
-        ResourceBundle resource = ResourceBundle.getBundle("application");
-        serverServletContextPath = resource.getString("server.servlet.context-path");
-        refreshTokenExpireTime = resource.getString("config.refreshToken-expireTime");
+        YamlPropertiesFactoryBean factoryBean = new YamlPropertiesFactoryBean();
+        factoryBean.setResources(new ClassPathResource("application.yaml"));
+        Properties properties = factoryBean.getObject();
+        if (Objects.isNull(properties)) {
+            log.error("JwtFilter初始化读取项目配置失败");
+            return;
+        }
+        serverServletContextPath = properties.get("server.servlet.context-path").toString();
+        refreshTokenExpireTime = properties.get("config.refreshToken-expireTime").toString();
     }
 
     /**
