@@ -4,8 +4,48 @@ server:
     context-path: /mall-admin # 项目根路径
 
 spring:
-  profiles:
-    active: local # 用于区分不同配置环境
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://liboshuai.mysql.rds.aliyuncs.com:58107/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: Rongshu@2023
+    druid:
+      initial-size: 5
+      min-idle: 10
+      max-active: 20
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+  redis:
+    host: liboshuai.redis.rds.aliyuncs.com
+    database: 0
+    port: 58108
+    password: ENC(+cJyhlOeoBf+vV5SMp4B/EaLVzpAhBsa)
+    timeout: 300
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  rabbitmq:
+    host: 1.117.233.154
+    port: 18672
+    virtual-host: /mall
+    username: liboshuai01
+    password: BI13sOOHhdSJHGL
+    publisher-confirm-type: CORRELATED
+
+elasticSearch:
+  scheme: http
+  host: 1.117.233.154
+  port: 18200
+  userName: elastic
+  password: Rongshu@2023
 
 management: # 开启spring-admin监控
   endpoints:
