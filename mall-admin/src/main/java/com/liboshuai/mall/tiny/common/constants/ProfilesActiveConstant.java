@@ -11,5 +11,5 @@ public interface ProfilesActiveConstant {
 
     String DEV = "dev";
 
-    String UAT = "uat";
+    String PROD = "prod";
 }
