@@ -12,5 +12,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class CancelOrderSender {
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
+    public void sendMessage(Long orderId, final long delayTimes) {
+        // 给延迟队列发送信息
+        amqpTemplate.convertAndSend(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange(), )
+    }
 }
