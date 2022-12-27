@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.liboshuai.mall</groupId>
-            <artifactId>mall-common</artifactId>
+            <artifactId>common-base</artifactId>
         </dependency>
         <!--nacos相关依赖-->
         <dependency>
@@ -40,18 +40,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-        <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus-boot-starter-version}</version>
-        </dependency>
-        <!-- mybatis plus 自动代码生成 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis-plus-generator-version}</version>
         </dependency>
         <!--velocity模板-->
         <dependency>

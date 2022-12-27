@@ -1,7 +1,7 @@
 package com.liboshuai.mall.admin.compone.config;
 
-import com.liboshuai.mall.common.config.BaseSwaggerConfig;
-import com.liboshuai.mall.common.domain.SwaggerProperties;
+import com.liboshuai.mall.common.swagger.BaseSwaggerConfig;
+import com.liboshuai.mall.common.swagger.SwaggerProperties;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

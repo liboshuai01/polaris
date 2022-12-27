@@ -17,7 +17,7 @@
 
 ``` lua
 mall
-├── mall-common -- 工具类及通用代码模块
+├── mall-com.liboshuai.mall.common -- 工具类及通用代码模块
 ├── mall-auth -- 基于Spring Security Oauth2的统一的认证中心
 ├── mall-gateway -- 基于Spring Cloud Gateway的微服务API网关服务
 ├── mall-monitor -- 基于Spring Boot Admin的微服务监控中心

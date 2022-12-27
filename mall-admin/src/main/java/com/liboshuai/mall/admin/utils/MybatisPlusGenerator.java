@@ -107,3 +107,10 @@
 //                .execute();
 //    }
 //}
+// 需要添加下面的依赖
+//<!-- mybatis plus 自动代码生成 -->
+//<dependency>
+//<groupId>com.baomidou</groupId>
+//<artifactId>mybatis-plus-generator</artifactId>
+//<version>${mybatis-plus-generator-version}</version>
+//</dependency>
