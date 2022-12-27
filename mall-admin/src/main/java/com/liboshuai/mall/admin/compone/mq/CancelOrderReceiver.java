@@ -1,6 +1,5 @@
 package com.liboshuai.mall.admin.compone.mq;
 
-import com.liboshuai.mall.admin.module.oms.service.OmsOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -16,12 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RabbitListener(queues = "mall.order.cancel")
 public class CancelOrderReceiver {
-    @Autowired
-    private OmsOrderService omsOrderService;
+//    @Autowired
+//    private OmsOrderService omsOrderService;
 
     @RabbitHandler
     public void handle(Long orderId) {
         log.info("receive delay message orderId:{}",orderId);
-        omsOrderService.cancelOrder(orderId);
+//        omsOrderService.cancelOrder(orderId);
     }
 }

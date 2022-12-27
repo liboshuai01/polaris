@@ -2,9 +2,6 @@ package com.liboshuai.mall.admin.module.ums.service.impl;
 
 import com.liboshuai.mall.admin.MallAdminApplication;
 import com.liboshuai.mall.admin.module.ums.domain.dto.UmsRoleDTO;
-import com.liboshuai.mall.admin.module.ums.service.UmsAdminRoleRelationService;
-import com.liboshuai.mall.admin.module.ums.service.UmsAdminService;
-import com.liboshuai.mall.admin.module.ums.service.UmsRoleService;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,7 +1,6 @@
 package com.liboshuai.mall.admin.compone.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.liboshuai.mall.admin.utils.ShiroUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.reflection.MetaObject;
@@ -19,12 +18,11 @@ import java.util.Date;
 @Component
 public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
-    @Autowired
-    private ShiroUtil shiroUtil;
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        String currentUser = shiroUtil.getCurrentUser();
+        // todo: 待根据当前登录用户做自动填充
+        String currentUser = "system";
         if (StringUtils.isNoneBlank(currentUser)) {
             this.setFieldValByName("createUser", currentUser, metaObject);
         }
@@ -34,7 +32,8 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        String currentUser = shiroUtil.getCurrentUser();
+        // todo: 待根据当前登录用户做自动填充
+        String currentUser = "system";
         if (StringUtils.isNoneBlank(currentUser)) {
             this.setFieldValByName("updateUser", currentUser, metaObject);
         }
