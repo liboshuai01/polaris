@@ -20,9 +20,6 @@ import java.io.Serializable;
 public class UmsAdminVO implements Serializable {
     private static final long serialVersionUID = 1321190682152399912L;
 
-    @ApiModelProperty("id")
-    private Long id;
-
     @ApiModelProperty("用户名")
     private String username;
 

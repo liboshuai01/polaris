@@ -72,6 +72,9 @@ public class LoginAdminController {
         BeanUtils.copyProperties(umsAdminVo, umsAdminDTO);
         String username = umsAdminDTO.getUsername();
         String password = umsAdminDTO.getPassword();
+        if (checkUserIsExists(username)) {
+            return ResponseResult.fail("用户已经存在!");
+        }
         if (Objects.nonNull(password)) {
             int saltCount = ShiroConstant.HASH_INTERATIONS;
             String salt = ByteSource.Util.bytes(username).toString();
@@ -87,6 +90,16 @@ public class LoginAdminController {
         log.info("日志umsAdmin:{}", JSONObject.toJSONString(umsAdmin));
         umsAdminService.save(umsAdmin);
         return ResponseResult.success("注册成功");
+    }
+
+    /**
+     * 效验用户是否已经存在
+     * @param username 用户名
+     * @return true已经存在, false不存在
+     */
+    private boolean checkUserIsExists(String username) {
+        Long userId = umsAdminService.findUserIdByUserName(username);
+        return Objects.nonNull(userId);
     }
 
 
