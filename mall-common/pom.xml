@@ -13,6 +13,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>common-base</module>
+        <module>common-file</module>
+        <module>common-sms</module>
     </modules>
     <packaging>pom</packaging>
 
