@@ -18,21 +18,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableDiscoveryClient
 @SpringBootApplication
-@MapperScan("com.liboshuai.mall.admin.module.*.mapper")
 public class MallAdminApplication {
     public static void main(String[] args) {
         System.setProperty("es.set.netty.runtime.available.processors","false");
         SpringApplication.run(MallAdminApplication.class, args);
-    }
-
-    @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 指定数据库方言为 MySQL
-        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
-        // 设置单页分页条数限制
-        paginationInnerInterceptor.setMaxLimit(9999L);
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
-        return interceptor;
     }
 }
