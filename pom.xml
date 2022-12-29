@@ -57,7 +57,8 @@
         <spring-data-commons.version>2.7.0</spring-data-commons.version>
         <jjwt.version>0.9.1</jjwt.version>
         <aliyun-oss.version>2.5.0</aliyun-oss.version>
-        <aliyun-sms.version>1.0.0</aliyun-sms.version>
+        <aliyun-oss-starter.version>1.0.0</aliyun-oss-starter.version>
+        <aliyun-sms-starter.version>1.0.0</aliyun-sms-starter.version>
         <logstash-logback.version>5.3</logstash-logback.version>
         <admin-starter-server.version>2.7.0</admin-starter-server.version>
         <minio.version>8.4.1</minio.version>
@@ -67,7 +68,6 @@
         <excel.version>1.1.1</excel.version>
         <idempotent.version>0.0.7</idempotent.version>
         <common-base.version>1.0-SNAPSHOT</common-base.version>
-        <aliyun-oss.version>2.5.0</aliyun-oss.version>
     </properties>
 
     <dependencies>
@@ -83,10 +83,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -164,11 +160,11 @@
                 <version>${spring-data-commons.version}</version>
             </dependency>
             <!--JWT(Json Web Token)登录支持-->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.jsonwebtoken</groupId>-->
+<!--                <artifactId>jjwt</artifactId>-->
+<!--                <version>${jjwt.version}</version>-->
+<!--            </dependency>-->
             <!--JWT(Json Web Token)登录支持-->
             <dependency>
                 <groupId>com.nimbusds</groupId>
@@ -183,8 +179,13 @@
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
+                <artifactId>aliyun-oss-spring-boot-starter</artifactId>
+                <version>${aliyun-oss-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>aliyun-sms-spring-boot-starter</artifactId>
-                <version>${aliyun-sms.version}</version>
+                <version>${aliyun-sms-starter.version}</version>
             </dependency>
             <!--集成logstash-->
             <dependency>
