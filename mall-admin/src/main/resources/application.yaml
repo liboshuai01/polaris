@@ -33,7 +33,7 @@ spring: # 解决swagger接口不显示的问题
         max-idle: 8
         min-idle: 0
   rabbitmq:
-    host: 1.117.233.154
+    host: liboshuai.com
     port: 18672
     virtual-host: /mall
     username: liboshuai01
@@ -42,7 +42,7 @@ spring: # 解决swagger接口不显示的问题
 
 elasticSearch:
   scheme: http
-  host: 1.117.233.154
+  host: liboshuai.com
   port: 18200
   userName: elastic
   password: Rongshu@2023
