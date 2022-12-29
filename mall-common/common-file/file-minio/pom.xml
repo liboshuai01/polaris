@@ -30,7 +30,7 @@
 
     <!--SpringBoot打包插件-->
     <build>
-        <finalName>${parent.artifactId}</finalName>
+        <finalName>${project.parent.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
