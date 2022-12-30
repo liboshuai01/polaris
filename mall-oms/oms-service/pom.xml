@@ -47,11 +47,6 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--elasticSearch依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
         <!--集成druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
