@@ -1,12 +1,9 @@
 server:
   port: 8081 # 项目端口
   servlet:
-    context-path: /mall-admin # 项目根路径
+    context-path: /oms-service # 项目根路径
 
-spring: # 解决swagger接口不显示的问题
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+spring:
   datasource:
     url: jdbc:mysql://liboshuai.mysql.rds.aliyuncs.com:58107/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
@@ -39,6 +36,14 @@ spring: # 解决swagger接口不显示的问题
     username: liboshuai01
     password: BI13sOOHhdSJHGL
     publisher-confirm-type: CORRELATED
+  mvc: # 解决swagger接口不显示的问题
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud: # 配置nacos admin项目根目录, 不然admin监控不到
+    nacos:
+      discovery:
+        metadata:
+          management.context-path: ${server.servlet.context-path}/actuator
 
 management: # 开启spring-admin监控
   endpoints:
