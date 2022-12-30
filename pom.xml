@@ -20,6 +20,7 @@
         <module>mall-monitor</module>
         <module>mall-common</module>
         <module>mall-oms</module>
+        <module>mall-pms</module>
     </modules>
     <packaging>pom</packaging>
 
