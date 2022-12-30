@@ -134,9 +134,11 @@
 
     <build>
         <plugins>
-            <plugin><!--springboot的打包插件-->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <!-- 项目基于maven pom多模块的开发的，需要设置goal-repackage属性为true，否则打包后文件依赖文件没有一起打包，然后镜像内没有可以运行的程序文件 -->
                 <executions>
                     <execution>
                         <goals>
@@ -144,36 +146,11 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin><!--制作docker镜像的maven插件-->
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
-                    <imageName>${project.artifactId}</imageName><!--镜像名-->
-                    <imageTags>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <dockerDirectory>src/main/resources/docker</dockerDirectory><!--Dockerfile所在的目录-->
-                    <dockerHost>http://liboshuai.com:2375</dockerHost><!--docker所在的宿主机地址-->
-                    <resources>
-                        <resource><!--这里配置的就是打包后jar所在的位置-->
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
+                    <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>

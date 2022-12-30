@@ -24,7 +24,7 @@ spring: # 解决swagger接口不显示的问题
     host: liboshuai.redis.rds.aliyuncs.com
     database: 0
     port: 58108
-    password: ENC(+cJyhlOeoBf+vV5SMp4B/EaLVzpAhBsa)
+    password: ViH7aLoiLO3r
     timeout: 300
     jedis:
       pool:
