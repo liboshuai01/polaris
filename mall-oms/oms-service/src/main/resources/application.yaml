@@ -40,13 +40,6 @@ spring: # 解决swagger接口不显示的问题
     password: BI13sOOHhdSJHGL
     publisher-confirm-type: CORRELATED
 
-elasticSearch:
-  scheme: http
-  host: liboshuai.com
-  port: 18200
-  userName: elastic
-  password: Rongshu@2023
-
 management: # 开启spring-admin监控
   endpoints:
     web:
