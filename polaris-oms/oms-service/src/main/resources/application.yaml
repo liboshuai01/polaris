@@ -1,0 +1,84 @@
+server:
+  port: 8081 # 项目端口
+  servlet:
+    context-path: /oms-service # 项目根路径
+
+spring:
+  datasource:
+    url: jdbc:mysql://liboshuai.mysql.rds.aliyuncs.com:58107/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: Rongshu@2023
+    druid:
+      initial-size: 5
+      min-idle: 10
+      max-active: 20
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+  redis:
+    host: liboshuai.redis.rds.aliyuncs.com
+    database: 0
+    port: 58108
+    password: ViH7aLoiLO3r
+    timeout: 300
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  rabbitmq:
+    host: liboshuai.com
+    port: 18672
+    virtual-host: /polaris
+    username: liboshuai01
+    password: BI13sOOHhdSJHGL
+    publisher-confirm-type: CORRELATED
+  mvc: # 解决swagger接口不显示的问题
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud: # 配置nacos admin项目根目录, 不然admin监控不到
+    nacos:
+      discovery:
+        metadata:
+          management.context-path: ${server.servlet.context-path}/actuator
+
+management: # 开启spring-admin监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+mybatis-plus: # mybatis-plus相关配置
+  mapper-locations:classpath: /mapper/*.xml
+  global-config: # 配置mybatis plus逻辑删除
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+redis: # redis相关配置
+  key:
+    prefix:
+      authCode: "portal:authCode:" # 手机号验证码key前缀
+    expire:
+      authCode: 60 # 手机验证码超时时间
+
+logging: # logback配置文件路径
+  config:classpath: logback-spring.xml
+
+config: # jwt相关配置
+  encrypt-jwtKey: gHMzjdlP84njamo29YgoAjpH # JWT认证加密私钥(Base64加密)
+  accessToken-expireTime: 86400 # AccessToken过期时间(秒): 24小时
+  refreshToken-expireTime: 604800 # RefreshToken过期时间(秒) 604800秒=7天
+  shiro-cache-expireTime: 600 # Shiro缓存过期时间(秒)(一般设置与AccessToken过期时间一致)
+
+jasypt: # 密码加密工具配置
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

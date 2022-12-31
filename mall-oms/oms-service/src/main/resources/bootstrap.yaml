@@ -1,5 +1,0 @@
-spring:
-  profiles:
-    active: dev # 用于区分不同配置环境
-  application:
-    name: mall-oms-service # 项目服务名称

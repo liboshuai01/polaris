@@ -1,0 +1,16 @@
+server:
+  port: 8181 # 项目端口
+
+spring:
+  profiles:
+    active: dev # 用于区分不同配置环境
+  application:
+    name: polaris-monitor # 项目服务名称
+  security:
+    user:
+      name: liboshuai01
+      password: polaris@2023
+  boot: # 不显示Polaris-monitor的监控信息
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}

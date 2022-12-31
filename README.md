@@ -1,13 +1,13 @@
-# mall-swarm
+# polaris
 
 <p>
-  <a href="https://github.com/liboshuai01/mall"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E5%90%8E%E5%8F%B0%E9%A1%B9%E7%9B%AE-mall-blue.svg" alt="github"></a>
-  <a href="https://gitee.com/liboshuai01/mall"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E7%A0%81%E4%BA%91-%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80-orange.svg" alt="码云"></a>
+  <a href="https://github.com/liboshuai01/polaris"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E5%90%8E%E5%8F%B0%E9%A1%B9%E7%9B%AE-mall-blue.svg" alt="github"></a>
+  <a href="https://gitee.com/liboshuai01/polaris"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E7%A0%81%E4%BA%91-%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80-orange.svg" alt="码云"></a>
 </p>
 
 ## 项目介绍
 
-`mall`是一套微服务商城系统，采用了 Spring Cloud 2021 & Alibaba、Spring Boot 2.7、Oauth2、MyBatis、Elasticsearch、Docker、Kubernetes等核心技术，同时提供了基于Vue的管理后台方便快速搭建系统。`mall`在电商业务的基础集成了注册中心、配置中心、监控中心、网关等系统功能。
+`polaris`是一套微服务商城系统，采用了 Spring Cloud 2021 & Alibaba、Spring Boot 2.7、Oauth2、MyBatis、Elasticsearch、Docker、Kubernetes等核心技术，同时提供了基于Vue的管理后台方便快速搭建系统。`mall`在电商业务的基础集成了注册中心、配置中心、监控中心、网关等系统功能。
 
 ## 系统架构图
 
@@ -16,15 +16,15 @@
 ## 组织结构
 
 ``` lua
-mall
-├── mall-com.liboshuai.mall.common -- 工具类及通用代码模块
-├── mall-auth -- 基于Spring Security Oauth2的统一的认证中心
-├── mall-gateway -- 基于Spring Cloud Gateway的微服务API网关服务
-├── mall-monitor -- 基于Spring Boot Admin的微服务监控中心
-├── mall-admin -- 后台管理系统服务
-├── mall-search -- 基于Elasticsearch的商品搜索系统服务
-├── mall-portal -- 移动端商城系统服务
-├── mall-demo -- 微服务远程调用测试服务
+polaris
+├── polaris-com.liboshuai.mall.common -- 工具类及通用代码模块
+├── polaris-auth -- 基于Spring Security Oauth2的统一的认证中心
+├── polaris-gateway -- 基于Spring Cloud Gateway的微服务API网关服务
+├── polaris-monitor -- 基于Spring Boot Admin的微服务监控中心
+├── polaris-admin -- 后台管理系统服务
+├── polaris-search -- 基于Elasticsearch的商品搜索系统服务
+├── polaris-portal -- 移动端商城系统服务
+├── polaris-demo -- 微服务远程调用测试服务
 └── config -- 配置中心存储的配置
 ```
 

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.liboshuai.polaris.common.sms.aliyun.AliyunSmsAutoConfiguration

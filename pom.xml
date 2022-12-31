@@ -12,15 +12,15 @@
         <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.liboshuai.mall</groupId>
-    <artifactId>mall</artifactId>
+    <groupId>com.liboshuai.polaris</groupId>
+    <artifactId>polaris</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>mall-monitor</module>
-        <module>mall-common</module>
-        <module>mall-oms</module>
-        <module>mall-pms</module>
-        <module>mall-sms</module>
+        <module>polaris-monitor</module>
+        <module>polaris-common</module>
+        <module>polaris-oms</module>
+        <module>polaris-pms</module>
+        <module>polaris-sms</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -67,7 +67,6 @@
         <minio.version>8.4.1</minio.version>
         <knife4j.version>3.0.3</knife4j.version>
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
-        <mall-common.version>1.0-SNAPSHOT</mall-common.version>
         <excel.version>1.1.1</excel.version>
         <idempotent.version>0.0.7</idempotent.version>
         <common-base.version>1.0-SNAPSHOT</common-base.version>
@@ -101,15 +100,15 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--总公共模块-->
+            <!--总公共基础模块-->
             <dependency>
-                <groupId>com.liboshuai.mall</groupId>
+                <groupId>com.liboshuai.polaris</groupId>
                 <artifactId>common-base</artifactId>
                 <version>${common-base.version}</version>
             </dependency>
             <!--订单模块公共模块-->
             <dependency>
-                <groupId>com.liboshuai.mall</groupId>
+                <groupId>com.liboshuai.polaris</groupId>
                 <artifactId>oms-common</artifactId>
                 <version>${oms-common.version}</version>
             </dependency>
