@@ -1,4 +1,4 @@
-package com.liboshuai.polaris.oms.service.config;
+package com.liboshuai.polaris.sms.service.config;
 
 import com.liboshuai.polaris.common.swagger.BaseSwaggerConfig;
 import com.liboshuai.polaris.common.swagger.SwaggerProperties;
@@ -17,8 +17,8 @@ public class Swagger2Config extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.liboshuai.polaris")
-                .title("polaris订单模块")
-                .description("polaris订单模块相关接口文档")
+                .title("polaris营销模块")
+                .description("polaris营销模块相关接口文档")
                 .contactName("liboshuai")
                 .version("1.0")
                 .enableSecurity(true)
