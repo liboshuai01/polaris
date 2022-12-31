@@ -16,18 +16,26 @@ spring:
           uri: lb://polaris-oms-service
           predicates:
             - Path=/polaris-oms-service/**
+          filters: # 需要去除前缀，不然项目根目录地址得重复输入两次
+            - StripPrefix=1
         - id: polaris-sms-service
           uri: lb://polaris-sms-service
           predicates:
             - Path=/polaris-sms-service/**
+          filters: # 需要去除前缀，不然项目根目录地址得重复输入两次
+            - StripPrefix=1
         - id: polaris-pms-service
           uri: lb://polaris-pms-service
           predicates:
             - Path=/polaris-pms-service/**
+          filters: # 需要去除前缀，不然项目根目录地址得重复输入两次
+            - StripPrefix=1
         - id: polaris-monitor
           uri: lb://polaris-monitor
           predicates:
             - Path=/polaris-monitor/**
+          filters: # 需要去除前缀，不然项目根目录地址得重复输入两次
+            - StripPrefix=1
 
 management: # 开启spring-admin监控
   endpoints:
