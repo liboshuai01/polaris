@@ -1,5 +1,7 @@
 server:
   port: 8082 # 项目端口
+  servlet:
+    context-path: /polaris-sms-service # 项目根路径
 
 spring:
   mvc: # 解决swagger接口不显示的问题

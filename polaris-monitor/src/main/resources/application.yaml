@@ -1,5 +1,7 @@
 server:
   port: 8181 # 项目端口
+  servlet:
+    context-path: /polaris-monitor # 项目根路径
 
 spring:
   profiles:
