@@ -16,26 +16,26 @@ spring:
           uri: lb://polaris-oms-service
           predicates:
             - Path=/polaris-oms-service/**
-          filters: # 需要去除两次配置前缀，不然需要输入三次项目根路径名称 详情查看：https://blog.csdn.net/moakun/article/details/113666462
-            - StripPrefix=2
+          filters: # 需要去除配置前缀 详情查看：https://blog.csdn.net/moakun/article/details/113666462
+            - StripPrefix=1
         - id: polaris-sms-service
           uri: lb://polaris-sms-service
           predicates:
             - Path=/polaris-sms-service/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
         - id: polaris-pms-service
           uri: lb://polaris-pms-service
           predicates:
             - Path=/polaris-pms-service/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
         - id: polaris-monitor
           uri: lb://polaris-monitor
           predicates:
             - Path=/polaris-monitor/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
 
 management: # 开启spring-admin监控
   endpoints:
