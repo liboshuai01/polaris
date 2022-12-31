@@ -1,0 +1,42 @@
+server:
+  port: 8080 # 项目端口
+
+spring:
+  mvc: # 解决swagger接口不显示的问题
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true #使用小写service-id
+      routes: #配置路由路径
+        - id: polaris-oms-service
+          uri: lb://polaris-oms-service
+          predicates:
+            - Path=/polaris-oms-service/**
+        - id: polaris-sms-service
+          uri: lb://polaris-sms-service
+          predicates:
+            - Path=/polaris-sms-service/**
+        - id: polaris-pms-service
+          uri: lb://polaris-pms-service
+          predicates:
+            - Path=/polaris-pms-service/**
+        - id: polaris-monitor
+          uri: lb://polaris-monitor
+          predicates:
+            - Path=/polaris-monitor/**
+
+management: # 开启spring-admin监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+logging: # logback配置文件路径
+  config:classpath: logback-spring.xml

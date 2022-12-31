@@ -21,6 +21,7 @@
         <module>polaris-oms</module>
         <module>polaris-pms</module>
         <module>polaris-sms</module>
+        <module>polaris-gateway</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -100,7 +101,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--总公共基础模块-->
+            <!--总公共模块-->
             <dependency>
                 <groupId>com.liboshuai.polaris</groupId>
                 <artifactId>common-base</artifactId>
