@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev # 用于区分不同配置环境
+  application:
+    name: polaris-sms-service # 项目服务名称
