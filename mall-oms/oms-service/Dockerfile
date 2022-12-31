@@ -19,4 +19,4 @@ EXPOSE 8081
 #ENTRYPOINT 应用启动命令 参数设定
 #由于tomcat的session id的生成主要通过java.security.SecureRandom生成随机数来实现，导致启动过程很慢
 #通过-Djava.security.egd=file:/dev/./urandom参数可以加快随机数产生过程
-ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/app.jar"]
