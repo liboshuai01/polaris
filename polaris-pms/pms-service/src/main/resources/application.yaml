@@ -1,0 +1,39 @@
+server:
+  port: 8083 # 项目端口
+  servlet:
+    context-path: /polaris-pms-service # 项目根路径
+
+spring:
+  mvc: # 解决swagger接口不显示的问题
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud: # 配置nacos admin项目根目录, 不然admin监控不到
+    nacos:
+      discovery:
+        metadata:
+          management.context-path: ${server.servlet.context-path}/actuator
+
+management: # 开启spring-admin监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+mybatis-plus: # mybatis-plus相关配置
+  mapper-locations:classpath: /mapper/*.xml
+  global-config: # 配置mybatis plus逻辑删除
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+logging: # logback配置文件路径
+  config:classpath: logback-spring.xml
+
+jasypt: # 密码加密工具配置
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
