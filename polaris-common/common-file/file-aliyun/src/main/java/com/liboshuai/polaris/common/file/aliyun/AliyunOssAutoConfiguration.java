@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @description 阿里云oss服务自动配置类
  */
 @Configuration
-@ComponentScan("com.baobao.micro.file.aliyun")
+@ComponentScan("com.liboshuai.polaris.common.file.aliyun")
 public class AliyunOssAutoConfiguration {
 }

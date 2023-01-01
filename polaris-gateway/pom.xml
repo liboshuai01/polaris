@@ -34,10 +34,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-        </dependency>
         <!--gateway需要手动添加fegin和loadbalancer不然会报503-->
         <!--fegin组件-->
         <dependency>

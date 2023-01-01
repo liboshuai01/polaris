@@ -9,14 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>polaris-common</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>common-base</module>
-        <module>common-file</module>
-        <module>common-sms</module>
-    </modules>
+    <artifactId>polaris-security</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>security-service</module>
+        <module>security-api</module>
+        <module>security-common</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -22,6 +22,7 @@
         <module>polaris-pms</module>
         <module>polaris-sms</module>
         <module>polaris-gateway</module>
+        <module>polaris-security</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -146,6 +147,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
+            </dependency>
+            <!--fastJson序列化工具-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
