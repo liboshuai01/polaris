@@ -1,4 +1,4 @@
-package com.liboshuai.polaris.security.config;
+package com.liboshuai.polaris.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
