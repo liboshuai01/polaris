@@ -36,6 +36,12 @@ spring:
             - Path=/polaris-monitor/**
           filters:
             - StripPrefix=1
+        - id: polaris-security-service
+          uri: lb://polaris-security-service
+          predicates:
+            - Path=/polaris-security-service/**
+          filters:
+            - StripPrefix=1
 
 management: # 开启spring-admin监控
   endpoints:
