@@ -6,27 +6,27 @@ import lombok.*;
 
 /**
  * @Auther: Bernardo
- * @Date: 2023/1/2 03:28
- * @Description: 后台资源表
+ * @Date: 2023/1/2 18:09
+ * @Description:
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@TableName("ums_resource")
-public class UmsResourceEntity extends BaseEntity {
-    private static final long serialVersionUID = 4545984948930364578L;
+@TableName("sys_dict")
+public class SysDictEntity extends BaseEntity {
+    private static final long serialVersionUID = -7533300195561565040L;
 
     /**
-     * 资源名称
+     * 字典名称
      */
-    private String name;
+    private String dictName;
 
     /**
-     * 资源URL
+     * 字典编码
      */
-    private String url;
+    private String dictCode;
 
     /**
      * 描述
@@ -34,8 +34,8 @@ public class UmsResourceEntity extends BaseEntity {
     private String description;
 
     /**
-     * 资源分类ID
+     * 字典类型: 0为string,1为number
      */
-    private Long categoryId;
-}
+    private Integer type;
 
+}

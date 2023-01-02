@@ -6,25 +6,26 @@ import lombok.*;
 
 /**
  * @Auther: Bernardo
- * @Date: 2023/1/2 03:10
- * @Description: 后台用户和角色关系表
+ * @Date: 2023/1/2 16:15
+ * @Description:
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@TableName("ums_admin_role_relation")
-public class UmsAdminRoleRelationEntity extends BaseEntity {
-    private static final long serialVersionUID = 7605607392939642301L;
+@TableName("sys_user_role")
+public class SysUserRoleEntity extends BaseEntity {
+    private static final long serialVersionUID = -1157950255495978172L;
 
     /**
      * 用户id
      */
-    private Long adminId;
+    private String userId;
 
     /**
      * 角色id
      */
-    private Long roleId;
+    private String roleId;
+
 }

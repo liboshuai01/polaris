@@ -14,7 +14,6 @@
     <modules>
         <module>security-service</module>
         <module>security-api</module>
-        <module>security-common</module>
     </modules>
 
     <properties>
