@@ -1,9 +1,6 @@
 package com.liboshuai.polaris.security.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -13,7 +10,6 @@ import java.io.Serializable;
  * @Description:
  */
 @Data
-@Builder
 public class SysDictItemDTO implements Serializable {
 
     private static final long serialVersionUID = -3074570236291833739L;
