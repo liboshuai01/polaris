@@ -26,16 +26,16 @@ public class BaseEntity implements Serializable {
     private Long id;
 
     @ApiModelProperty("创建用户")
-    @TableField(value = "create_user", fill = FieldFill.INSERT)
-    private String createUser;
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    private String createBy;
 
     @ApiModelProperty("创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     @ApiModelProperty("更新用户")
-    @TableField(value = "update_user", fill = FieldFill.UPDATE)
-    private String updateUser;
+    @TableField(value = "update_by", fill = FieldFill.UPDATE)
+    private String updateBy;
 
     @ApiModelProperty("更新时间")
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
