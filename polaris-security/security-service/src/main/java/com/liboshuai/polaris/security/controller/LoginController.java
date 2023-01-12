@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -32,13 +30,12 @@ import javax.validation.Valid;
 public class LoginController {
 
     private LoginService loginService;
-
-    @Resource
     private RedisUtil redisUtil;
 
     @Autowired
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginService loginService, RedisUtil redisUtil) {
         this.loginService = loginService;
+        this.redisUtil = redisUtil;
     }
 
     private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
