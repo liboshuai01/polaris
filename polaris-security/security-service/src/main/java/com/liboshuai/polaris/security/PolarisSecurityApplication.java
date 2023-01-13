@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.liboshuai.polaris"})
 public class PolarisSecurityApplication {
     public static void main(String[] args) {
         SpringApplication.run(PolarisSecurityApplication.class, args);
