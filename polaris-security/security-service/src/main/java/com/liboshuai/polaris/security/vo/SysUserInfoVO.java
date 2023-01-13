@@ -1,5 +1,6 @@
 package com.liboshuai.polaris.security.vo;
 
+import com.liboshuai.polaris.common.vo.SysDictItemVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -8,6 +8,7 @@ import com.liboshuai.polaris.common.domain.Md5Util;
 import com.liboshuai.polaris.common.domain.ResponseResult;
 import com.liboshuai.polaris.common.utils.RandImageUtil;
 import com.liboshuai.polaris.common.utils.RedisUtil;
+import com.liboshuai.polaris.security.dto.SysUserDTO;
 import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.entity.SysUserEntity;
 import com.liboshuai.polaris.security.query.LoginQuery;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @Auther: Bernardo
@@ -71,9 +73,13 @@ public class LoginController {
         JSONObject obj = new JSONObject();
         if (StringUtils.isNotEmpty(username)) {
             // 根据用户名查询用户信息
-            SysUserEntity sysUserEntity = sysUserService.getUserByName(username);
+            ResponseResult<SysUserDTO> sysUserDTOResponseResult = sysUserService.findUserByName(username);
+            if (Objects.isNull(sysUserDTOResponseResult) || !sysUserDTOResponseResult.isSuccess()) {
+                return ResponseResult.fail("根据用户名查询用户信息失败");
+            }
+            SysUserDTO sysUserDTO = sysUserDTOResponseResult.getResult();
             SysUserVO sysUserVO = new SysUserVO();
-            BeanUtils.copyProperties(sysUserEntity, sysUserVO);
+            BeanUtils.copyProperties(sysUserDTO, sysUserVO);
 
             //update-begin---author:scott ---date:2022-06-20  for：vue3前端，支持自定义首页-----------
             String version = request.getHeader(CommonConstant.VERSION);

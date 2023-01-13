@@ -2,6 +2,7 @@ package com.liboshuai.polaris.security.service.impl;
 
 import com.liboshuai.polaris.common.constants.SymbolConstant;
 import com.liboshuai.polaris.common.domain.ResponseResult;
+import com.liboshuai.polaris.common.vo.SysDictItemVO;
 import com.liboshuai.polaris.security.dto.SysDepartDTO;
 import com.liboshuai.polaris.security.dto.SysDictItemDTO;
 import com.liboshuai.polaris.security.dto.SysTenantDTO;

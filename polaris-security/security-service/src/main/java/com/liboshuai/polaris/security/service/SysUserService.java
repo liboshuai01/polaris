@@ -26,7 +26,5 @@ public interface SysUserService extends IService<SysUserEntity> {
      */
     ResponseResult<Boolean> updateOrgCodeByUsername(@Valid @NotNull String username, @Valid @NotNull String orgCode);
 
-    SysUserEntity getUserByName(String username);
-
     SysRoleIndexEntity getDynamicIndexByUserRole(String username, String version);
 }

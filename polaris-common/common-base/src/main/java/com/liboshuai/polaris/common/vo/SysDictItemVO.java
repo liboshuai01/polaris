@@ -1,27 +1,29 @@
-package com.liboshuai.polaris.security.vo;
+package com.liboshuai.polaris.common.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
- * @Auther: Bernardo
- * @Date: 2023/1/2 17:29
+ * @Author: liboshuai
+ * @Date: 2023-01-13 16:45
  * @Description:
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @ApiModel(value="字典项vo对象", description="字典项vo对象")
 public class SysDictItemVO implements Serializable {
 
     private static final long serialVersionUID = -8747450949014101973L;
+
+    public SysDictItemVO() {
+    }
+
+    public SysDictItemVO(String value, String text) {
+        this.value = value;
+        this.text = text;
+    }
 
     /**
      * 字典value
