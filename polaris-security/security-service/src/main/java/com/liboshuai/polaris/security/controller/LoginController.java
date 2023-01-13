@@ -1,19 +1,24 @@
 package com.liboshuai.polaris.security.controller;
 
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liboshuai.polaris.common.constants.CommonConstant;
 import com.liboshuai.polaris.common.constants.SymbolConstant;
 import com.liboshuai.polaris.common.domain.Md5Util;
 import com.liboshuai.polaris.common.domain.ResponseResult;
 import com.liboshuai.polaris.common.utils.RandImageUtil;
 import com.liboshuai.polaris.common.utils.RedisUtil;
+import com.liboshuai.polaris.common.utils.oConvertUtils;
 import com.liboshuai.polaris.security.dto.SysUserDTO;
+import com.liboshuai.polaris.security.entity.SysPermissionEntity;
 import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.entity.SysUserEntity;
 import com.liboshuai.polaris.security.query.LoginQuery;
 import com.liboshuai.polaris.security.service.LoginService;
 import com.liboshuai.polaris.security.service.SysDictService;
+import com.liboshuai.polaris.security.service.SysPermissionService;
 import com.liboshuai.polaris.security.service.SysUserService;
 import com.liboshuai.polaris.security.vo.SysUserInfoVO;
 import com.liboshuai.polaris.security.vo.SysUserVO;
@@ -28,6 +33,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,13 +52,16 @@ public class LoginController {
     private RedisUtil redisUtil;
     private SysUserService sysUserService;
     private SysDictService sysDictService;
+    private SysPermissionService sysPermissionService;
 
     @Autowired
-    public LoginController(LoginService loginService, RedisUtil redisUtil, SysUserService sysUserService, SysDictService sysDictService) {
+    public LoginController(LoginService loginService, RedisUtil redisUtil, SysUserService sysUserService,
+                           SysDictService sysDictService, SysPermissionService sysPermissionService) {
         this.loginService = loginService;
         this.redisUtil = redisUtil;
         this.sysUserService = sysUserService;
         this.sysDictService = sysDictService;
+        this.sysPermissionService = sysPermissionService;
     }
 
     private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
@@ -130,4 +140,46 @@ public class LoginController {
         }
     }
 
+    /**
+     * 【vue3专用】获取
+     * 1、查询用户拥有的按钮/表单访问权限
+     * 2、所有权限 (菜单权限配置)
+     * 3、系统安全模式 (开启则online报表的数据源必填)
+     */
+    @RequestMapping(value = "/getPermCode", method = RequestMethod.GET)
+    public ResponseResult<?> getPermCode() {
+        try {
+            // todo: 直接获取当前用户
+            String username = "admin";
+            // 获取当前用户的权限集合
+            List<SysPermissionEntity> metaList = sysPermissionService.queryByUser(username);
+            // 按钮权限（用户拥有的权限集合）
+            List<String> codeList = metaList.stream()
+                    .filter((permission) -> CommonConstant.MENU_TYPE_2.equals(permission.getMenuType()) && CommonConstant.STATUS_1.equals(permission.getStatus()))
+                    .collect(ArrayList::new, (list, permission) -> list.add(permission.getPerms()), ArrayList::addAll);
+            //
+            JSONArray authArray = new JSONArray();
+            this.getAuthJsonArray(authArray, metaList);
+            // 查询所有的权限
+            LambdaQueryWrapper<SysPermissionEntity> query = new LambdaQueryWrapper<>();
+            query.eq(SysPermissionEntity::getIsDelete, CommonConstant.DEL_FLAG_0);
+            query.eq(SysPermissionEntity::getMenuType, CommonConstant.MENU_TYPE_2);
+            List<SysPermissionEntity> allAuthList = sysPermissionService.list(query);
+            JSONArray allAuthArray = new JSONArray();
+            this.getAllAuthJsonArray(allAuthArray, allAuthList);
+            JSONObject result = new JSONObject();
+            // 所拥有的权限编码
+            result.put("codeList", codeList);
+            //按钮权限（用户拥有的权限集合）
+            result.put("auth", authArray);
+            //全部权限配置集合（按钮权限，访问权限）
+            result.put("allAuth", allAuthArray);
+            // 系统安全模式
+            result.put("sysSafeMode", jeecgBaseConfig.getSafeMode());
+            return ResponseResult.success(result);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return ResponseResult.fail("查询失败:" + e.getMessage());
+        }
+    }
 }
