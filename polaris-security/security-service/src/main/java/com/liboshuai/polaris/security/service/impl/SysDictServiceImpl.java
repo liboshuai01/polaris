@@ -13,4 +13,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDictEntity> implements SysDictService {
+    @Override
+    public Object queryAllDictItems() {
+        return null;
+    }
 }

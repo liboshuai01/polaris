@@ -9,4 +9,5 @@ import com.liboshuai.polaris.security.entity.SysDictEntity;
  * @Description:
  */
 public interface SysDictService extends IService<SysDictEntity> {
+    Object queryAllDictItems();
 }

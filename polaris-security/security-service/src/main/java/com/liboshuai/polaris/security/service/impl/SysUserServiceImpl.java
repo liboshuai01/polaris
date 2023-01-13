@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.polaris.common.domain.ResponseResult;
 import com.liboshuai.polaris.security.dto.SysUserDTO;
+import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.entity.SysUserEntity;
 import com.liboshuai.polaris.security.mapper.SysUserMapper;
 import com.liboshuai.polaris.security.service.SysUserService;
@@ -47,5 +48,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
         sysUserEntity.setOrgCode(orgCode);
         boolean result = super.updateById(sysUserEntity);
         return ResponseResult.success(result);
+    }
+
+    @Override
+    public SysUserEntity getUserByName(String username) {
+        return null;
+    }
+
+    @Override
+    public SysRoleIndexEntity getDynamicIndexByUserRole(String username, String version) {
+        return null;
     }
 }

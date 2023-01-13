@@ -3,6 +3,7 @@ package com.liboshuai.polaris.security.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liboshuai.polaris.common.domain.ResponseResult;
 import com.liboshuai.polaris.security.dto.SysUserDTO;
+import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.entity.SysUserEntity;
 
 import javax.validation.Valid;
@@ -24,4 +25,8 @@ public interface SysUserService extends IService<SysUserEntity> {
      * 根据用户名更新机构号
      */
     ResponseResult<Boolean> updateOrgCodeByUsername(@Valid @NotNull String username, @Valid @NotNull String orgCode);
+
+    SysUserEntity getUserByName(String username);
+
+    SysRoleIndexEntity getDynamicIndexByUserRole(String username, String version);
 }
