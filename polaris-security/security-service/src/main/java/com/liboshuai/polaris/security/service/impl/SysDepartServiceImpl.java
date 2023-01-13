@@ -45,8 +45,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         if (CollectionUtils.isEmpty(depIdList)) {
             return ResponseResult.success(null);
         }
-        List<Long> depIds = depIdList.stream().map(Long::new).collect(Collectors.toList());
-        List<SysDepartEntity> departEntities = sysDepartMapper.selectBatchIds(depIds);
+        List<SysDepartEntity> departEntities = sysDepartMapper.selectBatchIds(depIdList);
         if (CollectionUtils.isEmpty(departEntities)) {
             return ResponseResult.success(null);
         }
