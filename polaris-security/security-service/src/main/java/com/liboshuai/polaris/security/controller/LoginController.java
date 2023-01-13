@@ -61,9 +61,9 @@ public class LoginController {
     /**
      * 后台生成图形验证码 ：有效
      */
-    @ApiOperation("获取验证码")
-    @GetMapping(value = "/randomImage/{key}")
-    public ResponseResult<String> randomImage(@PathVariable("key") String key) {
+    @ApiOperation("获取图形验证码")
+    @GetMapping(value = "/randomImage/{_t}")
+    public ResponseResult<String> randomImage(@PathVariable("_t") String key) {
         try {
             //生成验证码
             String code = RandomUtil.randomString(BASE_CHECK_CODES, 4);
@@ -80,7 +80,7 @@ public class LoginController {
             log.info("获取验证码，Redis key = {}，checkCode = {}", realKey, code);
             //返回前端
             String base64 = RandImageUtil.generate(code);
-            return ResponseResult.success(base64);
+            return ResponseResult.success("获取图形验证码成功",base64);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return ResponseResult.fail("获取验证码失败,请检查redis配置!");
