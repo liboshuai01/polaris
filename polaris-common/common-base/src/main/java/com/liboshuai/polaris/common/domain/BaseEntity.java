@@ -25,7 +25,7 @@ public class BaseEntity implements Serializable {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private String id;
 
     @ApiModelProperty("创建用户")
     @TableField(value = "create_by", fill = FieldFill.INSERT)
