@@ -66,6 +66,7 @@ public class LoginController {
 
     private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
     private final String signatureSecret = "dd05f1c54d63749eda95f9fa6d49v442a";
+    private final Boolean safeMode = false;
 
 
     @ApiOperation(value = "登录", httpMethod = "POST")
@@ -175,11 +176,46 @@ public class LoginController {
             //全部权限配置集合（按钮权限，访问权限）
             result.put("allAuth", allAuthArray);
             // 系统安全模式
-            result.put("sysSafeMode", jeecgBaseConfig.getSafeMode());
+            result.put("sysSafeMode", safeMode);
             return ResponseResult.success(result);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return ResponseResult.fail("查询失败:" + e.getMessage());
+        }
+    }
+
+    /**
+     *  获取权限JSON数组
+     */
+    private void getAllAuthJsonArray(JSONArray jsonArray,List<SysPermissionEntity> allList) {
+        JSONObject json = null;
+        for (SysPermissionEntity permission : allList) {
+            json = new JSONObject();
+            json.put("action", permission.getPerms());
+            json.put("status", permission.getStatus());
+            //1显示2禁用
+            json.put("type", permission.getPermsType());
+            json.put("describe", permission.getName());
+            jsonArray.add(json);
+        }
+    }
+
+    /**
+     *  获取权限JSON数组
+     */
+    private void getAuthJsonArray(JSONArray jsonArray,List<SysPermissionEntity> metaList) {
+        for (SysPermissionEntity permission : metaList) {
+            if(permission.getMenuType()==null) {
+                continue;
+            }
+            JSONObject json = null;
+            if(permission.getMenuType().equals(CommonConstant.MENU_TYPE_2) &&CommonConstant.STATUS_1.equals(permission.getStatus())) {
+                json = new JSONObject();
+                json.put("action", permission.getPerms());
+                json.put("type", permission.getPermsType());
+                json.put("describe", permission.getName());
+                jsonArray.add(json);
+            }
         }
     }
 }

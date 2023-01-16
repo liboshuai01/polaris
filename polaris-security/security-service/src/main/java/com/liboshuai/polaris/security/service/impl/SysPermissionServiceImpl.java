@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liboshuai.polaris.security.entity.SysPermissionEntity;
 import com.liboshuai.polaris.security.mapper.SysPermissionMapper;
 import com.liboshuai.polaris.security.service.SysPermissionService;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +16,21 @@ import java.util.List;
  * @Description:
  */
 @Service
+@NoArgsConstructor
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermissionEntity> implements SysPermissionService {
+
+    private SysPermissionMapper sysPermissionMapper;
+
+    @Autowired
+    public SysPermissionServiceImpl(SysPermissionMapper sysPermissionMapper) {
+        this.sysPermissionMapper = sysPermissionMapper;
+    }
+
     /**
      * 获取登录用户拥有的权限
      */
     @Override
     public List<SysPermissionEntity> queryByUser(String username) {
-        return this.sysPermissionMapper.queryByUser(username);
+        return sysPermissionMapper.queryByUser(username);
     }
 }
