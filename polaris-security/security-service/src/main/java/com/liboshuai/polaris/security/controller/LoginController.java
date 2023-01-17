@@ -15,10 +15,7 @@ import com.liboshuai.polaris.security.dto.SysUserDTO;
 import com.liboshuai.polaris.security.entity.SysPermissionEntity;
 import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.query.LoginQuery;
-import com.liboshuai.polaris.security.service.LoginService;
-import com.liboshuai.polaris.security.service.SysDictService;
-import com.liboshuai.polaris.security.service.SysPermissionService;
-import com.liboshuai.polaris.security.service.SysUserService;
+import com.liboshuai.polaris.security.service.*;
 import com.liboshuai.polaris.security.utils.PermissionDataUtil;
 import com.liboshuai.polaris.security.vo.SysUserInfoVO;
 import com.liboshuai.polaris.security.vo.SysUserVO;
@@ -33,9 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -54,15 +49,18 @@ public class LoginController {
     private SysUserService sysUserService;
     private SysDictService sysDictService;
     private SysPermissionService sysPermissionService;
+    private SysLogService logService;
 
     @Autowired
     public LoginController(LoginService loginService, RedisUtil redisUtil, SysUserService sysUserService,
-                           SysDictService sysDictService, SysPermissionService sysPermissionService) {
+                           SysDictService sysDictService, SysPermissionService sysPermissionService,
+                           SysLogService logService) {
         this.loginService = loginService;
         this.redisUtil = redisUtil;
         this.sysUserService = sysUserService;
         this.sysDictService = sysDictService;
         this.sysPermissionService = sysPermissionService;
+        this.loginService = loginService;
     }
 
     private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
@@ -264,6 +262,54 @@ public class LoginController {
             log.error(e.getMessage(), e);
             return ResponseResult.fail("查询失败:" + e.getMessage());
         }
+    }
+
+    /**
+     * 获取访问量
+     * @return
+     */
+    @GetMapping("loginfo")
+    public ResponseResult<JSONObject> loginfo() {
+        JSONObject obj = new JSONObject();
+        //update-begin--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
+        // 获取一天的开始和结束时间
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date dayStart = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date dayEnd = calendar.getTime();
+        // 获取系统访问记录
+        Long totalVisitCount = logService.findTotalVisitCount();
+        obj.put("totalVisitCount", totalVisitCount);
+        Long todayVisitCount = logService.findTodayVisitCount(dayStart,dayEnd);
+        obj.put("todayVisitCount", todayVisitCount);
+        Long todayIp = logService.findTodayIp(dayStart,dayEnd);
+        //update-end--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
+        obj.put("todayIp", todayIp);
+        return ResponseResult.success("登录成功", obj);
+    }
+
+    /**
+     * 获取访问量
+     * @return
+     */
+    @ApiOperation(value = "获取访问量", httpMethod = "GET")
+    @GetMapping("visitInfo")
+    public ResponseResult<List<Map<String,Object>>> visitInfo() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date dayEnd = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
+        Date dayStart = calendar.getTime();
+        List<Map<String,Object>> list = logService.findVisitCount(dayStart, dayEnd);
+        return ResponseResult.success(oConvertUtils.toLowerCasePageList(list));
     }
 
     /**
