@@ -95,11 +95,6 @@ public class SysPermissionEntity extends BaseEntity {
     private String description;
 
     /**
-     * 创建人
-     */
-    private String createBy;
-
-    /**
      * 是否配置菜单的数据权限 1是0否 默认0
      */
     private Integer ruleFlag;
@@ -113,21 +108,6 @@ public class SysPermissionEntity extends BaseEntity {
      * 是否隐藏Tab: 0否,1是（默认值0）
      */
     private boolean hideTab;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新人
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 
     /**按钮权限状态(0无效1有效)*/
     private java.lang.String status;
