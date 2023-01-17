@@ -2,9 +2,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: liboshuai.com:18848
+        server-addr: liboshuai.com:8848
         group: DEV_GROUP
       config:
-        server-addr: liboshuai.com:18848
+        server-addr: liboshuai.com:8848
         file-extension: yaml
         group: DEV_GROUP
