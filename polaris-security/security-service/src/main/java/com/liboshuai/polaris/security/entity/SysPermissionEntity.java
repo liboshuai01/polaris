@@ -1,12 +1,11 @@
 package com.liboshuai.polaris.security.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.liboshuai.polaris.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.util.Date;
 
 /**
  * @Author: liboshuai
@@ -16,6 +15,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@TableName("sys_permission")
 public class SysPermissionEntity extends BaseEntity {
     /**
      * 父id
