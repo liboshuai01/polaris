@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liboshuai.polaris.common.constants.CommonConstant;
 import com.liboshuai.polaris.common.constants.SymbolConstant;
 import com.liboshuai.polaris.common.domain.Md5Util;
@@ -268,7 +269,7 @@ public class LoginController {
      * 获取访问量
      * @return
      */
-    @GetMapping("loginfo")
+    @GetMapping("/loginfo")
     public ResponseResult<JSONObject> loginfo() {
         JSONObject obj = new JSONObject();
         //update-begin--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
@@ -297,7 +298,7 @@ public class LoginController {
      * @return
      */
     @ApiOperation(value = "获取访问量", httpMethod = "GET")
-    @GetMapping("visitInfo")
+    @GetMapping("/visitInfo")
     public ResponseResult<List<Map<String,Object>>> visitInfo() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.HOUR_OF_DAY,0);
