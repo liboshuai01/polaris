@@ -9,6 +9,7 @@ import com.liboshuai.polaris.common.constants.CommonConstant;
 import com.liboshuai.polaris.common.constants.SymbolConstant;
 import com.liboshuai.polaris.common.domain.Md5Util;
 import com.liboshuai.polaris.common.domain.ResponseResult;
+import com.liboshuai.polaris.common.utils.JsonUtil;
 import com.liboshuai.polaris.common.utils.RandImageUtil;
 import com.liboshuai.polaris.common.utils.RedisUtil;
 import com.liboshuai.polaris.common.utils.oConvertUtils;
@@ -75,9 +76,10 @@ public class LoginController {
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("/login")
-    public ResponseResult<SysUserInfoVO> login(@Valid @RequestBody LoginQuery loginQuery) {
+    public ResponseResult<String> login(@Valid @RequestBody LoginQuery loginQuery) {
         log.info("-------用户{}进行登录操作-------", JSONObject.toJSONString(loginQuery));
-        return loginService.login(loginQuery);
+//        return loginService.login(loginQuery);
+        return ResponseResult.success("登录成功", JsonUtil.readJsonFile("src/main/resources/mock/login.json"));
     }
 
     @ApiOperation(value = "获取当前登录用户信息", httpMethod = "GET")
