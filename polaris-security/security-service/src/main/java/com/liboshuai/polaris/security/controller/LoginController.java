@@ -19,6 +19,7 @@ import com.liboshuai.polaris.security.query.LoginQuery;
 import com.liboshuai.polaris.security.service.*;
 import com.liboshuai.polaris.security.utils.PermissionDataUtil;
 import com.liboshuai.polaris.security.vo.SysUserInfoVO;
+import com.liboshuai.polaris.security.vo.SysUserPermissionVO;
 import com.liboshuai.polaris.security.vo.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -84,7 +85,7 @@ public class LoginController {
         try {
             sysUserInfoVO = JsonFileUtil.readSingle("mock/login.json", SysUserInfoVO.class);
         } catch (IOException e) {
-            log.error("从json文件读取数据失败: {}", sysUserInfoVO);
+            log.error("从json文件读取数据失败: ", e);
         }
         return ResponseResult.success("登录成功", sysUserInfoVO);
     }
@@ -205,73 +206,80 @@ public class LoginController {
     @RequestMapping(value = "/permission/getUserPermissionByToken", method = RequestMethod.GET)
     //@DynamicTable(value = DynamicTableConstant.SYS_ROLE_INDEX)
     public ResponseResult<?> getUserPermissionByToken(HttpServletRequest request) {
-        try {
-            //直接获取当前用户不适用前端token
-//            LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-//            if (oConvertUtils.isEmpty(loginUser)) {
-//                return ResponseResult.fail("请登录系统！");
+//        try {
+//            //直接获取当前用户不适用前端token
+////            LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+////            if (oConvertUtils.isEmpty(loginUser)) {
+////                return ResponseResult.fail("请登录系统！");
+////            }
+//            String username = "admin";
+//            List<SysPermissionEntity> metaList = sysPermissionService.queryByUser(username);
+//            //添加首页路由
+//            //update-begin-author:taoyan date:20200211 for: TASK #3368 【路由缓存】首页的缓存设置有问题，需要根据后台的路由配置来实现是否缓存
+//            if (!PermissionDataUtil.hasIndexPage(metaList)) {
+//                SysPermissionEntity indexMenu = sysPermissionService.list(new LambdaQueryWrapper<SysPermissionEntity>().eq(SysPermissionEntity::getName, "首页")).get(0);
+//                metaList.add(0, indexMenu);
 //            }
-            String username = "admin";
-            List<SysPermissionEntity> metaList = sysPermissionService.queryByUser(username);
-            //添加首页路由
-            //update-begin-author:taoyan date:20200211 for: TASK #3368 【路由缓存】首页的缓存设置有问题，需要根据后台的路由配置来实现是否缓存
-            if (!PermissionDataUtil.hasIndexPage(metaList)) {
-                SysPermissionEntity indexMenu = sysPermissionService.list(new LambdaQueryWrapper<SysPermissionEntity>().eq(SysPermissionEntity::getName, "首页")).get(0);
-                metaList.add(0, indexMenu);
-            }
-            //update-end-author:taoyan date:20200211 for: TASK #3368 【路由缓存】首页的缓存设置有问题，需要根据后台的路由配置来实现是否缓存
-
-            //update-begin--Author:zyf Date:20220425  for:自定义首页地址 LOWCOD-1578
-            String version = request.getHeader(CommonConstant.VERSION);
-            //update-begin---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
-            SysRoleIndexEntity roleIndex = sysUserService.getDynamicIndexByUserRole(username, version);
-            //update-end---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
-            //update-end--Author:zyf  Date:20220425  for：自定义首页地址 LOWCOD-1578
-
-            if (roleIndex != null) {
-                List<SysPermissionEntity> menus = metaList.stream().filter(sysPermission -> "首页".equals(sysPermission.getName())).collect(Collectors.toList());
-                //update-begin---author:liusq ---date:2022-06-29  for：设置自定义首页地址和组件----------
-                String component = roleIndex.getComponent();
-                String routeUrl = roleIndex.getUrl();
-                boolean route = roleIndex.isRoute();
-                if (oConvertUtils.isNotEmpty(routeUrl)) {
-                    menus.get(0).setComponent(component);
-                    menus.get(0).setRoute(route);
-                    menus.get(0).setUrl(routeUrl);
-                } else {
-                    menus.get(0).setComponent(component);
-                }
-                //update-end---author:liusq ---date:2022-06-29  for：设置自定义首页地址和组件-----------
-            }
-
-            JSONObject json = new JSONObject();
-            JSONArray menujsonArray = new JSONArray();
-            this.getPermissionJsonArray(menujsonArray, metaList, null);
-            //一级菜单下的子菜单全部是隐藏路由，则一级菜单不显示
-            this.handleFirstLevelMenuHidden(menujsonArray);
-
-            JSONArray authjsonArray = new JSONArray();
-            this.getAuthJsonArray(authjsonArray, metaList);
-            //查询所有的权限
-            LambdaQueryWrapper<SysPermissionEntity> query = new LambdaQueryWrapper<>();
-            query.eq(SysPermissionEntity::getIsDelete, CommonConstant.DEL_FLAG_0);
-            query.eq(SysPermissionEntity::getMenuType, CommonConstant.MENU_TYPE_2);
-            //query.eq(SysPermission::getStatus, "1");
-            List<SysPermissionEntity> allAuthList = sysPermissionService.list(query);
-            JSONArray allauthjsonArray = new JSONArray();
-            this.getAllAuthJsonArray(allauthjsonArray, allAuthList);
-            //路由菜单
-            json.put("menu", menujsonArray);
-            //按钮权限（用户拥有的权限集合）
-            json.put("auth", authjsonArray);
-            //全部权限配置集合（按钮权限，访问权限）
-            json.put("allAuth", allauthjsonArray);
-            json.put("sysSafeMode", safeMode);
-            return ResponseResult.success(json);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return ResponseResult.fail("查询失败:" + e.getMessage());
+//            //update-end-author:taoyan date:20200211 for: TASK #3368 【路由缓存】首页的缓存设置有问题，需要根据后台的路由配置来实现是否缓存
+//
+//            //update-begin--Author:zyf Date:20220425  for:自定义首页地址 LOWCOD-1578
+//            String version = request.getHeader(CommonConstant.VERSION);
+//            //update-begin---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
+//            SysRoleIndexEntity roleIndex = sysUserService.getDynamicIndexByUserRole(username, version);
+//            //update-end---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
+//            //update-end--Author:zyf  Date:20220425  for：自定义首页地址 LOWCOD-1578
+//
+//            if (roleIndex != null) {
+//                List<SysPermissionEntity> menus = metaList.stream().filter(sysPermission -> "首页".equals(sysPermission.getName())).collect(Collectors.toList());
+//                //update-begin---author:liusq ---date:2022-06-29  for：设置自定义首页地址和组件----------
+//                String component = roleIndex.getComponent();
+//                String routeUrl = roleIndex.getUrl();
+//                boolean route = roleIndex.isRoute();
+//                if (oConvertUtils.isNotEmpty(routeUrl)) {
+//                    menus.get(0).setComponent(component);
+//                    menus.get(0).setRoute(route);
+//                    menus.get(0).setUrl(routeUrl);
+//                } else {
+//                    menus.get(0).setComponent(component);
+//                }
+//                //update-end---author:liusq ---date:2022-06-29  for：设置自定义首页地址和组件-----------
+//            }
+//
+//            JSONObject json = new JSONObject();
+//            JSONArray menujsonArray = new JSONArray();
+//            this.getPermissionJsonArray(menujsonArray, metaList, null);
+//            //一级菜单下的子菜单全部是隐藏路由，则一级菜单不显示
+//            this.handleFirstLevelMenuHidden(menujsonArray);
+//
+//            JSONArray authjsonArray = new JSONArray();
+//            this.getAuthJsonArray(authjsonArray, metaList);
+//            //查询所有的权限
+//            LambdaQueryWrapper<SysPermissionEntity> query = new LambdaQueryWrapper<>();
+//            query.eq(SysPermissionEntity::getIsDelete, CommonConstant.DEL_FLAG_0);
+//            query.eq(SysPermissionEntity::getMenuType, CommonConstant.MENU_TYPE_2);
+//            //query.eq(SysPermission::getStatus, "1");
+//            List<SysPermissionEntity> allAuthList = sysPermissionService.list(query);
+//            JSONArray allauthjsonArray = new JSONArray();
+//            this.getAllAuthJsonArray(allauthjsonArray, allAuthList);
+//            //路由菜单
+//            json.put("menu", menujsonArray);
+//            //按钮权限（用户拥有的权限集合）
+//            json.put("auth", authjsonArray);
+//            //全部权限配置集合（按钮权限，访问权限）
+//            json.put("allAuth", allauthjsonArray);
+//            json.put("sysSafeMode", safeMode);
+//            return ResponseResult.success(json);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//            return ResponseResult.fail("查询失败:" + e.getMessage());
+//        }
+        SysUserPermissionVO sysUserPermissionVO = null;
+        try {
+            sysUserPermissionVO = JsonFileUtil.readSingle("mock/getUserPermissionByToken.json", SysUserPermissionVO.class);
+        } catch (IOException e) {
+            log.error("从json文件读取数据失败: ", e);
         }
+        return ResponseResult.success(0, "", sysUserPermissionVO);
     }
 
     /**
