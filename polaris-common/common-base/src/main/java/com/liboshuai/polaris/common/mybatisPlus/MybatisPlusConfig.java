@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
-@MapperScan("com.liboshuai.polaris.**.mapper")
+@MapperScan("com.liboshuai.polaris.**.mapper*")
 public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
