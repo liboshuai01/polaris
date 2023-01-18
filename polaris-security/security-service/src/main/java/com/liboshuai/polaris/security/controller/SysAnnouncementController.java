@@ -106,6 +106,6 @@ public class SysAnnouncementController {
         sysMsgMap.put("sysMsgTotal", sysMsgList.getTotal());
         sysMsgMap.put("anntMsgList", anntMsgList.getRecords());
         sysMsgMap.put("anntMsgTotal", anntMsgList.getTotal());
-        return ResponseResult.success(sysMsgMap);
+        return ResponseResult.success(0, "", sysMsgMap);
     }
 }
