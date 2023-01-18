@@ -1,4 +1,4 @@
-package com.liboshuai.polaris.common.utils;
+package com.liboshuai.polaris.security.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
