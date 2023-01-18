@@ -61,7 +61,7 @@ public class LoginController {
         this.sysUserService = sysUserService;
         this.sysDictService = sysDictService;
         this.sysPermissionService = sysPermissionService;
-        this.loginService = loginService;
+        this.logService = logService;
     }
 
     private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
@@ -269,6 +269,7 @@ public class LoginController {
      * 获取访问量
      * @return
      */
+    @ApiOperation(value = "获取访问量loginfo", httpMethod = "GET")
     @GetMapping("/loginfo")
     public ResponseResult<JSONObject> loginfo() {
         JSONObject obj = new JSONObject();
@@ -297,7 +298,7 @@ public class LoginController {
      * 获取访问量
      * @return
      */
-    @ApiOperation(value = "获取访问量", httpMethod = "GET")
+    @ApiOperation(value = "获取访问量visitInfo", httpMethod = "GET")
     @GetMapping("/visitInfo")
     public ResponseResult<List<Map<String,Object>>> visitInfo() {
         Calendar calendar = new GregorianCalendar();
