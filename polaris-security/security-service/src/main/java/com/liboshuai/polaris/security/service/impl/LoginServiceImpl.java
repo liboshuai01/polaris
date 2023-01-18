@@ -97,7 +97,7 @@ public class LoginServiceImpl implements LoginService {
             if (!CollectionUtils.isEmpty(sysDepartDTOS)) {
                 List<SysDepartVO> sysDepartVOS = sysDepartDTOS.stream().map(sysDepartDTO -> {
                     SysDepartVO sysDepartVO = new SysDepartVO();
-                    BeanUtils.copyProperties(sysDepartDTO, sysDepartDTO);
+                    BeanUtils.copyProperties(sysDepartDTO, sysDepartVO);
                     return sysDepartVO;
                 }).collect(Collectors.toList());
                 sysUserInfoVO.setDeparts(sysDepartVOS);
