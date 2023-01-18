@@ -39,7 +39,7 @@ spring:
         - id: polaris-security-service
           uri: lb://polaris-security-service
           predicates:
-            - Path=/jeecg-boot/**
+            - Path=/polaris-security-service/**
           filters:
             - StripPrefix=1
 
