@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @NoArgsConstructor
+@RequestMapping("/sys")
 @Api(tags = "登录相关功能", value = "LoginController")
 public class LoginController {
 
@@ -201,7 +202,7 @@ public class LoginController {
      * 查询用户拥有的菜单权限和按钮权限
      */
     @ApiOperation(value = "查询用户拥有的菜单权限和按钮权限", httpMethod = "GET")
-    @RequestMapping(value = "/getUserPermissionByToken", method = RequestMethod.GET)
+    @RequestMapping(value = "/permission/getUserPermissionByToken", method = RequestMethod.GET)
     //@DynamicTable(value = DynamicTableConstant.SYS_ROLE_INDEX)
     public ResponseResult<?> getUserPermissionByToken(HttpServletRequest request) {
         try {
