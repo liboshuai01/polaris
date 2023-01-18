@@ -21,7 +21,6 @@ public interface SysAnnouncementMapper extends RootMapper<SysAnnouncementEntity>
      * 通过消息类型和用户id获取系统通告
      * @param userId 用户id
      * @param msgCategory 消息类型
-     * @return
      */
     List<SysAnnouncementEntity> querySysCementListByUserId(Page<SysAnnouncementEntity> page, @Param("userId")String userId, @Param("msgCategory")String msgCategory);
 
