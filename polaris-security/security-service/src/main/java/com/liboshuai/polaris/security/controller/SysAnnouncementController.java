@@ -32,6 +32,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @NoArgsConstructor
+@RequestMapping("/announcement")
 @Api(tags = "系统通告表", value = "SysAnnouncementController")
 public class SysAnnouncementController {
 
