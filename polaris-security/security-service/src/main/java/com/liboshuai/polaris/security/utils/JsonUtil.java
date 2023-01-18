@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: liboshuai
@@ -24,7 +25,7 @@ public class JsonUtil {
         String jsonStr = "";
         try {
             File jsonFile = new File(filePath);
-            Reader reader = new InputStreamReader(new FileInputStream(jsonFile), "utf-8");
+            Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8.name());
             int ch = 0;
             StringBuffer sb = new StringBuffer();
             while ((ch = reader.read()) != -1) {
