@@ -29,9 +29,6 @@ public class SysUserInfoVO implements Serializable {
     @ApiModelProperty("token值")
     private String token;
 
-    @ApiModelProperty("租户列表")
-    private List<SysTenantVO> tenantList;
-
     @ApiModelProperty("用户信息")
     private SysUserVO userInfo;
 
@@ -42,4 +39,8 @@ public class SysUserInfoVO implements Serializable {
 
     @ApiModelProperty("词典项")
     private Map<String,List<SysDictItemVO>> sysAllDictItems;
+
+    @ApiModelProperty("租户列表")
+    private List<SysTenantVO> tenantList;
+
 }

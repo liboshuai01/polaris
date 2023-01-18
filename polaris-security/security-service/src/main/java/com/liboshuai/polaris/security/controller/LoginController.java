@@ -8,7 +8,7 @@ import com.liboshuai.polaris.common.constants.CommonConstant;
 import com.liboshuai.polaris.common.constants.SymbolConstant;
 import com.liboshuai.polaris.common.domain.Md5Util;
 import com.liboshuai.polaris.common.domain.ResponseResult;
-import com.liboshuai.polaris.security.utils.JsonUtil;
+import com.liboshuai.polaris.common.utils.JsonFileUtil;
 import com.liboshuai.polaris.common.utils.RandImageUtil;
 import com.liboshuai.polaris.common.utils.RedisUtil;
 import com.liboshuai.polaris.common.utils.oConvertUtils;
@@ -18,6 +18,7 @@ import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.query.LoginQuery;
 import com.liboshuai.polaris.security.service.*;
 import com.liboshuai.polaris.security.utils.PermissionDataUtil;
+import com.liboshuai.polaris.security.vo.SysUserInfoVO;
 import com.liboshuai.polaris.security.vo.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,10 +76,16 @@ public class LoginController {
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("/login")
-    public ResponseResult<String> login(@Valid @RequestBody LoginQuery loginQuery) {
+    public ResponseResult<SysUserInfoVO> login(@Valid @RequestBody LoginQuery loginQuery) {
         log.info("-------用户{}进行登录操作-------", JSONObject.toJSONString(loginQuery));
 //        return loginService.login(loginQuery);
-        return ResponseResult.success("登录成功", JsonUtil.readJsonFile("src/main/resources/mock/login.json"));
+        SysUserInfoVO sysUserInfoVO = null;
+        try {
+            sysUserInfoVO = JsonFileUtil.readSingle("mock/login.json", SysUserInfoVO.class);
+        } catch (IOException e) {
+            log.error("从json文件读取数据失败: {}", sysUserInfoVO);
+        }
+        return ResponseResult.success("登录成功", sysUserInfoVO);
     }
 
     @ApiOperation(value = "获取当前登录用户信息", httpMethod = "GET")
