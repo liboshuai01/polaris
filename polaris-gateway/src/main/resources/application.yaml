@@ -6,6 +6,12 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   cloud:
+    sentinel:
+      enabled: true # sentinel开关
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8858 # Sentinel控制台地址
+        client-ip: 127.0.0.1
     gateway:
       discovery:
         locator:
