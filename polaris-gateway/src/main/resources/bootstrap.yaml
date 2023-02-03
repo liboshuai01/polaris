@@ -2,4 +2,4 @@ spring:
   profiles:
     active: dev # 用于区分不同配置环境
   application:
-    name: polaris-gateway # 项目服务名称
+    name: polaris-gateway-service # 项目服务名称

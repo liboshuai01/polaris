@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    sentinel:
+      enabled: true # sentinel开关
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8858 # Sentinel控制台地址
+        client-ip: 127.0.0.1
+      datasource:
+        ds1: #添加nacos数据源的配置，将sentinel配置持久化进nacos里面
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: polaris-sentinel-service-prod
+            groupId: PROD_GROUP
+            data-type: json
+            rule-type: flow
