@@ -5,6 +5,7 @@ spring:
   mvc: # 解决swagger接口不显示的问题
     pathmatch:
       matching-strategy: ant_path_matcher
+  cloud:
     gateway:
       discovery:
         locator:
