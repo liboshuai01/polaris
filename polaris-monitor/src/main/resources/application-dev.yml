@@ -2,5 +2,5 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: liboshuai.com:8848
+        server-addr: liboshuai.com:18848
         group: DEV_GROUP
