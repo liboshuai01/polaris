@@ -17,7 +17,7 @@ import com.liboshuai.polaris.security.entity.SysPermissionEntity;
 import com.liboshuai.polaris.security.entity.SysRoleIndexEntity;
 import com.liboshuai.polaris.security.query.LoginQuery;
 import com.liboshuai.polaris.security.service.*;
-import com.liboshuai.polaris.security.utils.PermissionDataUtil;
+import com.liboshuai.polaris.security.vo.LoginVO;
 import com.liboshuai.polaris.security.vo.SysUserInfoVO;
 import com.liboshuai.polaris.security.vo.SysUserPermissionVO;
 import com.liboshuai.polaris.security.vo.SysUserVO;
@@ -44,7 +44,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @NoArgsConstructor
-@RequestMapping("/sys")
 @Api(tags = "登录相关功能", value = "LoginController")
 public class LoginController {
 
@@ -78,52 +77,28 @@ public class LoginController {
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @PostMapping("/login")
-    public ResponseResult<SysUserInfoVO> login(@Valid @RequestBody LoginQuery loginQuery) {
+    public ResponseResult<LoginVO> login(@Valid @RequestBody LoginQuery loginQuery) {
         log.info("-------用户{}进行登录操作-------", JSONObject.toJSONString(loginQuery));
-//        return loginService.login(loginQuery);
+        LoginVO loginVO = null;
+        try {
+            loginVO = JsonFileUtil.readSingle("mock/login.json", LoginVO.class);
+        } catch (IOException e) {
+            log.error("从json文件读取数据失败: ", e);
+        }
+        return ResponseResult.success("操作成功", loginVO);
+    }
+
+    @ApiOperation(value = "获取当前登录用户信息", httpMethod = "GET")
+    @GetMapping("/info")
+    public ResponseResult<?> getUserInfo() {
+        log.info("-------获取当前登录用户信息-------");
         SysUserInfoVO sysUserInfoVO = null;
         try {
             sysUserInfoVO = JsonFileUtil.readSingle("mock/login.json", SysUserInfoVO.class);
         } catch (IOException e) {
             log.error("从json文件读取数据失败: ", e);
         }
-        return ResponseResult.success("登录成功", sysUserInfoVO);
-    }
-
-    @ApiOperation(value = "获取当前登录用户信息", httpMethod = "GET")
-    @GetMapping("/getUserInfo")
-    public ResponseResult<?> getUserInfo(HttpServletRequest request) {
-        // todo: 从token中获取用户名
-        String username = "admin";
-        JSONObject obj = new JSONObject();
-        if (StringUtils.isNotEmpty(username)) {
-            // 根据用户名查询用户信息
-            ResponseResult<SysUserDTO> sysUserDTOResponseResult = sysUserService.findUserByName(username);
-            if (Objects.isNull(sysUserDTOResponseResult) || !sysUserDTOResponseResult.isSuccess()) {
-                return ResponseResult.fail("根据用户名查询用户信息失败");
-            }
-            SysUserDTO sysUserDTO = sysUserDTOResponseResult.getResult();
-            SysUserVO sysUserVO = new SysUserVO();
-            BeanUtils.copyProperties(sysUserDTO, sysUserVO);
-
-            //update-begin---author:scott ---date:2022-06-20  for：vue3前端，支持自定义首页-----------
-            String version = request.getHeader(CommonConstant.VERSION);
-            //update-begin---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
-            SysRoleIndexEntity roleIndex = sysUserService.getDynamicIndexByUserRole(username, version);
-            if (StringUtils.isNotEmpty(version) && roleIndex != null && StringUtils.isNotEmpty(roleIndex.getUrl())) {
-                String homePath = roleIndex.getUrl();
-                if (!homePath.startsWith(SymbolConstant.SINGLE_SLASH)) {
-                    homePath = SymbolConstant.SINGLE_SLASH + homePath;
-                }
-                sysUserVO.setHomePath(homePath);
-            }
-            //update-begin---author:liusq ---date:2022-06-29  for：接口返回值修改，同步修改这里的判断逻辑-----------
-            //update-end---author:scott ---date::2022-06-20  for：vue3前端，支持自定义首页--------------
-
-            obj.put("userInfo", sysUserVO);
-            obj.put("sysAllDictItems", sysDictService.queryAllDictItems());
-        }
-        return ResponseResult.success(obj);
+        return ResponseResult.success("操作成功", sysUserInfoVO);
     }
 
     /**
@@ -275,7 +250,7 @@ public class LoginController {
 //        }
         SysUserPermissionVO sysUserPermissionVO = null;
         try {
-            sysUserPermissionVO = JsonFileUtil.readSingle("mock/getUserPermissionByToken.json", SysUserPermissionVO.class);
+            sysUserPermissionVO = JsonFileUtil.readSingle("mock/info.json", SysUserPermissionVO.class);
         } catch (IOException e) {
             log.error("从json文件读取数据失败: ", e);
         }

@@ -26,21 +26,16 @@ public class SysUserInfoVO implements Serializable {
 
     private static final long serialVersionUID = 4850593451825428233L;
 
-    @ApiModelProperty("token值")
-    private String token;
+    @ApiModelProperty("图标")
+    private String icon;
 
-    @ApiModelProperty("用户信息")
-    private SysUserVO userInfo;
+    @ApiModelProperty("菜单列表")
+    private List<MenuVo> menus;
 
-    @ApiModelProperty("机构信息")
-    private List<SysDepartVO> departs;
+    @ApiModelProperty("角色列表")
+    private List<String> roles;
 
-    private Integer multi_depart;
-
-    @ApiModelProperty("词典项")
-    private Map<String,List<SysDictItemVO>> sysAllDictItems;
-
-    @ApiModelProperty("租户列表")
-    private List<SysTenantVO> tenantList;
+    @ApiModelProperty("用户名")
+    private String username;
 
 }

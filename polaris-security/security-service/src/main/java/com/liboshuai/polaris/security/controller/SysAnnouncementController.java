@@ -58,7 +58,7 @@ public class SysAnnouncementController {
         if (Objects.isNull(userDTOResponseResult) || !userDTOResponseResult.isSuccess()) {
             return ResponseResult.fail("查询用户信息失败");
         }
-        SysUserDTO sysUserDTO = userDTOResponseResult.getResult();
+        SysUserDTO sysUserDTO = userDTOResponseResult.getData();
         String userId = sysUserDTO.getId();
         // 1.将系统消息补充到用户通告阅读标记表中
         LambdaQueryWrapper<SysAnnouncementEntity> querySaWrapper = new LambdaQueryWrapper<>();

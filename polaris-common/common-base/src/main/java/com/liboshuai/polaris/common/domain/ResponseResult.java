@@ -19,45 +19,38 @@ public class ResponseResult<T> implements Serializable {
     @ApiModelProperty(value = "响应信息")
     private String message;
 
-    @ApiModelProperty(value = "成功标志")
-    private boolean success;
-
     @ApiModelProperty(value = "响应数据")
-    private T result;
-
-    @ApiModelProperty(value = "时间戳")
-    private long timestamp = System.currentTimeMillis();
+    private T data;
 
 
     protected ResponseResult() {
 
     }
 
-    protected ResponseResult(long code, String message, boolean success, T result) {
+    protected ResponseResult(long code, String message, T data) {
         this.code = code;
         this.message = message;
-        this.result = result;
-        this.success = success;
+        this.data = data;
     }
 
     public static <T> ResponseResult<T> success() {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), true, null);
+        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), null);
     }
 
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), true, data);
+        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage(), data);
     }
 
     public static <T> ResponseResult<T> success(String message) {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, true, null);
+        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, null);
     }
 
     public static <T> ResponseResult<T> success(String message, T data) {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, true, data);
+        return new ResponseResult<>(ResponseCode.SUCCESS.getCode(), message, data);
     }
 
     public static <T> ResponseResult<T> success(long code, String message, T data) {
-        return new ResponseResult<>(code, message, true, data);
+        return new ResponseResult<>(code, message, data);
     }
 
     public static <T> ResponseResult<T> fail() {
@@ -65,19 +58,19 @@ public class ResponseResult<T> implements Serializable {
     }
 
     public static <T> ResponseResult<T> fail(String message) {
-        return new ResponseResult<>(ResponseCode.FAILED.getCode(), message, false, null);
+        return new ResponseResult<>(ResponseCode.FAILED.getCode(), message, null);
     }
 
     public static <T> ResponseResult<T> fail(ResponseCode errorCode) {
-        return new ResponseResult<>(errorCode.getCode(), errorCode.getMessage(), false, null);
+        return new ResponseResult<>(errorCode.getCode(), errorCode.getMessage(), null);
     }
 
     public static <T> ResponseResult<T> fail(ResponseCode errorCode, String message) {
-        return new ResponseResult<>(errorCode.getCode(), message, false, null);
+        return new ResponseResult<>(errorCode.getCode(), message, null);
     }
 
     public static <T> ResponseResult<T> fail(ResponseCode errorCode, String message, T data) {
-        return new ResponseResult<>(errorCode.getCode(), message, false, data);
+        return new ResponseResult<>(errorCode.getCode(), message, data);
     }
 
     public long getCode() {
@@ -96,27 +89,15 @@ public class ResponseResult<T> implements Serializable {
         this.message = message;
     }
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+        return this.code == 200;
     }
 }
