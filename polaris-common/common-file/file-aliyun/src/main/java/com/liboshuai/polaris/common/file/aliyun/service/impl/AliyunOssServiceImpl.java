@@ -89,7 +89,8 @@ public class AliyunOssServiceImpl implements OssService {
     public AliyunOssCallbackResult callback(HttpServletRequest request) {
         AliyunOssCallbackResult result= new AliyunOssCallbackResult();
         String filename = request.getParameter("filename");
-        filename = "http://".concat(ALIYUN_OSS_BUCKET_NAME).concat(".").concat(ALIYUN_OSS_ENDPOINT).concat("/").concat(filename);
+        filename = "https://".concat(ALIYUN_OSS_BUCKET_NAME).concat(".").concat(ALIYUN_OSS_ENDPOINT).concat("/").concat(filename);
+        log.info("----ossCallBack-fileName: {}-------", filename);
         result.setFilename(filename);
         result.setSize(request.getParameter("size"));
         result.setMimeType(request.getParameter("mimeType"));
