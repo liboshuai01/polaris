@@ -31,3 +31,16 @@ spring:
     username: admin
     password: Rongshu@2023
     publisher-confirm-type: CORRELATED
+
+aliyun:
+  oss:
+    endpoint: oss-cn-shanghai.aliyuncs.com # oss对外服务的访问域名
+    accessKeyId: LTAI5tQ9BvBRDdGi7hwpcJfc # 访问身份验证中用到用户标识
+    accessKeySecret: KHeALLWmZhNjGz0ayyIVFer5X9Sxak # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucketName: polars-prod # oss的存储空间
+    policy:
+      expire: 300 # 签名有效期(S)
+    maxSize: 10 # 上传文件大小(M)
+    callback: http://liboshuai.com:8080/aliyun/oss/callback # 文件上传成功后的回调地址
+    dir:
+      prefix: polaris/images/ # 上传文件夹路径前缀
