@@ -1,11 +1,13 @@
 package com.liboshuai.polaris.pms.service.controller;
 
 import com.liboshuai.polaris.common.domain.ResponseResult;
-import com.liboshuai.polaris.common.file.aliyun.service.AliyunOssService;
+import com.liboshuai.polaris.common.file.aliyun.service.OssService;
+import com.liboshuai.polaris.common.file.aliyun.service.impl.AliyunOssServiceImpl;
 import com.liboshuai.polaris.common.file.aliyun.vo.AliyunOssCallbackResult;
 import com.liboshuai.polaris.common.file.aliyun.vo.AliyunOssPolicyResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +23,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @Api(tags = "OssController", description = "Oss管理")
+@NoArgsConstructor
 @RequestMapping("/aliyun/oss")
 public class OssController {
+
+    private OssService ossService;
+
     @Autowired
-    private AliyunOssService ossService;
+    public OssController(OssService ossService) {
+        this.ossService = ossService;
+    }
 
     @ApiOperation(value = "oss上传签名生成")
     @RequestMapping(value = "/policy", method = RequestMethod.GET)

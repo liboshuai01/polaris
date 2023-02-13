@@ -1,10 +1,11 @@
-package com.liboshuai.polaris.common.file.aliyun.service;
+package com.liboshuai.polaris.common.file.aliyun.service.impl;
 
 import cn.hutool.json.JSONUtil;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import com.liboshuai.polaris.common.file.aliyun.service.OssService;
 import com.liboshuai.polaris.common.file.aliyun.vo.AliyunOssCallbackParam;
 import com.liboshuai.polaris.common.file.aliyun.vo.AliyunOssCallbackResult;
 import com.liboshuai.polaris.common.file.aliyun.vo.AliyunOssPolicyResult;
@@ -24,7 +25,7 @@ import java.util.Date;
  */
 @Slf4j
 @Service
-public class AliyunOssService {
+public class AliyunOssServiceImpl implements OssService {
     @Value("${aliyun.oss.policy.expire}")
     private int ALIYUN_OSS_EXPIRE;
     @Value("${aliyun.oss.maxSize}")
@@ -44,6 +45,7 @@ public class AliyunOssService {
     /**
      * 签名生成
      */
+    @Override
     public AliyunOssPolicyResult policy() {
         AliyunOssPolicyResult result = new AliyunOssPolicyResult();
         // 存储目录
@@ -83,6 +85,7 @@ public class AliyunOssService {
         return result;
     }
 
+    @Override
     public AliyunOssCallbackResult callback(HttpServletRequest request) {
         AliyunOssCallbackResult result= new AliyunOssCallbackResult();
         String filename = request.getParameter("filename");
