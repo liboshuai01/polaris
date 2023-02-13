@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.liboshuai.polaris.common.file.aliyun.AliyunOssAutoConfiguration
