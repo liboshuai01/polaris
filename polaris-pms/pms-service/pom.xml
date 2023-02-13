@@ -18,10 +18,15 @@
     </properties>
 
     <dependencies>
-        <!--公共模块-->
+        <!--公共基础模块-->
         <dependency>
             <groupId>com.liboshuai.polaris</groupId>
             <artifactId>common-base</artifactId>
+        </dependency>
+        <!--公共oss模块-->
+        <dependency>
+            <groupId>com.liboshuai.polaris</groupId>
+            <artifactId>file-aliyun</artifactId>
         </dependency>
         <!--nacos相关依赖-->
         <dependency>
