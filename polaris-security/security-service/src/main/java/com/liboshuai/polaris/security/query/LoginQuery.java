@@ -29,12 +29,10 @@ public class LoginQuery {
     @ApiModelProperty(value = "密码", required = true)
     private String password;
 
-    @NotNull(message = "验证码不能为空")
-    @ApiModelProperty(value = "验证码", required = true)
+    @ApiModelProperty(value = "验证码", required = false)
     private String captcha;
 
-    @NotNull(message = "验证码key不能为空")
-    @ApiModelProperty(value = "验证码key", required = true)
+    @ApiModelProperty(value = "验证码key", required = false)
     private String checkKey;
 
 }

@@ -94,7 +94,7 @@ public class LoginController {
         log.info("-------获取当前登录用户信息-------");
         SysUserInfoVO sysUserInfoVO = null;
         try {
-            sysUserInfoVO = JsonFileUtil.readSingle("mock/login.json", SysUserInfoVO.class);
+            sysUserInfoVO = JsonFileUtil.readSingle("mock/info.json", SysUserInfoVO.class);
         } catch (IOException e) {
             log.error("从json文件读取数据失败: ", e);
         }
