@@ -23,7 +23,7 @@
     </appender>
 
     <!-- debug级别，按照每天生成日志文件 -->
-    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/debug/debug.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -50,7 +50,7 @@
     </appender>
 
     <!-- info级别，按照每天生成日志文件 -->
-    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/info/info.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -77,7 +77,7 @@
     </appender>
 
     <!-- warn级别，按照每天生成日志文件 -->
-    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/warn/warn.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -104,7 +104,7 @@
     </appender>
 
     <!-- error级别，按照每天生成日志文件 -->
-    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/error/error.log</File>
         <!--只保留固定配置级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -130,11 +130,75 @@
         </encoder>
     </appender>
 
-    <!--logstash配置-->
-    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <!--logstash配置info级别的日志-->
+    <appender name="logstash_info" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>liboshuai.com:14560</destination>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 日志输出编码 -->
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "logLevel": "%level",
+                        "serviceName": "${springAppName:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+    </appender>
+
+    <!--logstash配置warn级别的日志-->
+    <appender name="logstash_warn" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>liboshuai.com:14561</destination>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 日志输出编码 -->
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "logLevel": "%level",
+                        "serviceName": "${springAppName:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+    </appender>
+
+    <!--logstash配置error级别的日志-->
+    <appender name="logstash_error" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>liboshuai.com:14562</destination>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
         </filter>
         <!-- 日志输出编码 -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -163,11 +227,13 @@
     <!-- 日志输出级别 -->
     <root level="DEBUG">
         <appender-ref ref="stdout" />
-        <appender-ref ref="debug" />
-        <appender-ref ref="info" />
-        <appender-ref ref="warn" />
-        <appender-ref ref="error" />
-        <appender-ref ref="logstash" />
+        <appender-ref ref="file_debug" />
+        <appender-ref ref="file_info" />
+        <appender-ref ref="file_warn" />
+        <appender-ref ref="file_error" />
+        <appender-ref ref="logstash_info"/>
+        <appender-ref ref="logstash_warn"/>
+        <appender-ref ref="logstash_error"/>
     </root>
 
 <!--    &lt;!&ndash; 多环境配置 &ndash;&gt;-->
