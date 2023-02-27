@@ -223,37 +223,29 @@
         <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
     </appender>
 
+    <!-- dev配置 -->
+    <springProfile name="dev">
+        <!-- root -->
+        <root level="DEBUG">
+            <appender-ref ref="stdout" />
+            <appender-ref ref="file_debug" />
+            <appender-ref ref="file_info" />
+            <appender-ref ref="file_warn" />
+            <appender-ref ref="file_error" />
+        </root>
+    </springProfile>
 
-    <!-- 日志输出级别 -->
-    <root level="DEBUG">
-        <appender-ref ref="stdout" />
-        <appender-ref ref="file_debug" />
-        <appender-ref ref="file_info" />
-        <appender-ref ref="file_warn" />
-        <appender-ref ref="file_error" />
-        <appender-ref ref="logstash_info"/>
-        <appender-ref ref="logstash_warn"/>
-        <appender-ref ref="logstash_error"/>
-    </root>
-
-<!--    &lt;!&ndash; 多环境配置 &ndash;&gt;-->
-<!--    <springProfile name="default,prod">-->
-<!--        &lt;!&ndash; root &ndash;&gt;-->
-<!--        <root level="INFO">-->
-<!--            <appender-ref ref="INFO_LOG_FILE"/>-->
-<!--            <appender-ref ref="ERROR_LOG_FILE"/>-->
-<!--        </root>-->
-<!--    </springProfile>-->
-
-<!--    &lt;!&ndash; 多环境配置 &ndash;&gt;-->
-<!--    <springProfile name="dev,test">-->
-<!--        &lt;!&ndash; root &ndash;&gt;-->
-<!--        <root level="DEBUG">-->
-<!--            <appender-ref ref="CONSOLE"/>-->
-<!--            <appender-ref ref="DEBUG_LOG_FILE"/>-->
-<!--            <appender-ref ref="INFO_LOG_FILE"/>-->
-<!--            <appender-ref ref="WARN_LOG_FILE"/>-->
-<!--            <appender-ref ref="ERROR_LOG_FILE"/>-->
-<!--        </root>-->
-<!--    </springProfile>-->
+    <!-- prod配置 -->
+    <springProfile name="prod">
+        <!-- root -->
+        <root level="DEBUG">
+            <appender-ref ref="file_debug" />
+            <appender-ref ref="file_info" />
+            <appender-ref ref="file_warn" />
+            <appender-ref ref="file_error" />
+            <appender-ref ref="logstash_info"/>
+            <appender-ref ref="logstash_warn"/>
+            <appender-ref ref="logstash_error"/>
+        </root>
+    </springProfile>
 </configuration>
