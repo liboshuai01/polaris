@@ -3,8 +3,10 @@ spring:
     nacos:
       discovery:
         server-addr: liboshuai.com:18848
-        group: DEV_GROUP
+        namespace: pulsar-dev
+        group: DEFAULT_GROUP
       config:
         server-addr: liboshuai.com:18848
         file-extension: yaml
-        group: DEV_GROUP
+        namespace: pulsar-dev
+        group: DEFAULT_GROUP

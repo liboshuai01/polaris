@@ -11,6 +11,6 @@ spring:
           nacos:
             server-addr: 127.0.0.1:8848
             dataId: polaris-sentinel-service-prod
-            groupId: PROD_GROUP
+            groupId: DEFAULT_GROUP
             data-type: json
             rule-type: flow

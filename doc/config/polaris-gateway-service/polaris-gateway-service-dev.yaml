@@ -13,6 +13,6 @@ spring:
             password: Rongshu@2023
             server-addr: liboshuai.com:18848
             dataId: polaris-sentinel-service-dev
-            groupId: DEV_GROUP
+            groupId: DEFAULT_GROUP
             data-type: json
             rule-type: flow
