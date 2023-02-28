@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
-    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="/app/polaris/sms/logs" />
-    <!-- 定义日志保留天数 -->
-    <property name="MAX_HISTORY" value="7"/>
-    <!-- 定义日志文件总大小 -->
-    <property name="TOTAL_SIZE_CAP" value="10GB"/>
-    <!-- 定义单个日志文件大小 -->
-    <property name="MAX_FILE_SIZE" value="100MB"/>
 
     <!--用于Logstash服务名称字段-->
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
@@ -20,87 +12,6 @@
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 1格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>utf-8</charset>
-        </encoder>
-    </appender>
-
-    <!-- info级别，按照每天生成日志文件 -->
-    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/info/info.log</File>
-        <!--只保留固定配置级别的日志 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>info</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 之前的  rollingPolicy和triggeringPolicy冲突了  用一个新的标签  结合两者 -->
-            <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}\info\info-log-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
-            <!-- 日志文件保留天数 -->
-            <maxHistory>${MAX_HISTORY}</maxHistory>
-            <!-- 日志归档文件总大小 -->
-            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
-            <!-- 单个日志文件大小 -->
-            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-        </rollingPolicy>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>utf-8</charset>
-        </encoder>
-    </appender>
-
-    <!-- warn级别，按照每天生成日志文件 -->
-    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/warn/warn.log</File>
-        <!--只保留固定配置级别的日志 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>warn</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 之前的  rollingPolicy和triggeringPolicy冲突了  用一个新的标签  结合两者 -->
-            <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}\warn\warn-log-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
-            <!-- 日志文件保留天数 -->
-            <maxHistory>${MAX_HISTORY}</maxHistory>
-            <!-- 日志归档文件总大小 -->
-            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
-            <!-- 单个日志文件大小 -->
-            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-        </rollingPolicy>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>utf-8</charset>
-        </encoder>
-    </appender>
-
-    <!-- error级别，按照每天生成日志文件 -->
-    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/error/error.log</File>
-        <!--只保留固定配置级别的日志 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>error</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 之前的  rollingPolicy和triggeringPolicy冲突了  用一个新的标签  结合两者 -->
-            <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}\error\error-log-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
-            <!-- 日志文件保留天数 -->
-            <maxHistory>${MAX_HISTORY}</maxHistory>
-            <!-- 日志归档文件总大小 -->
-            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
-            <!-- 单个日志文件大小 -->
-            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
-        </rollingPolicy>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
@@ -177,9 +88,6 @@
     <springProfile name="prod">
         <!-- root -->
         <root level="INFO">
-            <appender-ref ref="file_info" />
-            <appender-ref ref="file_warn" />
-            <appender-ref ref="file_error" />
             <appender-ref ref="logstash_prod"/>
         </root>
     </springProfile>
