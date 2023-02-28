@@ -26,7 +26,7 @@ spring:
         min-idle: 0
   rabbitmq:
     host: liboshuai.com
-    port: 18673
+    port: 5672
     virtual-host: /polaris-dev
     username: admin
     password: Rongshu@2023
