@@ -3,5 +3,5 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-        namespace: pulsar-prod
+        namespace: 2d524063-9426-4d77-bcbd-28966c24590c
         group: DEFAULT_GROUP
