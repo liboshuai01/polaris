@@ -11,7 +11,6 @@
 
     <modules>
         <module>pms-api</module>
-        <module>pms-common</module>
         <module>pms-service</module>
     </modules>
 

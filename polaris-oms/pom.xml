@@ -16,7 +16,6 @@
     <modules>
         <module>oms-api</module>
         <module>oms-service</module>
-        <module>oms-common</module>
     </modules>
 
     <properties>
