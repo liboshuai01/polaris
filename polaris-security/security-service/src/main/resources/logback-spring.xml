@@ -9,6 +9,9 @@
     <!-- 定义单个日志文件大小 -->
     <property name="MAX_FILE_SIZE" value="50MB"/>
 
+    <!--用于Logstash服务名称字段-->
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
     <!-- 控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!--控制台只打印info以上级别的日志-->
