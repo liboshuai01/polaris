@@ -9,7 +9,7 @@ VOLUME /temp
 
 #ADD  将microservicecloud-eureka-7001-1.0-SNAPSHOT.jar文件将拷贝到容器中，默认拷贝到根路径下
 #注意：microservicecloud-eureka-7001-1.0-SNAPSHOT.jar的名称前的microservicecloud-eureka-7001对应<artifactId>标签中的内容，1.0-SNAPSHOT对应<version>标签中的内容
-ADD ./target/security-service-1.0-SNAPSHOT.jar app.jar
+ADD ./target/security-service-1.0-SNAPSHOT.jar security.jar
 
 RUN bash -c "touch /security.jar"
 
