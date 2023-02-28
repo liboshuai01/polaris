@@ -10,3 +10,13 @@ spring:
     admin:
       discovery:
         ignored-services: ${spring.application.name}
+
+
+management: # 开启spring-admin监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
