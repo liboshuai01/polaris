@@ -7,7 +7,7 @@
     <!-- 定义日志文件总大小 -->
     <property name="TOTAL_SIZE_CAP" value="10GB"/>
     <!-- 定义单个日志文件大小 -->
-    <property name="MAX_FILE_SIZE" value="50MB"/>
+    <property name="MAX_FILE_SIZE" value="100MB"/>
 
     <!--用于Logstash服务名称字段-->
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
