@@ -2,10 +2,6 @@ server:
   port: 8181 # 项目端口
 
 spring:
-  profiles:
-    active: dev # 用于区分不同配置环境
-  application:
-    name: polaris-monitor # 项目服务名称
   security:
     user:
       name: liboshuai01
